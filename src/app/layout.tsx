@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Your Name — Full Stack Developer",
+  title: "Khushi Pawar",
   description: "Full Stack Developer crafting scalable web apps with clean code and thoughtful architecture.",
 };
 
