@@ -5,16 +5,16 @@ import { useEffect, useRef, useState, useCallback } from "react";
    DATA
    ================================================================ */
 const NAV_ITEMS = [
-  { label: "About",      id: "about",      num: "01" },
-  { label: "Stack",      id: "stack",      num: "02" },
-  { label: "Work",       id: "work",       num: "03" },
+  { label: "About", id: "about", num: "01" },
+  { label: "Stack", id: "stack", num: "02" },
+  { label: "Work", id: "work", num: "03" },
   { label: "Experience", id: "experience", num: "04" },
-  { label: "Contact",    id: "contact",    num: "05" },
+  { label: "Contact", id: "contact", num: "05" },
 ];
 
 const MARQUEE_WORDS = [
-  "React","Next.js","TypeScript","Node.js","PostgreSQL",
-  "Docker","AWS","GraphQL","TailwindCSS","Redis","Kubernetes","Prisma","Figma","CI/CD","MongoDB","Terraform",
+  "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL",
+  "Docker", "AWS", "GraphQL", "TailwindCSS", "Redis", "Kubernetes", "Prisma", "Figma", "CI/CD", "MongoDB", "Terraform",
 ];
 
 /* ── ABOUT STACKING CARDS ── */
@@ -152,25 +152,25 @@ function clamp(v: number, lo: number, hi: number) { return Math.max(lo, Math.min
    ICONS
    ================================================================ */
 function IconMail() {
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>;
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>;
 }
 function IconLinkedIn() {
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>;
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>;
 }
 function IconGitHub() {
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>;
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>;
 }
 function IconTwitter() {
-  return <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>;
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>;
 }
 function IconSend() {
-  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>;
+  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M22 2 11 13" /><path d="M22 2 15 22 11 13 2 9l20-7z" /></svg>;
 }
 function IconDownload() {
-  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>;
+  return <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>;
 }
 function IconExternal() {
-  return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>;
+  return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>;
 }
 
 /* Sketch-style SVG person — replace <img> with your actual photo */
@@ -178,48 +178,48 @@ function SketchPerson() {
   return (
     <svg viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="hero-sketch-svg">
       {/* head */}
-      <ellipse cx="100" cy="52" rx="36" ry="40" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75"/>
+      <ellipse cx="100" cy="52" rx="36" ry="40" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75" />
       {/* hair */}
-      <path d="M 68 36 Q 70 16 100 14 Q 130 16 132 36" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
+      <path d="M 68 36 Q 70 16 100 14 Q 130 16 132 36" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.5" />
       {/* face details */}
-      <ellipse cx="87" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5"/>
-      <ellipse cx="113" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5"/>
-      <path d="M 90 68 Q 100 76 110 68" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.45"/>
-      <path d="M 82 42 Q 87 38 92 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35"/>
-      <path d="M 108 42 Q 113 38 118 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35"/>
+      <ellipse cx="87" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5" />
+      <ellipse cx="113" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5" />
+      <path d="M 90 68 Q 100 76 110 68" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.45" />
+      <path d="M 82 42 Q 87 38 92 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" />
+      <path d="M 108 42 Q 113 38 118 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" />
       {/* neck */}
-      <line x1="92" y1="90" x2="88" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6"/>
-      <line x1="108" y1="90" x2="112" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6"/>
+      <line x1="92" y1="90" x2="88" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6" />
+      <line x1="108" y1="90" x2="112" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6" />
       {/* shoulders */}
-      <path d="M 70 115 Q 48 120 34 140 Q 24 156 22 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68"/>
-      <path d="M 130 115 Q 152 120 166 140 Q 176 156 178 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68"/>
+      <path d="M 70 115 Q 48 120 34 140 Q 24 156 22 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68" />
+      <path d="M 130 115 Q 152 120 166 140 Q 176 156 178 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68" />
       {/* torso */}
-      <path d="M 70 115 Q 62 150 60 185 Q 58 215 62 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62"/>
-      <path d="M 130 115 Q 138 150 140 185 Q 142 215 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62"/>
+      <path d="M 70 115 Q 62 150 60 185 Q 58 215 62 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
+      <path d="M 130 115 Q 138 150 140 185 Q 142 215 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
       {/* waist */}
-      <path d="M 62 245 Q 82 252 100 252 Q 118 252 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62"/>
+      <path d="M 62 245 Q 82 252 100 252 Q 118 252 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
       {/* shirt detail */}
-      <path d="M 88 115 Q 100 130 112 115" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3"/>
-      <line x1="100" y1="128" x2="100" y2="200" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.22"/>
+      <path d="M 88 115 Q 100 130 112 115" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3" />
+      <line x1="100" y1="128" x2="100" y2="200" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.22" />
       {/* left arm */}
-      <path d="M 70 132 Q 44 162 36 196 Q 30 214 36 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58"/>
+      <path d="M 70 132 Q 44 162 36 196 Q 30 214 36 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58" />
       {/* left hand */}
-      <ellipse cx="35" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45"/>
+      <ellipse cx="35" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45" />
       {/* right arm */}
-      <path d="M 130 132 Q 156 162 164 196 Q 170 214 164 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58"/>
+      <path d="M 130 132 Q 156 162 164 196 Q 170 214 164 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58" />
       {/* right hand */}
-      <ellipse cx="165" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45"/>
+      <ellipse cx="165" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45" />
       {/* left leg */}
-      <path d="M 78 245 Q 72 282 70 318 Q 68 340 66 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62"/>
+      <path d="M 78 245 Q 72 282 70 318 Q 68 340 66 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
       {/* right leg */}
-      <path d="M 122 245 Q 128 282 130 318 Q 132 340 134 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62"/>
+      <path d="M 122 245 Q 128 282 130 318 Q 132 340 134 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
       {/* left foot */}
-      <path d="M 66 362 Q 58 368 52 370 Q 46 372 44 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5"/>
+      <path d="M 66 362 Q 58 368 52 370 Q 46 372 44 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
       {/* right foot */}
-      <path d="M 134 362 Q 142 368 148 370 Q 154 372 156 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5"/>
+      <path d="M 134 362 Q 142 368 148 370 Q 154 372 156 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
       {/* pocket/jacket detail */}
-      <path d="M 76 160 Q 80 168 76 176" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.25"/>
-      <rect x="72" y="162" width="12" height="10" rx="2" stroke="currentColor" strokeWidth="0.8" opacity="0.2"/>
+      <path d="M 76 160 Q 80 168 76 176" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.25" />
+      <rect x="72" y="162" width="12" height="10" rx="2" stroke="currentColor" strokeWidth="0.8" opacity="0.2" />
     </svg>
   );
 }
@@ -228,47 +228,47 @@ function SketchPerson() {
    MAIN PAGE
    ================================================================ */
 export default function PortfolioPage() {
-  const [theme, setTheme]         = useState<"dark"|"light">("dark");
-  const [menuOpen, setMenuOpen]   = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeCat, setActiveCat] = useState(0);
   const [activeCard, setActiveCard] = useState(0);
-  const [sent, setSent]           = useState(false);
-  const [kbToast, setKbToast]     = useState("");
-  const [kbShow, setKbShow]       = useState(false);
+  const [sent, setSent] = useState(false);
+  const [kbToast, setKbToast] = useState("");
+  const [kbShow, setKbShow] = useState(false);
 
   /* refs */
-  const cursorDotRef    = useRef<HTMLDivElement>(null);
-  const cursorRingRef   = useRef<HTMLDivElement>(null);
-  const progressBarRef  = useRef<HTMLDivElement>(null);
+  const cursorDotRef = useRef<HTMLDivElement>(null);
+  const cursorRingRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   /* about stacking */
-  const aboutOuterRef   = useRef<HTMLDivElement>(null);
-  const cardRefs        = useRef<(HTMLDivElement | null)[]>([]);
+  const aboutOuterRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   /* stack 3d */
-  const stackOuterRef   = useRef<HTMLDivElement>(null);
-  const card3dRef       = useRef<HTMLDivElement>(null);
-  const techCardRef     = useRef<HTMLDivElement>(null);
+  const stackOuterRef = useRef<HTMLDivElement>(null);
+  const card3dRef = useRef<HTMLDivElement>(null);
+  const techCardRef = useRef<HTMLDivElement>(null);
   /* projects */
-  const projOuterRef    = useRef<HTMLDivElement>(null);
-  const projTrackRef    = useRef<HTMLDivElement>(null);
-  const projFillRef     = useRef<HTMLDivElement>(null);
+  const projOuterRef = useRef<HTMLDivElement>(null);
+  const projTrackRef = useRef<HTMLDivElement>(null);
+  const projFillRef = useRef<HTMLDivElement>(null);
   /* contact */
   const contactOuterRef = useRef<HTMLDivElement>(null);
-  const contactTopRef   = useRef<HTMLDivElement>(null);
-  const contactBotRef   = useRef<HTMLDivElement>(null);
-  const contactFormRef  = useRef<HTMLDivElement>(null);
+  const contactTopRef = useRef<HTMLDivElement>(null);
+  const contactBotRef = useRef<HTMLDivElement>(null);
+  const contactFormRef = useRef<HTMLDivElement>(null);
   /* kb timer */
-  const kbTimer         = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const kbTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   /* smooth anim state */
   const anim = useRef({
-    mx:0, my:0, rx:0, ry:0,
-    stackT:0, stackC:0,
-    projT:0,  projC:0,
-    contT:0,  contC:0,
-    aboutT:0, aboutC:0,
-    prevCat:-1,
-    prevCard:-1,
+    mx: 0, my: 0, rx: 0, ry: 0,
+    stackT: 0, stackC: 0,
+    projT: 0, projC: 0,
+    contT: 0, contC: 0,
+    aboutT: 0, aboutC: 0,
+    prevCat: -1,
+    prevCard: -1,
   });
 
   /* ── THEME ── */
@@ -289,11 +289,11 @@ export default function PortfolioPage() {
   /* ── KEYBOARD NAV ── */
   useEffect(() => {
     const map: Record<string, { id: string; label: string }> = {
-      "1": { id: "about",      label: "01 — About" },
-      "2": { id: "stack",      label: "02 — Stack" },
-      "3": { id: "work",       label: "03 — Work" },
+      "1": { id: "about", label: "01 — About" },
+      "2": { id: "stack", label: "02 — Stack" },
+      "3": { id: "work", label: "03 — Work" },
       "4": { id: "experience", label: "04 — Experience" },
-      "5": { id: "contact",    label: "05 — Contact" },
+      "5": { id: "contact", label: "05 — Contact" },
     };
     const h = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement).tagName;
@@ -355,7 +355,7 @@ export default function PortfolioPage() {
       anim.current.my = e.clientY;
       if (cursorDotRef.current) {
         cursorDotRef.current.style.left = e.clientX + "px";
-        cursorDotRef.current.style.top  = e.clientY + "px";
+        cursorDotRef.current.style.top = e.clientY + "px";
       }
     };
     document.addEventListener("mousemove", mv);
@@ -363,7 +363,7 @@ export default function PortfolioPage() {
   }, []);
 
   useEffect(() => {
-    const on  = () => document.body.classList.add("cursor-expand");
+    const on = () => document.body.classList.add("cursor-expand");
     const off = () => document.body.classList.remove("cursor-expand");
     const attach = () => {
       document.querySelectorAll("a,button,.project-card,.skill-item,.about-stacking-card")
@@ -388,11 +388,11 @@ export default function PortfolioPage() {
   /* ── RAF LOOP ── */
   useEffect(() => {
     let raf = 0;
-    const TOTAL_CATS  = TECH_CATEGORIES.length;
+    const TOTAL_CATS = TECH_CATEGORIES.length;
     const TOTAL_CARDS = ABOUT_CARDS.length;
-    const CARD_W      = 420 + 22;
-    const SCALE_STEP  = 0.04; /* each stacked card is slightly smaller */
-    const Y_STEP      = 18;   /* visible peek of cards below */
+    const CARD_W = 420 + 22;
+    const SCALE_STEP = 0.04; /* each stacked card is slightly smaller */
+    const Y_STEP = 18;   /* visible peek of cards below */
 
     const frame = () => {
       const a = anim.current;
@@ -402,14 +402,14 @@ export default function PortfolioPage() {
       a.ry = lerp(a.ry, a.my, 0.1);
       if (cursorRingRef.current) {
         cursorRingRef.current.style.left = a.rx + "px";
-        cursorRingRef.current.style.top  = a.ry + "px";
+        cursorRingRef.current.style.top = a.ry + "px";
       }
 
       /* ── ABOUT STACKING CARDS ── */
       a.aboutC = lerp(a.aboutC, a.aboutT, 0.08);
-      const cardSeg    = 1 / TOTAL_CARDS;
-      const curCard    = clamp(Math.floor(a.aboutC * TOTAL_CARDS), 0, TOTAL_CARDS - 1);
-      const cardLocal  = clamp((a.aboutC - curCard * cardSeg) / cardSeg, 0, 1);
+      const cardSeg = 1 / TOTAL_CARDS;
+      const curCard = clamp(Math.floor(a.aboutC * TOTAL_CARDS), 0, TOTAL_CARDS - 1);
+      const cardLocal = clamp((a.aboutC - curCard * cardSeg) / cardSeg, 0, 1);
 
       if (curCard !== a.prevCard) {
         a.prevCard = curCard;
@@ -425,38 +425,38 @@ export default function PortfolioPage() {
           const pinScale = 1 - Math.abs(distance) * SCALE_STEP;
           const pinY = -Math.abs(distance) * (Y_STEP * 0.5);
           el.style.transform = `translateY(calc(-50% + ${pinY}px)) scale(${pinScale})`;
-          el.style.opacity   = String(Math.max(0, 0.3 - Math.abs(distance) * 0.15));
-          el.style.zIndex    = String(10 + distance);
+          el.style.opacity = String(Math.max(0, 0.3 - Math.abs(distance) * 0.15));
+          el.style.zIndex = String(10 + distance);
         } else if (distance === 0) {
           /* active card — animate entry based on cardLocal */
-          const entryY  = (1 - clamp(cardLocal * 3, 0, 1)) * 60;
+          const entryY = (1 - clamp(cardLocal * 3, 0, 1)) * 60;
           el.style.transform = `translateY(calc(-50% + ${entryY}px)) scale(1)`;
-          el.style.opacity   = String(Math.min(1, cardLocal * 6));
-          el.style.zIndex    = "15";
+          el.style.opacity = String(Math.min(1, cardLocal * 6));
+          el.style.zIndex = "15";
         } else {
           /* waiting cards below — stacked with slight offset */
           const waitScale = 1 - distance * SCALE_STEP;
           const waitY = distance * Y_STEP;
           el.style.transform = `translateY(calc(-50% + ${waitY}px)) scale(${waitScale})`;
-          el.style.opacity   = String(Math.max(0, 0.6 - distance * 0.18));
-          el.style.zIndex    = String(10 - distance);
+          el.style.opacity = String(Math.max(0, 0.6 - distance * 0.18));
+          el.style.zIndex = String(10 - distance);
         }
       });
 
       /* ── TECH STACK 3D ── */
       a.stackC = lerp(a.stackC, a.stackT, 0.075);
       const stackSeg = 1 / TOTAL_CATS;
-      const cat      = clamp(Math.floor(a.stackC * TOTAL_CATS), 0, TOTAL_CATS - 1);
-      const local    = clamp((a.stackC - cat * stackSeg) / stackSeg, 0, 1);
+      const cat = clamp(Math.floor(a.stackC * TOTAL_CATS), 0, TOTAL_CATS - 1);
+      const local = clamp((a.stackC - cat * stackSeg) / stackSeg, 0, 1);
       if (cat !== a.prevCat) { a.prevCat = cat; setActiveCat(cat); }
       if (card3dRef.current) {
         const entryY = (1 - clamp(local * 2.4, 0, 1)) * 80;
-        const exitY  = clamp(local * 2.4 - 1, 0, 1) * -80;
-        const sc     = 0.84 + clamp(local, 0, 1) * 0.16 - clamp((local - 0.5) * 0.1, 0, 0.1);
-        const op     = clamp(local * 12, 0, 1) * (1 - clamp((local - 0.78) * 7, 0, 1));
-        const rx     = (1 - local) * 20 - local * 10;
+        const exitY = clamp(local * 2.4 - 1, 0, 1) * -80;
+        const sc = 0.84 + clamp(local, 0, 1) * 0.16 - clamp((local - 0.5) * 0.1, 0, 0.1);
+        const op = clamp(local * 12, 0, 1) * (1 - clamp((local - 0.78) * 7, 0, 1));
+        const rx = (1 - local) * 20 - local * 10;
         card3dRef.current.style.transform = `translateY(${entryY + exitY}px) scale(${sc}) rotateX(${rx}deg)`;
-        card3dRef.current.style.opacity   = String(Math.max(0, op));
+        card3dRef.current.style.opacity = String(Math.max(0, op));
       }
 
       /* ── PROJECTS HORIZONTAL ── */
@@ -471,11 +471,11 @@ export default function PortfolioPage() {
       a.contC = lerp(a.contC, a.contT, 0.065);
       const split = clamp(a.contC * 2.8, 0, 1);
       const formV = clamp((a.contC - 0.28) * 3.4, 0, 1);
-      if (contactTopRef.current)  contactTopRef.current.style.transform  = `translateY(${-split * 100}%)`;
-      if (contactBotRef.current)  contactBotRef.current.style.transform  = `translateY(${split * 100}%)`;
+      if (contactTopRef.current) contactTopRef.current.style.transform = `translateY(${-split * 100}%)`;
+      if (contactBotRef.current) contactBotRef.current.style.transform = `translateY(${split * 100}%)`;
       if (contactFormRef.current) {
-        contactFormRef.current.style.opacity       = String(formV);
-        contactFormRef.current.style.transform     = `scale(${0.91 + formV * 0.09}) translateY(${(1 - formV) * 40}px)`;
+        contactFormRef.current.style.opacity = String(formV);
+        contactFormRef.current.style.transform = `scale(${0.91 + formV * 0.09}) translateY(${(1 - formV) * 40}px)`;
         contactFormRef.current.style.pointerEvents = formV > 0.45 ? "auto" : "none";
       }
 
@@ -488,9 +488,9 @@ export default function PortfolioPage() {
   /* ── TECH CARD TILT ── */
   const onCardMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!techCardRef.current) return;
-    const r  = techCardRef.current.getBoundingClientRect();
-    const cx = (e.clientX - r.left) / r.width  - 0.5;
-    const cy = (e.clientY - r.top)  / r.height - 0.5;
+    const r = techCardRef.current.getBoundingClientRect();
+    const cx = (e.clientX - r.left) / r.width - 0.5;
+    const cy = (e.clientY - r.top) / r.height - 0.5;
     techCardRef.current.style.transform = `rotateX(${cy * -10}deg) rotateY(${cx * 10}deg)`;
   }, []);
   const onCardLeave = useCallback(() => {
@@ -512,13 +512,13 @@ export default function PortfolioPage() {
   return (
     <>
       {/* Cursor */}
-      <div className="cursor-dot"  ref={cursorDotRef} />
+      <div className="cursor-dot" ref={cursorDotRef} />
       <div className="cursor-ring" ref={cursorRingRef} />
       <div className="scroll-progress" ref={progressBarRef} />
       <div className={`kb-nav-toast${kbShow ? " show" : ""}`}>{kbToast}</div>
 
       {/* ══════════════════ NAVBAR ══════════════════ */}
-            <nav className="navbar">
+      <nav className="navbar">
         {/* Logo — outside left */}
         <button className="nav-logo-outside" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <span className="nav-logo-dim">&lt;</span>YourName<span className="nav-logo-dim">/&gt;</span>
@@ -598,7 +598,7 @@ export default function PortfolioPage() {
           </div>
           <div className="hero-brands">
             {["GitHub", "LinkedIn", "Twitter"].map((b, i) => (
-              <span key={b} style={{ display:"flex", alignItems:"center", gap:14 }}>
+              <span key={b} style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 {i > 0 && <span className="hero-social-sep" />}
                 <a href="#" className="hero-brand-label">{b}</a>
               </span>
@@ -812,7 +812,7 @@ export default function PortfolioPage() {
                   <div className="project-desc">{p.desc}</div>
                   <div className="project-links">
                     <a href={p.github} className="project-link">
-                      <span style={{ display:"flex", alignItems:"center", gap:6 }}>
+                      <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
                         <IconGitHub /> View on GitHub
                       </span>
                     </a>
@@ -822,7 +822,7 @@ export default function PortfolioPage() {
             ))}
           </div>
           <div className="projects-progress-wrap">
-            <div className="projects-progress-fill" ref={projFillRef} style={{ width:"0%" }} />
+            <div className="projects-progress-fill" ref={projFillRef} style={{ width: "0%" }} />
           </div>
           <div className="projects-count-row">
             <span>01</span><span>06</span>
@@ -916,7 +916,7 @@ export default function PortfolioPage() {
               </div>
               <div className="rm-section-head">Core Skills</div>
               <div className="rm-tags-row">
-                {["React","Next.js","Node.js","TypeScript","PostgreSQL","AWS","Docker","GraphQL","Python","Redis"].map(s => (
+                {["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS", "Docker", "GraphQL", "Python", "Redis"].map(s => (
                   <span key={s} className="tag-pill">{s}</span>
                 ))}
               </div>
@@ -929,8 +929,8 @@ export default function PortfolioPage() {
       <div id="contact" className="contact-section" ref={contactOuterRef} style={{ height: "270vh" }}>
         <div className="contact-sticky-wrap">
           <div className="contact-top-half" ref={contactTopRef}>
-            <div style={{ textAlign:"center" }}>
-              <div className="section-label" style={{ justifyContent:"center", marginBottom:14 }}>GET IN TOUCH</div>
+            <div style={{ textAlign: "center" }}>
+              <div className="section-label" style={{ justifyContent: "center", marginBottom: 14 }}>GET IN TOUCH</div>
               <div className="contact-big-word">Let&apos;s Build</div>
             </div>
           </div>
@@ -939,11 +939,11 @@ export default function PortfolioPage() {
           </div>
           <div className="contact-center-line" />
           <div className="contact-form-reveal" ref={contactFormRef}
-            style={{ opacity:0, transform:"scale(0.91) translateY(40px)", pointerEvents:"none" }}>
+            style={{ opacity: 0, transform: "scale(0.91) translateY(40px)", pointerEvents: "none" }}>
             <div className="contact-form-box">
               <div className="contact-form-grid">
                 <div>
-                  <div className="contact-left-heading">Let&apos;s build<br />something<br /><span style={{ opacity:0.22 }}>great.</span></div>
+                  <div className="contact-left-heading">Let&apos;s build<br />something<br /><span style={{ opacity: 0.22 }}>great.</span></div>
                   <div className="contact-left-desc">Open to full-time roles, freelance projects, and interesting collaborations. If you have something in mind, I&apos;d love to hear it.</div>
                   <div className="contact-info-links">
                     <a href="mailto:you@email.com" className="contact-info-link"><IconMail /> you@email.com</a>
@@ -1009,10 +1009,10 @@ export default function PortfolioPage() {
           {/* social circles */}
           <div className="footer-socials-row">
             {[
-              { icon: <IconGitHub />,   label: "GitHub" },
-              { icon: <IconTwitter />,  label: "Twitter" },
+              { icon: <IconGitHub />, label: "GitHub" },
+              { icon: <IconTwitter />, label: "Twitter" },
               { icon: <IconLinkedIn />, label: "LinkedIn" },
-              { icon: <IconMail />,     label: "Email" },
+              { icon: <IconMail />, label: "Email" },
             ].map(s => (
               <a key={s.label} href="#" className="footer-social-circ" title={s.label}>{s.icon}</a>
             ))}
