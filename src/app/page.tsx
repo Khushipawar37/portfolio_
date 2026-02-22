@@ -172,52 +172,38 @@ function IconDownload() {
 function IconExternal() {
   return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>;
 }
+function IconArrow() {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>;
+}
 
-/* Sketch-style SVG person — replace <img> with your actual photo */
+/* Sketch-style SVG person — replace with your actual photo */
 function SketchPerson() {
   return (
     <svg viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="hero-sketch-svg">
-      {/* head */}
       <ellipse cx="100" cy="52" rx="36" ry="40" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75" />
-      {/* hair */}
       <path d="M 68 36 Q 70 16 100 14 Q 130 16 132 36" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.5" />
-      {/* face details */}
       <ellipse cx="87" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5" />
       <ellipse cx="113" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5" />
       <path d="M 90 68 Q 100 76 110 68" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.45" />
       <path d="M 82 42 Q 87 38 92 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" />
       <path d="M 108 42 Q 113 38 118 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" />
-      {/* neck */}
       <line x1="92" y1="90" x2="88" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6" />
       <line x1="108" y1="90" x2="112" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6" />
-      {/* shoulders */}
       <path d="M 70 115 Q 48 120 34 140 Q 24 156 22 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68" />
       <path d="M 130 115 Q 152 120 166 140 Q 176 156 178 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68" />
-      {/* torso */}
       <path d="M 70 115 Q 62 150 60 185 Q 58 215 62 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
       <path d="M 130 115 Q 138 150 140 185 Q 142 215 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      {/* waist */}
       <path d="M 62 245 Q 82 252 100 252 Q 118 252 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      {/* shirt detail */}
       <path d="M 88 115 Q 100 130 112 115" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3" />
       <line x1="100" y1="128" x2="100" y2="200" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.22" />
-      {/* left arm */}
       <path d="M 70 132 Q 44 162 36 196 Q 30 214 36 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58" />
-      {/* left hand */}
       <ellipse cx="35" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45" />
-      {/* right arm */}
       <path d="M 130 132 Q 156 162 164 196 Q 170 214 164 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58" />
-      {/* right hand */}
       <ellipse cx="165" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45" />
-      {/* left leg */}
       <path d="M 78 245 Q 72 282 70 318 Q 68 340 66 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      {/* right leg */}
       <path d="M 122 245 Q 128 282 130 318 Q 132 340 134 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      {/* left foot */}
       <path d="M 66 362 Q 58 368 52 370 Q 46 372 44 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
-      {/* right foot */}
       <path d="M 134 362 Q 142 368 148 370 Q 154 372 156 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
-      {/* pocket/jacket detail */}
       <path d="M 76 160 Q 80 168 76 176" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.25" />
       <rect x="72" y="162" width="12" height="10" rx="2" stroke="currentColor" strokeWidth="0.8" opacity="0.2" />
     </svg>
@@ -241,26 +227,20 @@ export default function PortfolioPage() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-  /* about stacking */
   const aboutOuterRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  /* stack 3d */
   const stackOuterRef = useRef<HTMLDivElement>(null);
   const card3dRef = useRef<HTMLDivElement>(null);
   const techCardRef = useRef<HTMLDivElement>(null);
-  /* projects */
   const projOuterRef = useRef<HTMLDivElement>(null);
   const projTrackRef = useRef<HTMLDivElement>(null);
   const projFillRef = useRef<HTMLDivElement>(null);
-  /* contact */
   const contactOuterRef = useRef<HTMLDivElement>(null);
   const contactTopRef = useRef<HTMLDivElement>(null);
   const contactBotRef = useRef<HTMLDivElement>(null);
   const contactFormRef = useRef<HTMLDivElement>(null);
-  /* kb timer */
   const kbTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  /* smooth anim state */
   const anim = useRef({
     mx: 0, my: 0, rx: 0, ry: 0,
     stackT: 0, stackC: 0,
@@ -271,7 +251,6 @@ export default function PortfolioPage() {
     prevCard: -1,
   });
 
-  /* ── THEME ── */
   const toggleTheme = useCallback(() => {
     setTheme(p => {
       const n = p === "dark" ? "light" : "dark";
@@ -280,13 +259,11 @@ export default function PortfolioPage() {
     });
   }, []);
 
-  /* ── SCROLL TO ── */
   const scrollTo = useCallback((id: string) => {
     setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
-  /* ── KEYBOARD NAV ── */
   useEffect(() => {
     const map: Record<string, { id: string; label: string }> = {
       "1": { id: "about", label: "01 — About" },
@@ -310,7 +287,6 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("keydown", h);
   }, []);
 
-  /* ── SCROLL LISTENER ── */
   useEffect(() => {
     const h = () => {
       const sy = window.scrollY;
@@ -319,25 +295,21 @@ export default function PortfolioPage() {
         progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
       setNavScrolled(sy > 50);
 
-      /* about stacking */
       if (aboutOuterRef.current) {
         const r = aboutOuterRef.current.getBoundingClientRect();
         const ht = aboutOuterRef.current.offsetHeight - window.innerHeight;
         anim.current.aboutT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1);
       }
-      /* stack */
       if (stackOuterRef.current) {
         const r = stackOuterRef.current.getBoundingClientRect();
         const ht = stackOuterRef.current.offsetHeight - window.innerHeight;
         anim.current.stackT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1);
       }
-      /* projects */
       if (projOuterRef.current) {
         const r = projOuterRef.current.getBoundingClientRect();
         const ht = projOuterRef.current.offsetHeight - window.innerHeight;
         anim.current.projT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1);
       }
-      /* contact */
       if (contactOuterRef.current) {
         const r = contactOuterRef.current.getBoundingClientRect();
         const ht = contactOuterRef.current.offsetHeight - window.innerHeight;
@@ -348,7 +320,6 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  /* ── CURSOR ── */
   useEffect(() => {
     const mv = (e: MouseEvent) => {
       anim.current.mx = e.clientX;
@@ -375,7 +346,6 @@ export default function PortfolioPage() {
     return () => mo.disconnect();
   }, []);
 
-  /* ── REVEAL OBSERVER ── */
   useEffect(() => {
     const obs = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } }),
@@ -385,19 +355,17 @@ export default function PortfolioPage() {
     return () => obs.disconnect();
   }, []);
 
-  /* ── RAF LOOP ── */
   useEffect(() => {
     let raf = 0;
     const TOTAL_CATS = TECH_CATEGORIES.length;
     const TOTAL_CARDS = ABOUT_CARDS.length;
     const CARD_W = 420 + 22;
-    const SCALE_STEP = 0.04; /* each stacked card is slightly smaller */
-    const Y_STEP = 18;   /* visible peek of cards below */
+    const SCALE_STEP = 0.04;
+    const Y_STEP = 18;
 
     const frame = () => {
       const a = anim.current;
 
-      /* cursor ring */
       a.rx = lerp(a.rx, a.mx, 0.1);
       a.ry = lerp(a.ry, a.my, 0.1);
       if (cursorRingRef.current) {
@@ -405,7 +373,6 @@ export default function PortfolioPage() {
         cursorRingRef.current.style.top = a.ry + "px";
       }
 
-      /* ── ABOUT STACKING CARDS ── */
       a.aboutC = lerp(a.aboutC, a.aboutT, 0.08);
       const cardSeg = 1 / TOTAL_CARDS;
       const curCard = clamp(Math.floor(a.aboutC * TOTAL_CARDS), 0, TOTAL_CARDS - 1);
@@ -418,23 +385,19 @@ export default function PortfolioPage() {
 
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
-        const distance = i - curCard; /* negative = already passed, 0 = active, positive = waiting below */
-
+        const distance = i - curCard;
         if (distance < 0) {
-          /* card has been scrolled past — pinned at top, slightly scaled down, faded */
           const pinScale = 1 - Math.abs(distance) * SCALE_STEP;
           const pinY = -Math.abs(distance) * (Y_STEP * 0.5);
           el.style.transform = `translateY(calc(-50% + ${pinY}px)) scale(${pinScale})`;
           el.style.opacity = String(Math.max(0, 0.3 - Math.abs(distance) * 0.15));
           el.style.zIndex = String(10 + distance);
         } else if (distance === 0) {
-          /* active card — animate entry based on cardLocal */
           const entryY = (1 - clamp(cardLocal * 3, 0, 1)) * 60;
           el.style.transform = `translateY(calc(-50% + ${entryY}px)) scale(1)`;
           el.style.opacity = String(Math.min(1, cardLocal * 6));
           el.style.zIndex = "15";
         } else {
-          /* waiting cards below — stacked with slight offset */
           const waitScale = 1 - distance * SCALE_STEP;
           const waitY = distance * Y_STEP;
           el.style.transform = `translateY(calc(-50% + ${waitY}px)) scale(${waitScale})`;
@@ -443,7 +406,6 @@ export default function PortfolioPage() {
         }
       });
 
-      /* ── TECH STACK 3D ── */
       a.stackC = lerp(a.stackC, a.stackT, 0.075);
       const stackSeg = 1 / TOTAL_CATS;
       const cat = clamp(Math.floor(a.stackC * TOTAL_CATS), 0, TOTAL_CATS - 1);
@@ -459,7 +421,6 @@ export default function PortfolioPage() {
         card3dRef.current.style.opacity = String(Math.max(0, op));
       }
 
-      /* ── PROJECTS HORIZONTAL ── */
       a.projC = lerp(a.projC, a.projT, 0.075);
       if (projTrackRef.current) {
         const totalW = PROJECTS.length * CARD_W - 22 - (window.innerWidth - 160);
@@ -467,7 +428,6 @@ export default function PortfolioPage() {
       }
       if (projFillRef.current) projFillRef.current.style.width = (a.projC * 100) + "%";
 
-      /* ── CONTACT SPLIT ── */
       a.contC = lerp(a.contC, a.contT, 0.065);
       const split = clamp(a.contC * 2.8, 0, 1);
       const formV = clamp((a.contC - 0.28) * 3.4, 0, 1);
@@ -485,7 +445,6 @@ export default function PortfolioPage() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  /* ── TECH CARD TILT ── */
   const onCardMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!techCardRef.current) return;
     const r = techCardRef.current.getBoundingClientRect();
@@ -497,7 +456,6 @@ export default function PortfolioPage() {
     if (techCardRef.current) techCardRef.current.style.transform = "rotateX(0) rotateY(0)";
   }, []);
 
-  /* ── FORM ── */
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
@@ -506,12 +464,8 @@ export default function PortfolioPage() {
 
   const cat = TECH_CATEGORIES[activeCat];
 
-  /* ================================================================
-     RENDER
-     ================================================================ */
   return (
     <>
-      {/* Cursor */}
       <div className="cursor-dot" ref={cursorDotRef} />
       <div className="cursor-ring" ref={cursorRingRef} />
       <div className="scroll-progress" ref={progressBarRef} />
@@ -519,12 +473,9 @@ export default function PortfolioPage() {
 
       {/* ══════════════════ NAVBAR ══════════════════ */}
       <nav className="navbar">
-        {/* Logo — outside left */}
         <button className="nav-logo-outside" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <span className="nav-logo-dim">&lt;</span>YourName<span className="nav-logo-dim">/&gt;</span>
         </button>
-
-        {/* Pill — nav links only */}
         <div className={`navbar-pill${navScrolled ? " scrolled" : ""}`}>
           {NAV_ITEMS.map(item => (
             <button key={item.id} className="nav-btn" onClick={() => scrollTo(item.id)}>
@@ -538,8 +489,6 @@ export default function PortfolioPage() {
             <span className="ham-line" style={{ transform: menuOpen ? "rotate(-45deg) translateY(-6.5px)" : undefined }} />
           </button>
         </div>
-
-        {/* Theme + Hire Me — outside right */}
         <div className="nav-right-outside">
           <button className="nav-theme-btn" onClick={toggleTheme}>
             {theme === "dark" ? "☀" : "☾"}
@@ -547,7 +496,6 @@ export default function PortfolioPage() {
           <button className="nav-hire-outside" onClick={() => scrollTo("contact")}>Hire Me</button>
         </div>
       </nav>
-      {/* Mobile Menu */}
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
         {NAV_ITEMS.map(item => (
           <button key={item.id} className="mobile-nav-btn" onClick={() => scrollTo(item.id)}>
@@ -570,13 +518,19 @@ export default function PortfolioPage() {
           &nbsp;&nbsp;my name is YourName and I am a&nbsp;<strong>Full Stack Developer</strong>
         </div>
 
-        {/* ── title — full viewport width ── */}
+        {/* ── title block with Khushi Pawar name overlay ── */}
         <div className="hero-title-block">
           <h1 className="hero-title-giant">
             <span className="hero-title-line">
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Full Stack</span>
             </span>
           </h1>
+
+          {/* ── Khushi Pawar italic name — sits between the two lines ── */}
+          <div className="hero-name-script" aria-hidden="false">
+            Khushi Pawar
+          </div>
+
           <h2 className="hero-title-ghost">
             <span className="hero-title-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
@@ -584,12 +538,28 @@ export default function PortfolioPage() {
           </h2>
         </div>
 
-        {/* ── person — absolute, centred ── */}
-        <div className="hero-person-center">
-          <SketchPerson />
+        {/* ── Tagline + descriptor text ── */}
+        <div className="hero-tagline-block">
+          <p className="hero-tagline-main">Engineering Digital Products — From Logic to Launch.</p>
+          <p className="hero-tagline-sub">Full-stack developer building scalable systems with precision and purpose.</p>
         </div>
 
-        {/* ── bottom bar: location · scroll · socials ── */}
+        {/* ── CTA Buttons — overlay on sketch ── */}
+        <div className="hero-cta-row">
+          <button className="hero-btn-primary" onClick={() => scrollTo("contact")}>
+            Hire Me <IconArrow />
+          </button>
+          <button className="hero-btn-ghost" onClick={() => scrollTo("about")}>
+            Read About Me
+          </button>
+        </div>
+
+        {/* ── person — absolute, centred ── */}
+        <div className="hero-person-center">
+          <img src="./img.png" alt="Khushi Pawar" className="hero-profile-pic" />
+        </div>
+
+        {/* ── bottom bar ── */}
         <div className="hero-bottom-bar">
           <div className="hero-location">based in New Delhi, India.</div>
           <div className="hero-scroll-hint-inline">
@@ -622,8 +592,6 @@ export default function PortfolioPage() {
 
       {/* ══════════════════ ABOUT — STACKING CARDS ══════════════════ */}
       <section id="about" className="about-section">
-
-        {/* ── Intro paragraph ── */}
         <div className="about-intro-wrap">
           <div className="section-label">ABOUT ME</div>
           <h2 className="section-title about-intro-heading">
@@ -642,7 +610,6 @@ export default function PortfolioPage() {
           </p>
         </div>
 
-        {/* ── Stacked identity cards ── */}
         <ul className="about-cards-list">
           {ABOUT_CARDS.map((card, i) => (
             <li
@@ -661,13 +628,11 @@ export default function PortfolioPage() {
           ))}
         </ul>
 
-        {/* ── Education — card grid ── */}
         <div className="education-wrap">
           <div className="edu-section-header">
             <div className="section-label">EDUCATION</div>
           </div>
           <div className="edu-grid">
-
             <div className="edu-card edu-card--featured">
               <div className="edu-card-year">2023 – 2027</div>
               <div className="edu-card-degree">B.Tech · Computer Science Engineering</div>
@@ -675,7 +640,6 @@ export default function PortfolioPage() {
               <div className="edu-card-location">Delhi, India</div>
               <div className="edu-card-score-badge">CGPA 9.49</div>
             </div>
-
             <div className="edu-card">
               <div className="edu-card-year">Class XII · CBSE</div>
               <div className="edu-card-degree">Senior Secondary</div>
@@ -683,7 +647,6 @@ export default function PortfolioPage() {
               <div className="edu-card-location">New Delhi</div>
               <div className="edu-card-score-badge">95%</div>
             </div>
-
             <div className="edu-card">
               <div className="edu-card-year">Class X · CBSE</div>
               <div className="edu-card-degree">Secondary</div>
@@ -691,11 +654,9 @@ export default function PortfolioPage() {
               <div className="edu-card-location">New Delhi</div>
               <div className="edu-card-score-badge">96.6%</div>
             </div>
-
           </div>
         </div>
 
-        {/* ── Info strip: location · availability ── */}
         <div className="about-info-strip">
           <div className="info-strip-item">
             <span className="info-strip-icon">📍</span>
@@ -729,10 +690,9 @@ export default function PortfolioPage() {
             </div>
           </div>
         </div>
-
       </section>
 
-      {/* ══════════════════ TECH STACK — 3D SCROLL ══════════════════ */}
+      {/* ══════════════════ TECH STACK ══════════════════ */}
       <div
         id="stack"
         className="stack-section"
@@ -751,7 +711,6 @@ export default function PortfolioPage() {
                 style={{ width: i === activeCat ? 28 : 8 }} />
             ))}
           </div>
-
           <div className="stack-card-wrap" onMouseMove={onCardMove} onMouseLeave={onCardLeave}>
             <div className="card-3d-stage" ref={card3dRef} style={{ transformStyle: "preserve-3d" }}>
               <div className="tech-card" ref={techCardRef}>
@@ -780,7 +739,7 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* ══════════════════ PROJECTS — HORIZONTAL ══════════════════ */}
+      {/* ══════════════════ PROJECTS ══════════════════ */}
       <div
         id="work"
         className="projects-section"
@@ -830,7 +789,7 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* ══════════════════ EXPERIENCE — TIMELINE ══════════════════ */}
+      {/* ══════════════════ EXPERIENCE ══════════════════ */}
       <section id="experience" className="experience-section">
         <div className="experience-inner">
           <div className="experience-header reveal">
@@ -925,7 +884,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* ══════════════════ CONTACT — SPLIT REVEAL ══════════════════ */}
+      {/* ══════════════════ CONTACT ══════════════════ */}
       <div id="contact" className="contact-section" ref={contactOuterRef} style={{ height: "270vh" }}>
         <div className="contact-sticky-wrap">
           <div className="contact-top-half" ref={contactTopRef}>
@@ -981,16 +940,13 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* ══════════════════ FOOTER — CENTRED LOGO STYLE ══════════════════ */}
+      {/* ══════════════════ FOOTER ══════════════════ */}
       <footer className="site-footer">
         <div className="footer-main">
-          {/* centred logo */}
           <div className="footer-logo">
             <span>&lt;</span>YourName<span>/&gt;</span>
           </div>
           <div className="footer-tagline">Engineering Digital Products · From Logic to Launch</div>
-
-          {/* primary nav links */}
           <div className="footer-nav-primary">
             {NAV_ITEMS.map(item => (
               <button key={item.id} className="footer-nav-primary-btn" onClick={() => scrollTo(item.id)}>
@@ -998,15 +954,11 @@ export default function PortfolioPage() {
               </button>
             ))}
           </div>
-
-          {/* secondary nav */}
           <div className="footer-nav-secondary">
             {["Brand Directory", "Case Studies", "Blog", "Resume", "Open Source", "About"].map(l => (
               <button key={l} className="footer-nav-sec-btn">{l}</button>
             ))}
           </div>
-
-          {/* social circles */}
           <div className="footer-socials-row">
             {[
               { icon: <IconGitHub />, label: "GitHub" },
@@ -1018,8 +970,6 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-
-        {/* bottom bar */}
         <div className="footer-bottom">
           <span className="footer-copy">© {new Date().getFullYear()} YourName. Built with Next.js & TypeScript.</span>
           <div className="footer-bottom-links">

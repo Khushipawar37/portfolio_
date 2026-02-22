@@ -499,7 +499,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero-person-center {
   position: absolute;
   bottom: 80px;               /* sits above bottom bar */
-  left: 50%;
+  left: 30%;
   transform: translateX(-50%);
   height: 72%;
   z-index: 4;                 /* above ghost title (z2), below nothing */
@@ -525,10 +525,11 @@ button { font-family: inherit; cursor: pointer; }
   width: auto;
   object-fit: cover;
   object-position: top center;
-  filter: grayscale(15%);
+  filter: grayscale(25%);
   mask-image: linear-gradient(to top, transparent 0%, black 18%);
   -webkit-mask-image: linear-gradient(to top, transparent 0%, black 18%);
 }
+
 
 /* ── bottom bar: location · scroll hint · socials ── */
 .hero-bottom-bar {
@@ -610,6 +611,116 @@ button { font-family: inherit; cursor: pointer; }
   background: var(--fg2);
   animation: scanAnim 2.2s ease infinite;
 }
+
+/* ============================================================
+   HERO — KHUSHI PAWAR SCRIPT NAME (sits between title lines)
+   ============================================================ */
+.hero-name-script {
+  font-family: 'Dancing Script', 'Brush Script MT', 'Palatino Linotype', cursive;
+  font-size: clamp(2.2rem, 5.5vw, 5rem);
+  font-style: italic;
+  font-weight: 600;
+  color: rgba(239, 239, 239, 0.38);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+  position: relative;
+  z-index: 3;
+  /* sits between Full Stack and Developer — slight negative margins to tuck in */
+  margin-top: -0.15em;
+  margin-bottom: -0.2em;
+  animation: heroFadeUp 0.85s 0.25s cubic-bezier(0.16,1,0.3,1) both;
+}
+:root.light .hero-name-script {
+  color: rgba(10, 10, 10, 0.22);
+}
+
+/* ============================================================
+   HERO — TAGLINE BLOCK (below the title)
+   ============================================================ */
+.hero-tagline-block {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 0 48px;
+  margin-top: clamp(10px, 2vh, 22px);
+  animation: heroFadeUp 0.85s 0.55s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-tagline-main {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(0.7rem, 1.1vw, 0.88rem);
+  letter-spacing: 0.12em;
+  color: var(--fg2);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hero-tagline-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.8rem, 1.2vw, 0.96rem);
+  color: var(--fg3);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ============================================================
+   HERO — CTA BUTTONS ROW (overlays sketch)
+   ============================================================ */
+.hero-cta-row {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: clamp(18px, 3vh, 32px);
+  animation: heroFadeUp 0.85s 0.75s cubic-bezier(0.16,1,0.3,1) both;
+}
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: var(--fg);
+  color: var(--bg);
+  border: none;
+  padding: 13px 28px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: opacity 0.22s, transform 0.25s cubic-bezier(0.16,1,0.3,1);
+  white-space: nowrap;
+}
+.hero-btn-primary:hover { opacity: 0.82; transform: translateY(-3px) scale(1.02); }
+.hero-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--fg2);
+  border: 1px solid var(--border-h);
+  padding: 12px 26px;
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: color 0.22s, border-color 0.22s, transform 0.25s cubic-bezier(0.16,1,0.3,1), background 0.22s;
+  white-space: nowrap;
+}
+.hero-btn-ghost:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+  background: rgba(239,239,239,0.06);
+  transform: translateY(-3px);
+}
+
 @keyframes scanAnim {
   0%   { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
