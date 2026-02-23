@@ -214,7 +214,7 @@ function SketchPerson() {
    MAIN PAGE
    ================================================================ */
 export default function PortfolioPage() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const [menuOpen, setMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeCat, setActiveCat] = useState(0);
@@ -254,7 +254,7 @@ export default function PortfolioPage() {
   const toggleTheme = useCallback(() => {
     setTheme(p => {
       const n = p === "dark" ? "light" : "dark";
-      document.documentElement.classList.toggle("light", n === "light");
+      document.documentElement.classList.toggle("dark", n === "dark");
       return n;
     });
   }, []);
@@ -518,7 +518,7 @@ export default function PortfolioPage() {
           &nbsp;&nbsp;my name is YourName and I am a&nbsp;<strong>Full Stack Developer</strong>
         </div>
 
-        {/* ── title block with Khushi Pawar name overlay ── */}
+        {/* ── title block with name overlay ── */}
         <div className="hero-title-block">
           <h1 className="hero-title-giant">
             <span className="hero-title-line">
@@ -526,9 +526,9 @@ export default function PortfolioPage() {
             </span>
           </h1>
 
-          {/* ── Khushi Pawar italic name — sits between the two lines ── */}
-          <div className="hero-name-script" aria-hidden="false">
-            Khushi Pawar
+          {/* ── italic name overlay — sits ON TOP of the title lines gap ── */}
+          <div className="hero-name-script" aria-hidden="true">
+            AI/ML Enthusiast
           </div>
 
           <h2 className="hero-title-ghost">
@@ -544,7 +544,7 @@ export default function PortfolioPage() {
           <p className="hero-tagline-sub">Full-stack developer building scalable systems with precision and purpose.</p>
         </div>
 
-        {/* ── CTA Buttons — overlay on sketch ── */}
+        {/* ── CTA Buttons ── */}
         <div className="hero-cta-row">
           <button className="hero-btn-primary" onClick={() => scrollTo("contact")}>
             Hire Me <IconArrow />
@@ -552,11 +552,6 @@ export default function PortfolioPage() {
           <button className="hero-btn-ghost" onClick={() => scrollTo("about")}>
             Read About Me
           </button>
-        </div>
-
-        {/* ── person — absolute, centred ── */}
-        <div className="hero-person-center">
-          <img src="./img.png" alt="Khushi Pawar" className="hero-profile-pic" />
         </div>
 
         {/* ── bottom bar ── */}
@@ -628,32 +623,73 @@ export default function PortfolioPage() {
           ))}
         </ul>
 
+        {/* ── EDUCATION — TIMELINE ── */}
         <div className="education-wrap">
           <div className="edu-section-header">
             <div className="section-label">EDUCATION</div>
           </div>
-          <div className="edu-grid">
-            <div className="edu-card edu-card--featured">
-              <div className="edu-card-year">2023 – 2027</div>
-              <div className="edu-card-degree">B.Tech · Computer Science Engineering</div>
-              <div className="edu-card-school">Maharaja Surajmal Institute of Technology</div>
-              <div className="edu-card-location">Delhi, India</div>
-              <div className="edu-card-score-badge">CGPA 9.49</div>
+          <div className="edu-timeline">
+
+            {/* B.Tech — Featured / Current */}
+            <div className="edu-item edu-item--featured">
+              <div className="edu-item-year">
+                <div className="edu-item-year-text">2023<br />2027</div>
+              </div>
+              <div className="edu-item-dot" />
+              <div className="edu-item-content">
+                <div className="edu-item-inner">
+                  <div className="edu-current-badge">★ Current</div>
+                  <div className="edu-item-degree">B.Tech · Computer Science Engineering</div>
+                  <div className="edu-item-school">Maharaja Surajmal Institute of Technology</div>
+                  <div className="edu-item-location">Delhi, India</div>
+                  <div className="edu-item-score">
+                    9.49
+                    <span style={{ fontSize: "0.8rem", fontWeight: 400, opacity: 0.5, marginLeft: 6, fontFamily: "'DM Mono', monospace", letterSpacing: "0.06em" }}>
+                      CGPA
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="edu-card">
-              <div className="edu-card-year">Class XII · CBSE</div>
-              <div className="edu-card-degree">Senior Secondary</div>
-              <div className="edu-card-school">Holy Child Auxilium School</div>
-              <div className="edu-card-location">New Delhi</div>
-              <div className="edu-card-score-badge">95%</div>
+
+            {/* Class XII */}
+            <div className="edu-item">
+              <div className="edu-item-year">
+                <div className="edu-item-year-text">Class XII<br />CBSE</div>
+              </div>
+              <div className="edu-item-dot" />
+              <div className="edu-item-content">
+                <div className="edu-item-inner">
+                  <div className="edu-item-degree">Senior Secondary</div>
+                  <div className="edu-item-school">Holy Child Auxilium School</div>
+                  <div className="edu-item-location">New Delhi</div>
+                  <div className="edu-item-score">
+                    95
+                    <span style={{ fontSize: "1.1rem", opacity: 0.45, marginLeft: 2 }}>%</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="edu-card">
-              <div className="edu-card-year">Class X · CBSE</div>
-              <div className="edu-card-degree">Secondary</div>
-              <div className="edu-card-school">Holy Child Auxilium School</div>
-              <div className="edu-card-location">New Delhi</div>
-              <div className="edu-card-score-badge">96.6%</div>
+
+            {/* Class X */}
+            <div className="edu-item">
+              <div className="edu-item-year">
+                <div className="edu-item-year-text">Class X<br />CBSE</div>
+              </div>
+              <div className="edu-item-dot" />
+              <div className="edu-item-content">
+                <div className="edu-item-inner">
+                  <div className="edu-item-degree">Secondary</div>
+                  <div className="edu-item-school">Holy Child Auxilium School</div>
+                  <div className="edu-item-location">New Delhi</div>
+                  <div className="edu-item-score">
+                    96.6
+                    <span style={{ fontSize: "1.1rem", opacity: 0.45, marginLeft: 2 }}>%</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -954,11 +990,6 @@ export default function PortfolioPage() {
               </button>
             ))}
           </div>
-          <div className="footer-nav-secondary">
-            {["Brand Directory", "Case Studies", "Blog", "Resume", "Open Source", "About"].map(l => (
-              <button key={l} className="footer-nav-sec-btn">{l}</button>
-            ))}
-          </div>
           <div className="footer-socials-row">
             {[
               { icon: <IconGitHub />, label: "GitHub" },
@@ -970,15 +1001,20 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-        <div className="footer-bottom">
-          <span className="footer-copy">© {new Date().getFullYear()} YourName. Built with Next.js & TypeScript.</span>
-          <div className="footer-bottom-links">
-            <button className="footer-bl-btn">Terms & Conditions</button>
-            <button className="footer-bl-btn">Privacy Policy</button>
+        <div className="footer-end-zone" aria-hidden="false">
+          <div className="footer-giant-name" aria-hidden="true">
+            <div className="footer-giant-name-text">Khushi</div>
           </div>
-          <div className="footer-status-row">
-            <span className="footer-status-dot" />
-            Open to work · UTC+5:30
+          <div className="footer-bottom">
+            <span className="footer-copy">© {new Date().getFullYear()} YourName. Built with Next.js & TypeScript.</span>
+            <div className="footer-bottom-links">
+              <button className="footer-bl-btn">Terms & Conditions</button>
+              <button className="footer-bl-btn">Privacy Policy</button>
+            </div>
+            <div className="footer-status-row">
+              <span className="footer-status-dot" />
+              Open to work · UTC+5:30
+            </div>
           </div>
         </div>
       </footer>
