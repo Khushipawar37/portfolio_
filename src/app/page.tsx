@@ -17,33 +17,24 @@ const MARQUEE_WORDS = [
   "Docker", "AWS", "GraphQL", "TailwindCSS", "Redis", "Kubernetes", "Prisma", "Figma", "CI/CD", "MongoDB", "Terraform",
 ];
 
-/* ── ABOUT STACKING CARDS ── */
 const ABOUT_CARDS = [
   {
-    num: "01 / IDENTITY",
-    icon: "🧠",
-    title: "DSA Practitioner",
+    num: "01 / IDENTITY", icon: "🧠", title: "DSA Practitioner",
     desc: "I think in algorithms. From dynamic programming to graph traversal, I approach every engineering problem with a strong foundation in data structures and algorithmic thinking, ensuring solutions are not just correct but optimal.",
     chips: ["LeetCode", "Competitive Prog.", "Algorithms", "Complexity Analysis"],
   },
   {
-    num: "02 / MINDSET",
-    icon: "💡",
-    title: "Analytical Thinker & Problem Solver",
+    num: "02 / MINDSET", icon: "💡", title: "Analytical Thinker & Problem Solver",
     desc: "Complex problems are just puzzles waiting to be decomposed. I break down ambiguous challenges into structured solutions, drawing on systems thinking and first-principles reasoning to build things that actually scale.",
     chips: ["Systems Design", "First Principles", "Architecture", "Debugging"],
   },
   {
-    num: "03 / CRAFT",
-    icon: "⚡",
-    title: "Full Stack Web Developer",
+    num: "03 / CRAFT", icon: "⚡", title: "Full Stack Web Developer",
     desc: "From pixel-perfect React interfaces to resilient Node.js APIs and cloud infrastructure — I own the full vertical. I care about performance, developer experience, and shipping products that users genuinely love.",
     chips: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS", "Docker"],
   },
   {
-    num: "04 / FRONTIER",
-    icon: "🤖",
-    title: "AI / ML Enthusiast",
+    num: "04 / FRONTIER", icon: "🤖", title: "AI / ML Enthusiast",
     desc: "The intersection of intelligence and software is where I want to build. From LLM integrations and RAG pipelines to fine-tuning models — I actively explore how AI transforms what's possible in product engineering.",
     chips: ["LangChain", "OpenAI API", "RAG", "Python", "ML Fundamentals"],
   },
@@ -123,20 +114,17 @@ const PROJECTS = [
 
 const EXPERIENCES = [
   {
-    period: "2023 — Present", company: "Veritas Tech",
-    role: "Senior Full Stack Engineer",
+    period: "2023 — Present", company: "Veritas Tech", role: "Senior Full Stack Engineer",
     desc: "Led a team of 5 engineers to rebuild a legacy monolith into microservices. Improved system performance by 60% and reduced deployment time from 4 hours to 15 minutes with a new CI/CD pipeline.",
     skills: ["Next.js", "NestJS", "AWS", "Docker", "PostgreSQL"],
   },
   {
-    period: "2021 — 2023", company: "Axiom Labs",
-    role: "Full Stack Developer",
+    period: "2021 — 2023", company: "Axiom Labs", role: "Full Stack Developer",
     desc: "Developed and maintained 3 production SaaS products. Introduced TypeScript across the codebase, reducing the bug rate by 40%. Built a reusable component library adopted by 8 product teams.",
     skills: ["React", "Node.js", "TypeScript", "GraphQL"],
   },
   {
-    period: "2020 — 2021", company: "Freelance",
-    role: "Frontend Developer",
+    period: "2020 — 2021", company: "Freelance", role: "Frontend Developer",
     desc: "Delivered 15+ projects for clients across fintech, healthcare, and e-commerce. Specialized in React SPAs and interactive data visualizations built with D3.js.",
     skills: ["React", "Vue", "D3.js", "Firebase"],
   },
@@ -176,40 +164,6 @@ function IconArrow() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>;
 }
 
-/* Sketch-style SVG person — replace with your actual photo */
-function SketchPerson() {
-  return (
-    <svg viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="hero-sketch-svg">
-      <ellipse cx="100" cy="52" rx="36" ry="40" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.75" />
-      <path d="M 68 36 Q 70 16 100 14 Q 130 16 132 36" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.5" />
-      <ellipse cx="87" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5" />
-      <ellipse cx="113" cy="50" rx="4.5" ry="3.5" stroke="currentColor" strokeWidth="1.1" opacity="0.5" />
-      <path d="M 90 68 Q 100 76 110 68" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.45" />
-      <path d="M 82 42 Q 87 38 92 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" />
-      <path d="M 108 42 Q 113 38 118 42" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.35" />
-      <line x1="92" y1="90" x2="88" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6" />
-      <line x1="108" y1="90" x2="112" y2="115" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.6" />
-      <path d="M 70 115 Q 48 120 34 140 Q 24 156 22 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68" />
-      <path d="M 130 115 Q 152 120 166 140 Q 176 156 178 180" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.68" />
-      <path d="M 70 115 Q 62 150 60 185 Q 58 215 62 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      <path d="M 130 115 Q 138 150 140 185 Q 142 215 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      <path d="M 62 245 Q 82 252 100 252 Q 118 252 138 245" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      <path d="M 88 115 Q 100 130 112 115" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity="0.3" />
-      <line x1="100" y1="128" x2="100" y2="200" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.22" />
-      <path d="M 70 132 Q 44 162 36 196 Q 30 214 36 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58" />
-      <ellipse cx="35" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45" />
-      <path d="M 130 132 Q 156 162 164 196 Q 170 214 164 228" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.58" />
-      <ellipse cx="165" cy="234" rx="6" ry="8" stroke="currentColor" strokeWidth="1" opacity="0.45" />
-      <path d="M 78 245 Q 72 282 70 318 Q 68 340 66 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      <path d="M 122 245 Q 128 282 130 318 Q 132 340 134 362" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.62" />
-      <path d="M 66 362 Q 58 368 52 370 Q 46 372 44 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
-      <path d="M 134 362 Q 142 368 148 370 Q 154 372 156 368" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.5" />
-      <path d="M 76 160 Q 80 168 76 176" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.25" />
-      <rect x="72" y="162" width="12" height="10" rx="2" stroke="currentColor" strokeWidth="0.8" opacity="0.2" />
-    </svg>
-  );
-}
-
 /* ================================================================
    MAIN PAGE
    ================================================================ */
@@ -218,7 +172,6 @@ export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeCat, setActiveCat] = useState(0);
-  const [activeCard, setActiveCard] = useState(0);
   const [sent, setSent] = useState(false);
   const [kbToast, setKbToast] = useState("");
   const [kbShow, setKbShow] = useState(false);
@@ -227,8 +180,6 @@ export default function PortfolioPage() {
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const aboutOuterRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const stackOuterRef = useRef<HTMLDivElement>(null);
   const card3dRef = useRef<HTMLDivElement>(null);
   const techCardRef = useRef<HTMLDivElement>(null);
@@ -239,6 +190,7 @@ export default function PortfolioPage() {
   const contactTopRef = useRef<HTMLDivElement>(null);
   const contactBotRef = useRef<HTMLDivElement>(null);
   const contactFormRef = useRef<HTMLDivElement>(null);
+  const contactLineRef = useRef<HTMLDivElement>(null);  // ← new ref for center line
   const kbTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const anim = useRef({
@@ -246,9 +198,7 @@ export default function PortfolioPage() {
     stackT: 0, stackC: 0,
     projT: 0, projC: 0,
     contT: 0, contC: 0,
-    aboutT: 0, aboutC: 0,
     prevCat: -1,
-    prevCard: -1,
   });
 
   const toggleTheme = useCallback(() => {
@@ -264,6 +214,7 @@ export default function PortfolioPage() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
+  /* Keyboard nav */
   useEffect(() => {
     const map: Record<string, { id: string; label: string }> = {
       "1": { id: "about", label: "01 — About" },
@@ -287,6 +238,7 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("keydown", h);
   }, []);
 
+  /* Scroll handler */
   useEffect(() => {
     const h = () => {
       const sy = window.scrollY;
@@ -295,11 +247,6 @@ export default function PortfolioPage() {
         progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
       setNavScrolled(sy > 50);
 
-      if (aboutOuterRef.current) {
-        const r = aboutOuterRef.current.getBoundingClientRect();
-        const ht = aboutOuterRef.current.offsetHeight - window.innerHeight;
-        anim.current.aboutT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1);
-      }
       if (stackOuterRef.current) {
         const r = stackOuterRef.current.getBoundingClientRect();
         const ht = stackOuterRef.current.offsetHeight - window.innerHeight;
@@ -320,6 +267,7 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  /* Mouse */
   useEffect(() => {
     const mv = (e: MouseEvent) => {
       anim.current.mx = e.clientX;
@@ -333,11 +281,12 @@ export default function PortfolioPage() {
     return () => document.removeEventListener("mousemove", mv);
   }, []);
 
+  /* Cursor expand on interactive elements */
   useEffect(() => {
     const on = () => document.body.classList.add("cursor-expand");
     const off = () => document.body.classList.remove("cursor-expand");
     const attach = () => {
-      document.querySelectorAll("a,button,.project-card,.skill-item,.about-stacking-card")
+      document.querySelectorAll("a,button,.project-card,.skill-item,.edu-card")
         .forEach(el => { el.addEventListener("mouseenter", on); el.addEventListener("mouseleave", off); });
     };
     attach();
@@ -346,6 +295,7 @@ export default function PortfolioPage() {
     return () => mo.disconnect();
   }, []);
 
+  /* Reveal animations */
   useEffect(() => {
     const obs = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } }),
@@ -355,17 +305,28 @@ export default function PortfolioPage() {
     return () => obs.disconnect();
   }, []);
 
+  /* ── Education bento cards: IntersectionObserver scroll-reveal ── */
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add("edu-visible"); obs.unobserve(e.target); }
+      }),
+      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+    );
+    document.querySelectorAll(".edu-card").forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  /* RAF loop */
   useEffect(() => {
     let raf = 0;
     const TOTAL_CATS = TECH_CATEGORIES.length;
-    const TOTAL_CARDS = ABOUT_CARDS.length;
     const CARD_W = 420 + 22;
-    const SCALE_STEP = 0.04;
-    const Y_STEP = 18;
 
     const frame = () => {
       const a = anim.current;
 
+      /* Cursor ring lerp */
       a.rx = lerp(a.rx, a.mx, 0.1);
       a.ry = lerp(a.ry, a.my, 0.1);
       if (cursorRingRef.current) {
@@ -373,39 +334,7 @@ export default function PortfolioPage() {
         cursorRingRef.current.style.top = a.ry + "px";
       }
 
-      a.aboutC = lerp(a.aboutC, a.aboutT, 0.08);
-      const cardSeg = 1 / TOTAL_CARDS;
-      const curCard = clamp(Math.floor(a.aboutC * TOTAL_CARDS), 0, TOTAL_CARDS - 1);
-      const cardLocal = clamp((a.aboutC - curCard * cardSeg) / cardSeg, 0, 1);
-
-      if (curCard !== a.prevCard) {
-        a.prevCard = curCard;
-        setActiveCard(curCard);
-      }
-
-      cardRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const distance = i - curCard;
-        if (distance < 0) {
-          const pinScale = 1 - Math.abs(distance) * SCALE_STEP;
-          const pinY = -Math.abs(distance) * (Y_STEP * 0.5);
-          el.style.transform = `translateY(calc(-50% + ${pinY}px)) scale(${pinScale})`;
-          el.style.opacity = String(Math.max(0, 0.3 - Math.abs(distance) * 0.15));
-          el.style.zIndex = String(10 + distance);
-        } else if (distance === 0) {
-          const entryY = (1 - clamp(cardLocal * 3, 0, 1)) * 60;
-          el.style.transform = `translateY(calc(-50% + ${entryY}px)) scale(1)`;
-          el.style.opacity = String(Math.min(1, cardLocal * 6));
-          el.style.zIndex = "15";
-        } else {
-          const waitScale = 1 - distance * SCALE_STEP;
-          const waitY = distance * Y_STEP;
-          el.style.transform = `translateY(calc(-50% + ${waitY}px)) scale(${waitScale})`;
-          el.style.opacity = String(Math.max(0, 0.6 - distance * 0.18));
-          el.style.zIndex = String(10 - distance);
-        }
-      });
-
+      /* Tech stack */
       a.stackC = lerp(a.stackC, a.stackT, 0.075);
       const stackSeg = 1 / TOTAL_CATS;
       const cat = clamp(Math.floor(a.stackC * TOTAL_CATS), 0, TOTAL_CATS - 1);
@@ -421,6 +350,7 @@ export default function PortfolioPage() {
         card3dRef.current.style.opacity = String(Math.max(0, op));
       }
 
+      /* Projects horizontal scroll */
       a.projC = lerp(a.projC, a.projT, 0.075);
       if (projTrackRef.current) {
         const totalW = PROJECTS.length * CARD_W - 22 - (window.innerWidth - 160);
@@ -428,11 +358,20 @@ export default function PortfolioPage() {
       }
       if (projFillRef.current) projFillRef.current.style.width = (a.projC * 100) + "%";
 
+      /* Contact split */
       a.contC = lerp(a.contC, a.contT, 0.065);
       const split = clamp(a.contC * 2.8, 0, 1);
       const formV = clamp((a.contC - 0.28) * 3.4, 0, 1);
+
       if (contactTopRef.current) contactTopRef.current.style.transform = `translateY(${-split * 100}%)`;
       if (contactBotRef.current) contactBotRef.current.style.transform = `translateY(${split * 100}%)`;
+
+      /* ── Center line fades out as halves split ── */
+      if (contactLineRef.current) {
+        const lineOpacity = 1 - clamp(split * 4, 0, 1);
+        contactLineRef.current.style.opacity = String(lineOpacity);
+      }
+
       if (contactFormRef.current) {
         contactFormRef.current.style.opacity = String(formV);
         contactFormRef.current.style.transform = `scale(${0.91 + formV * 0.09}) translateY(${(1 - formV) * 40}px)`;
@@ -490,9 +429,7 @@ export default function PortfolioPage() {
           </button>
         </div>
         <div className="nav-right-outside">
-          <button className="nav-theme-btn" onClick={toggleTheme}>
-            {theme === "dark" ? "☀" : "☾"}
-          </button>
+          <button className="nav-theme-btn" onClick={toggleTheme}>{theme === "dark" ? "☀" : "☾"}</button>
           <button className="nav-hire-outside" onClick={() => scrollTo("contact")}>Hire Me</button>
         </div>
       </nav>
@@ -511,50 +448,31 @@ export default function PortfolioPage() {
       {/* ══════════════════ HERO ══════════════════ */}
       <section className="hero-section">
         <div className="hero-grid-bg" />
-
-        {/* ── top intro line ── */}
         <div className="hero-top-intro">
           <span className="hero-badge-dot" />
           &nbsp;&nbsp;my name is YourName and I am a&nbsp;<strong>Full Stack Developer</strong>
         </div>
-
-        {/* ── title block with name overlay ── */}
         <div className="hero-title-block">
           <h1 className="hero-title-giant">
             <span className="hero-title-line">
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Full Stack</span>
             </span>
           </h1>
-
-          {/* ── italic name overlay — sits ON TOP of the title lines gap ── */}
-          <div className="hero-name-script" aria-hidden="true">
-            AI/ML Enthusiast
-          </div>
-
+          <div className="hero-name-script" aria-hidden="true">AI/ML Enthusiast</div>
           <h2 className="hero-title-ghost">
             <span className="hero-title-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
             </span>
           </h2>
         </div>
-
-        {/* ── Tagline + descriptor text ── */}
         <div className="hero-tagline-block">
           <p className="hero-tagline-main">Engineering Digital Products — From Logic to Launch.</p>
           <p className="hero-tagline-sub">Full-stack developer building scalable systems with precision and purpose.</p>
         </div>
-
-        {/* ── CTA Buttons ── */}
         <div className="hero-cta-row">
-          <button className="hero-btn-primary" onClick={() => scrollTo("contact")}>
-            Hire Me <IconArrow />
-          </button>
-          <button className="hero-btn-ghost" onClick={() => scrollTo("about")}>
-            Read About Me
-          </button>
+          <button className="hero-btn-primary" onClick={() => scrollTo("contact")}>Hire Me <IconArrow /></button>
+          <button className="hero-btn-ghost" onClick={() => scrollTo("about")}>Read About Me</button>
         </div>
-
-        {/* ── bottom bar ── */}
         <div className="hero-bottom-bar">
           <div className="hero-location">based in New Delhi, India.</div>
           <div className="hero-scroll-hint-inline">
@@ -570,7 +488,6 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-
         <div className="hero-year">© 2025</div>
       </section>
 
@@ -578,14 +495,12 @@ export default function PortfolioPage() {
       <div className="marquee-section">
         <div className="marquee-track">
           {[...MARQUEE_WORDS, ...MARQUEE_WORDS].map((w, i) => (
-            <span key={i} className="marquee-item">
-              {w}<span className="marquee-sep"> · </span>
-            </span>
+            <span key={i} className="marquee-item">{w}<span className="marquee-sep"> · </span></span>
           ))}
         </div>
       </div>
 
-      {/* ══════════════════ ABOUT — STACKING CARDS ══════════════════ */}
+      {/* ══════════════════ ABOUT ══════════════════ */}
       <section id="about" className="about-section">
         <div className="about-intro-wrap">
           <div className="section-label">ABOUT ME</div>
@@ -607,11 +522,7 @@ export default function PortfolioPage() {
 
         <ul className="about-cards-list">
           {ABOUT_CARDS.map((card, i) => (
-            <li
-              key={card.num}
-              className={`about-card-sticky asc-${i}`}
-              style={{ top: `${60 + i * 20}px` }}
-            >
+            <li key={card.num} className={`about-card-sticky asc-${i}`} style={{ top: `${60 + i * 20}px` }}>
               <div className="about-card-num">{card.num}</div>
               <span className="about-card-icon">{card.icon}</span>
               <div className="about-card-title">{card.title}</div>
@@ -623,70 +534,55 @@ export default function PortfolioPage() {
           ))}
         </ul>
 
-        {/* ── EDUCATION — TIMELINE ── */}
+        {/* ══ EDUCATION — BENTO MOSAIC ══ */}
         <div className="education-wrap">
           <div className="edu-section-header">
             <div className="section-label">EDUCATION</div>
           </div>
-          <div className="edu-timeline">
+          <div className="edu-mosaic">
 
-            {/* B.Tech — Featured / Current */}
-            <div className="edu-item edu-item--featured">
-              <div className="edu-item-year">
-                <div className="edu-item-year-text">2023<br />2027</div>
-              </div>
-              <div className="edu-item-dot" />
-              <div className="edu-item-content">
-                <div className="edu-item-inner">
-                  <div className="edu-current-badge">★ Current</div>
-                  <div className="edu-item-degree">B.Tech · Computer Science Engineering</div>
-                  <div className="edu-item-school">Maharaja Surajmal Institute of Technology</div>
-                  <div className="edu-item-location">Delhi, India</div>
-                  <div className="edu-item-score">
-                    9.49
-                    <span style={{ fontSize: "0.8rem", fontWeight: 400, opacity: 0.5, marginLeft: 6, fontFamily: "'DM Mono', monospace", letterSpacing: "0.06em" }}>
-                      CGPA
-                    </span>
-                  </div>
+            {/* ── B.Tech — featured tall card ── */}
+            <div className="edu-card edu-card--featured">
+              <div className="edu-card-watermark">9.49</div>
+              <div>
+                <div className="edu-badge">
+                  <span className="edu-badge-dot" />
+                  Currently Enrolled
                 </div>
+                <div className="edu-card-label">2023 — 2027</div>
+                <div className="edu-card-degree">B.Tech · Computer Science Engineering</div>
+                <div className="edu-card-school">Maharaja Surajmal Institute of Technology</div>
+                <div className="edu-card-location">Delhi, India</div>
+              </div>
+              <div className="edu-card-score-block">
+                <div className="edu-card-score-num">9.49</div>
+                <div className="edu-card-score-unit">CGPA</div>
               </div>
             </div>
 
-            {/* Class XII */}
-            <div className="edu-item">
-              <div className="edu-item-year">
-                <div className="edu-item-year-text">Class XII<br />CBSE</div>
-              </div>
-              <div className="edu-item-dot" />
-              <div className="edu-item-content">
-                <div className="edu-item-inner">
-                  <div className="edu-item-degree">Senior Secondary</div>
-                  <div className="edu-item-school">Holy Child Auxilium School</div>
-                  <div className="edu-item-location">New Delhi</div>
-                  <div className="edu-item-score">
-                    95
-                    <span style={{ fontSize: "1.1rem", opacity: 0.45, marginLeft: 2 }}>%</span>
-                  </div>
-                </div>
+            {/* ── Class XII ── */}
+            <div className="edu-card">
+              <div className="edu-card-watermark">95%</div>
+              <div className="edu-card-corner-label">Class XII · CBSE</div>
+              <div className="edu-card-label" style={{ marginTop: 28 }}>Senior Secondary</div>
+              <div className="edu-card-degree">Holy Child Auxilium School</div>
+              <div className="edu-card-location">New Delhi</div>
+              <div className="edu-card-score-block">
+                <div className="edu-card-score-num">95</div>
+                <div className="edu-card-score-unit">%</div>
               </div>
             </div>
 
-            {/* Class X */}
-            <div className="edu-item">
-              <div className="edu-item-year">
-                <div className="edu-item-year-text">Class X<br />CBSE</div>
-              </div>
-              <div className="edu-item-dot" />
-              <div className="edu-item-content">
-                <div className="edu-item-inner">
-                  <div className="edu-item-degree">Secondary</div>
-                  <div className="edu-item-school">Holy Child Auxilium School</div>
-                  <div className="edu-item-location">New Delhi</div>
-                  <div className="edu-item-score">
-                    96.6
-                    <span style={{ fontSize: "1.1rem", opacity: 0.45, marginLeft: 2 }}>%</span>
-                  </div>
-                </div>
+            {/* ── Class X ── */}
+            <div className="edu-card">
+              <div className="edu-card-watermark">96.6%</div>
+              <div className="edu-card-corner-label">Class X · CBSE</div>
+              <div className="edu-card-label" style={{ marginTop: 28 }}>Secondary</div>
+              <div className="edu-card-degree">Holy Child Auxilium School</div>
+              <div className="edu-card-location">New Delhi</div>
+              <div className="edu-card-score-block">
+                <div className="edu-card-score-num">96.6</div>
+                <div className="edu-card-score-unit">%</div>
               </div>
             </div>
 
@@ -729,12 +625,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* ══════════════════ TECH STACK ══════════════════ */}
-      <div
-        id="stack"
-        className="stack-section"
-        ref={stackOuterRef}
-        style={{ height: `${TECH_CATEGORIES.length * 140}vh` }}
-      >
+      <div id="stack" className="stack-section" ref={stackOuterRef} style={{ height: `${TECH_CATEGORIES.length * 140}vh` }}>
         <div className="stack-sticky">
           <div className="stack-bg-label" aria-hidden><span>STACK</span></div>
           <div className="stack-top-left">
@@ -743,8 +634,7 @@ export default function PortfolioPage() {
           </div>
           <div className="stack-top-right">
             {TECH_CATEGORIES.map((_, i) => (
-              <div key={i} className={`stack-dot${i === activeCat ? " active" : ""}`}
-                style={{ width: i === activeCat ? 28 : 8 }} />
+              <div key={i} className={`stack-dot${i === activeCat ? " active" : ""}`} style={{ width: i === activeCat ? 28 : 8 }} />
             ))}
           </div>
           <div className="stack-card-wrap" onMouseMove={onCardMove} onMouseLeave={onCardLeave}>
@@ -776,12 +666,7 @@ export default function PortfolioPage() {
       </div>
 
       {/* ══════════════════ PROJECTS ══════════════════ */}
-      <div
-        id="work"
-        className="projects-section"
-        ref={projOuterRef}
-        style={{ height: `${PROJECTS.length * 88 + 100}vh` }}
-      >
+      <div id="work" className="projects-section" ref={projOuterRef} style={{ height: `${PROJECTS.length * 88 + 100}vh` }}>
         <div className="projects-sticky">
           <div className="projects-header">
             <div>
@@ -819,9 +704,7 @@ export default function PortfolioPage() {
           <div className="projects-progress-wrap">
             <div className="projects-progress-fill" ref={projFillRef} style={{ width: "0%" }} />
           </div>
-          <div className="projects-count-row">
-            <span>01</span><span>06</span>
-          </div>
+          <div className="projects-count-row"><span>01</span><span>06</span></div>
         </div>
       </div>
 
@@ -932,7 +815,10 @@ export default function PortfolioPage() {
           <div className="contact-bottom-half" ref={contactBotRef}>
             <div className="contact-big-word faded">Something Great.</div>
           </div>
-          <div className="contact-center-line" />
+
+          {/* Center line — fades out via JS as halves split */}
+          <div className="contact-center-line" ref={contactLineRef} />
+
           <div className="contact-form-reveal" ref={contactFormRef}
             style={{ opacity: 0, transform: "scale(0.91) translateY(40px)", pointerEvents: "none" }}>
             <div className="contact-form-box">
@@ -979,9 +865,7 @@ export default function PortfolioPage() {
       {/* ══════════════════ FOOTER ══════════════════ */}
       <footer className="site-footer">
         <div className="footer-main">
-          <div className="footer-logo">
-            <span>&lt;</span>YourName<span>/&gt;</span>
-          </div>
+          <div className="footer-logo"><span>&lt;</span>YourName<span>/&gt;</span></div>
           <div className="footer-tagline">Engineering Digital Products · From Logic to Launch</div>
           <div className="footer-nav-primary">
             {NAV_ITEMS.map(item => (
@@ -1001,7 +885,13 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-        <div className="footer-end-zone" aria-hidden="false">
+
+        {/*
+          End zone: flex-column layout
+          1) Giant decorative "Khushi" name (fixed height, decorative)
+          2) Bottom bar below it in normal document flow
+        */}
+        <div className="footer-end-zone">
           <div className="footer-giant-name" aria-hidden="true">
             <div className="footer-giant-name-text">Khushi</div>
           </div>
