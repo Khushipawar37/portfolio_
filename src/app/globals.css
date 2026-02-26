@@ -2373,11 +2373,11 @@ button {
   }
   .about-cards-list {
     width: 95%;
-  }
+  }  
   .about-card-sticky {
     padding: 36px 28px;
-  }
-}
+  }  
+} 
 @media (max-width: 520px) {
   .hero-title-giant,
   .hero-title-ghost {
