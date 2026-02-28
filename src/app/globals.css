@@ -2380,7 +2380,7 @@ button {
 } 
 @media (max-width: 520px) {
   .hero-title-giant,
-  .hero-title-ghost {
+  .hero-title-ghost { 
     font-size: clamp(3rem, 12vw, 5rem);
   }
   .project-card {
