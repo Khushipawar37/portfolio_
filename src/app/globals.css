@@ -343,29 +343,29 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   /* Fixed width so pill never moves */
-  width: 52px;
-  padding: 14px 0;
+  width: 64px;
+  padding: 18px 0;
   border-radius: 100px;
-  background: rgba(240, 238, 234, 0.82);
-  border: 1px solid rgba(180, 175, 165, 0.4);
+  background: rgba(240, 238, 234, 0.88);
+  border: 1px solid rgba(180, 175, 165, 0.5);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow:
-    0 8px 32px rgba(0,0,0,0.12),
+    0 8px 32px rgba(0,0,0,0.14),
     0 1px 0 rgba(255,255,255,0.7) inset;
   pointer-events: all;
 }
 :root.dark .vertical-nav {
-  background: rgba(28, 26, 24, 0.78);
-  border-color: rgba(80, 75, 68, 0.5);
+  background: rgba(28, 26, 24, 0.85);
+  border-color: rgba(90, 84, 75, 0.6);
   box-shadow:
-    0 8px 36px rgba(0,0,0,0.5),
-    0 1px 0 rgba(255,255,255,0.05) inset;
+    0 8px 36px rgba(0,0,0,0.55),
+    0 1px 0 rgba(255,255,255,0.06) inset;
 }
 
-/* Each item — just a fixed circle, no expanding */
+/* Each item — fixed circle, no expanding */
 .vnav-item {
   position: relative;
   display: flex;
@@ -375,8 +375,8 @@ button {
   background: none;
   border: none;
   padding: 0;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
 }
 
@@ -385,11 +385,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid rgba(150, 144, 135, 0.4);
+  border: 1.5px solid rgba(150, 144, 135, 0.5);
   transition:
     background 0.22s ease,
     border-color 0.22s ease,
@@ -401,13 +401,13 @@ button {
 .vnav-item.vnav-active .vnav-num-wrap {
   background: var(--fg);
   border-color: var(--fg);
-  transform: scale(1.1);
-  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+  transform: scale(1.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.24);
 }
 
 .vnav-num {
   font-family: "DM Mono", monospace;
-  font-size: 0.6rem;
+  font-size: 0.68rem;
   letter-spacing: 0.05em;
   color: var(--fg3);
   transition: color 0.22s ease;
@@ -422,18 +422,18 @@ button {
    The pill never knows it exists — zero layout impact. */
 .vnav-label {
   position: absolute;
-  right: calc(100% + 10px);
+  right: calc(100% + 12px);
   top: 50%;
-  transform: translateY(-50%) translateX(6px);
+  transform: translateY(-50%) translateX(8px);
   font-family: "DM Mono", monospace;
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   letter-spacing: 0.13em;
   color: var(--fg2);
   text-transform: uppercase;
   white-space: nowrap;
   background: var(--nav-pill);
   border: 1px solid var(--border2);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 100px;
   backdrop-filter: blur(12px);
   opacity: 0;
@@ -474,6 +474,36 @@ button {
   height: 1px;
   background: var(--fg3);
   flex-shrink: 0;
+}
+
+/* ── Section number — large editorial index to the left of headings ── */
+.section-num-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(20px, 3vw, 40px);
+  margin-bottom: 10px;
+}
+/* The big number itself */
+.section-num {
+  font-family: "DM Mono", monospace;
+  font-weight: 400;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--fg3);
+  opacity: 0.22;
+  flex-shrink: 0;
+  user-select: none;
+  /* Nudge baseline up so it aligns with top of section title */
+  margin-top: -0.08em;
+}
+:root.dark .section-num {
+  opacity: 0.18;
+}
+/* The right column: label + title stacked */
+.section-num-content {
+  display: flex;
+  flex-direction: column;
 }
 .section-title {
   font-family: "Syne", sans-serif;

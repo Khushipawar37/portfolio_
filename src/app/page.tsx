@@ -565,10 +565,15 @@ export default function PortfolioPage() {
       {/* ══════════════════ ABOUT ══════════════════ */}
       <section id="about" className="about-section">
         <div className="about-intro-wrap">
-          <div className="section-label">ABOUT ME</div>
-          <h2 className="section-title about-intro-heading">
-            What I&apos;m<br /><span style={{ opacity: 0.22 }}>About.</span>
-          </h2>
+          <div className="section-num-wrap">
+            <span className="section-num">01</span>
+            <div className="section-num-content">
+              <div className="section-label">ABOUT ME</div>
+              <h2 className="section-title about-intro-heading">
+                What I&apos;m<br /><span style={{ opacity: 0.22 }}>About.</span>
+              </h2>
+            </div>
+          </div>
           <p className="about-intro-para">
             I&apos;m a full-stack developer with hands-on experience building scalable and user-centric web
             applications using the MERN stack and Next.js. I enjoy transforming complex ideas into clean,
@@ -684,8 +689,13 @@ export default function PortfolioPage() {
         <div className="stack-sticky">
           <div className="stack-bg-label" aria-hidden><span>STACK</span></div>
           <div className="stack-top-left">
-            <div className="section-label">TECHNOLOGIES</div>
-            <h2 className="section-title" style={{ fontSize: "clamp(2rem,3.5vw,3rem)" }}>My Tech Stack</h2>
+            <div className="section-num-wrap">
+              <span className="section-num">02</span>
+              <div className="section-num-content">
+                <div className="section-label">TECHNOLOGIES</div>
+                <h2 className="section-title" style={{ fontSize: "clamp(2rem,3.5vw,3rem)" }}>My Tech Stack</h2>
+              </div>
+            </div>
           </div>
           <div className="stack-top-right">
             {TECH_CATEGORIES.map((_, i) => (
@@ -725,8 +735,13 @@ export default function PortfolioPage() {
         <div className="projects-sticky">
           <div className="projects-header">
             <div>
-              <div className="section-label">FEATURED PROJECTS</div>
-              <h2 className="section-title">My Work</h2>
+              <div className="section-num-wrap">
+                <span className="section-num">03</span>
+                <div className="section-num-content">
+                  <div className="section-label">FEATURED PROJECTS</div>
+                  <h2 className="section-title">My Work</h2>
+                </div>
+              </div>
             </div>
             <span className="projects-count-badge">
               {String(PROJECTS.length).padStart(2, "0")} Projects &nbsp;·&nbsp; Scroll to explore →
@@ -767,8 +782,13 @@ export default function PortfolioPage() {
       <section id="experience" className="experience-section">
         <div className="experience-inner">
           <div className="experience-header reveal">
-            <div className="section-label">WORK HISTORY</div>
-            <h2 className="section-title">Experience</h2>
+            <div className="section-num-wrap">
+              <span className="section-num">04</span>
+              <div className="section-num-content">
+                <div className="section-label">WORK HISTORY</div>
+                <h2 className="section-title">Experience</h2>
+              </div>
+            </div>
           </div>
           <div className="timeline-wrap">
             <div className="timeline-vert-line" />
@@ -863,7 +883,12 @@ export default function PortfolioPage() {
         <div className="contact-sticky-wrap">
           <div className="contact-top-half" ref={contactTopRef}>
             <div style={{ textAlign: "center" }}>
-              <div className="section-label" style={{ justifyContent: "center", marginBottom: 14 }}>GET IN TOUCH</div>
+              <div className="section-num-wrap" style={{ justifyContent: "center" }}>
+                <span className="section-num">05</span>
+                <div className="section-num-content">
+                  <div className="section-label" style={{ justifyContent: "center", marginBottom: 14 }}>GET IN TOUCH</div>
+                </div>
+              </div>
               <div className="contact-big-word">Let&apos;s Build</div>
             </div>
           </div>
