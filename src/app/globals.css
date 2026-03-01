@@ -329,130 +329,129 @@ button {
 }
 
 /* ============================================================
-   VERTICAL FLOATING NAV — right side
+   VERTICAL FLOATING NAV — fixed oval pill, labels float outside
    ============================================================ */
+
+/* The pill itself — FIXED size, never grows or shrinks */
 .vertical-nav {
   position: fixed;
-  right: 24px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 300;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* Fixed width so pill never moves */
+  width: 52px;
+  padding: 14px 0;
+  border-radius: 100px;
+  background: rgba(240, 238, 234, 0.82);
+  border: 1px solid rgba(180, 175, 165, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.12),
+    0 1px 0 rgba(255,255,255,0.7) inset;
   pointer-events: all;
 }
+:root.dark .vertical-nav {
+  background: rgba(28, 26, 24, 0.78);
+  border-color: rgba(80, 75, 68, 0.5);
+  box-shadow:
+    0 8px 36px rgba(0,0,0,0.5),
+    0 1px 0 rgba(255,255,255,0.05) inset;
+}
 
+/* Each item — just a fixed circle, no expanding */
 .vnav-item {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0;
+  justify-content: center;
   cursor: none;
   background: none;
   border: none;
   padding: 0;
-  position: relative;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
 }
 
-.vnav-label {
-  font-family: "DM Mono", monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.12em;
-  color: var(--fg2);
-  text-transform: uppercase;
-  white-space: nowrap;
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition:
-    max-width 0.42s cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 0.3s ease,
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateX(6px);
-  pointer-events: none;
-}
-
-.vnav-item:hover .vnav-label,
-.vnav-item.vnav-active .vnav-label {
-  max-width: 120px;
-  opacity: 1;
-  transform: translateX(0);
-}
-
+/* The circle number badge */
 .vnav-num-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--nav-pill);
-  border: 1px solid var(--border2);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+  background: transparent;
+  border: 1px solid rgba(150, 144, 135, 0.4);
   transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.25s ease;
+    background 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s ease;
   flex-shrink: 0;
-  margin-left: 8px;
-  position: relative;
-  overflow: hidden;
 }
-
-:root.dark .vnav-num-wrap {
-  box-shadow: 0 2px 18px rgba(0,0,0,0.5);
-}
-
 .vnav-item:hover .vnav-num-wrap,
 .vnav-item.vnav-active .vnav-num-wrap {
   background: var(--fg);
   border-color: var(--fg);
   transform: scale(1.1);
-  box-shadow: 0 6px 22px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.22);
 }
 
 .vnav-num {
   font-family: "DM Mono", monospace;
   font-size: 0.6rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--fg3);
-  transition: color 0.25s ease;
+  transition: color 0.22s ease;
   line-height: 1;
 }
-
 .vnav-item:hover .vnav-num,
 .vnav-item.vnav-active .vnav-num {
   color: var(--bg);
 }
 
-/* Active indicator dot inside circle */
-.vnav-active-dot {
+/* Label — absolutely positioned OUTSIDE the pill to the left.
+   The pill never knows it exists — zero layout impact. */
+.vnav-label {
   position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--bg);
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  font-family: "DM Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  color: var(--fg2);
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--nav-pill);
+  border: 1px solid var(--border2);
+  padding: 4px 10px;
+  border-radius: 100px;
+  backdrop-filter: blur(12px);
   opacity: 0;
-  transition: opacity 0.2s ease;
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.vnav-item:hover .vnav-label,
+.vnav-item.vnav-active .vnav-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
 }
 
-.vnav-item.vnav-active .vnav-active-dot {
-  opacity: 0;
-}
+/* No connectors */
+.vnav-connector { display: none; }
+.vnav-active-dot { display: none; }
 
-/* Connector line between nav items */
-.vnav-connector {
-  width: 1px;
-  height: 14px;
-  background: var(--border2);
-  align-self: flex-end;
-  margin-right: 18px;
-  transition: background 0.3s;
-}
 
 /* ============================================================
    SECTION UTILS
@@ -612,24 +611,18 @@ button {
   animation: pulseGreen 2.2s ease infinite;
 }
 
-/* Giant condensed editorial title — BRAND DESIGNER style
-   Key: font-size derived so "DEVELOPER" (longest word, 9 chars) fits within
-   available width = 100vw - left_pad - right_nav_space (~130px total).
-   Barlow Condensed 800: avg char width ≈ 0.52em, so 9 chars ≈ 4.68em.
-   font-size = (100vw - 130px) / 4.68 ≈ 21.4vw - 27.8px.
-   We use a safe slightly smaller value: ~18vw to account for letter-spacing variation.
-   WEB will be narrower but that's fine — it gets the decorative script overlay.
-*/
+/* Giant condensed editorial title */
 .hero-title-giant {
   font-family: "Barlow Condensed", "Oswald", "Anton", sans-serif;
   font-weight: 800;
   font-size: clamp(3.5rem, 18vw, 15rem);
   letter-spacing: -0.025em;
   color: var(--fg);
-  line-height: 0.9;
+  line-height: 0.82;
   margin: 0;
   white-space: nowrap;
   text-transform: uppercase;
+  display: block;
 }
 
 .hero-title-ghost {
@@ -637,8 +630,10 @@ button {
   font-weight: 800;
   font-size: clamp(3.5rem, 18vw, 15rem);
   letter-spacing: -0.025em;
-  line-height: 0.9;
-  margin: 0;
+  line-height: 0.82;
+  /* Pull DEVELOPER tightly up under WEB */
+  margin-top: -0.04em;
+  display: block;
   white-space: nowrap;
   text-transform: uppercase;
   color: transparent;
@@ -648,18 +643,17 @@ button {
   -webkit-text-stroke: 1.5px rgba(240, 240, 240, 0.18);
 }
 
-/* Ensure DEVELOPER line always fits — overflow visible so it can extend */
+/* Title block — anchor for absolute script overlay */
 .hero-title-block {
   position: relative;
   z-index: 2;
   text-align: left;
-  line-height: 1;
   overflow: visible;
+  display: inline-block;
 }
 .hero-title-line {
   overflow: hidden;
   display: block;
-  /* Allow ghost line to overflow right edge decoratively */
 }
 .hero-title-line.ghost-line {
   overflow: visible;
@@ -669,30 +663,30 @@ button {
   animation: heroLineUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Italic script name overlay — positioned over the title */
+/* Script overlay — centred at the seam, shifted slightly left of WEB start.
+   top:50% on the inline-block title block = exactly the gap between the 2 lines.
+   left: -2% nudges it just a touch left for that editorial offset feel. */
 .hero-name-script {
   position: absolute;
-  left: clamp(80px, 12vw, 200px);
-  top: 42%;
+  left: -1%;
+  top: 50%;
   transform: translateY(-50%);
   z-index: 10;
   white-space: nowrap;
   font-family: "Dancing Script", cursive;
-  font-size: clamp(2rem, 4.5vw, 5rem);
+  font-size: clamp(1.6rem, 3.4vw, 3.8rem);
   font-style: italic;
   font-weight: 600;
-  /* Gold/warm tone to match the reference screenshot */
-  color: #b8935a;
+  /* Semi-transparent warm grey — visible but ghostly, overlays both words */
+  color: rgba(80, 72, 65, 0.45);
   letter-spacing: 0.02em;
   line-height: 1;
   pointer-events: none;
   user-select: none;
   animation: heroFadeIn 1.2s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-  text-shadow: 0 2px 20px rgba(184, 147, 90, 0.25);
 }
 :root.dark .hero-name-script {
-  color: #c9a46a;
-  text-shadow: 0 2px 28px rgba(201, 164, 106, 0.3);
+  color: rgba(220, 210, 195, 0.4);
 }
 
 /* Tagline below the main heading */

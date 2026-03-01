@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 
 /* ================================================================
    DATA
@@ -165,7 +165,7 @@ function IconArrow() {
 }
 
 /* ================================================================
-   VERTICAL FLOATING NAV
+   VERTICAL FLOATING NAV — fixed oval pill, labels float outside
    ================================================================ */
 function VerticalNav({
   items,
@@ -178,20 +178,19 @@ function VerticalNav({
 }) {
   return (
     <nav className="vertical-nav" aria-label="Section navigation">
-      {items.map((item, i) => (
-        <div key={item.id} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-          {i > 0 && <div className="vnav-connector" />}
-          <button
-            className={`vnav-item${activeId === item.id ? " vnav-active" : ""}`}
-            onClick={() => onNav(item.id)}
-            aria-label={`Navigate to ${item.label}`}
-          >
-            <span className="vnav-label">{item.label}</span>
-            <div className="vnav-num-wrap">
-              <span className="vnav-num">{item.num}</span>
-            </div>
-          </button>
-        </div>
+      {items.map((item) => (
+        <button
+          key={item.id}
+          className={`vnav-item${activeId === item.id ? " vnav-active" : ""}`}
+          onClick={() => onNav(item.id)}
+          aria-label={`Navigate to ${item.label}`}
+        >
+          {/* Label floats absolutely outside the pill — never affects pill size */}
+          <span className="vnav-label">{item.label}</span>
+          <div className="vnav-num-wrap">
+            <span className="vnav-num">{item.num}</span>
+          </div>
+        </button>
       ))}
     </nav>
   );
@@ -506,19 +505,17 @@ export default function PortfolioPage() {
           &nbsp;&nbsp;Available for work &nbsp;·&nbsp; <strong>New Delhi, India</strong>
         </div>
 
-        {/* Giant condensed title block */}
+        {/* Giant condensed title block — WEB / DEVELOPER stacked tight */}
         <div className="hero-title-block">
-          {/* Line 1: WEB */}
           <h1 className="hero-title-giant">
             <span className="hero-title-line">
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span>
             </span>
           </h1>
 
-          {/* Script name overlay — sits between WEB and DEVELOPER */}
+          {/* Script overlay — centred exactly at the seam between WEB & DEVELOPER */}
           <div className="hero-name-script" aria-hidden="true">AI/ML Enthusiast</div>
 
-          {/* Line 2: DEVELOPER (ghost/outline) */}
           <h2 className="hero-title-ghost">
             <span className="hero-title-line ghost-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
