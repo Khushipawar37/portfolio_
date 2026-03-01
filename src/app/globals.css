@@ -1,4 +1,9 @@
 /* ============================================================
+   GOOGLE FONTS — load condensed display fonts for hero
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Oswald:wght@600;700&display=swap');
+
+/* ============================================================
    THEME VARIABLES — DEFAULT = LIGHT, dark class = dark mode
    ============================================================ */
 :root {
@@ -172,7 +177,7 @@ button {
 }
 
 /* ============================================================
-   NAVBAR
+   NAVBAR — top bar with logo + right controls only
    ============================================================ */
 .navbar {
   position: fixed;
@@ -183,10 +188,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 28px;
+  padding: 20px 32px;
   pointer-events: none;
-  gap: 12px;
-  max-width: 100vw;
 }
 .nav-logo-outside {
   font-family: "Syne", sans-serif;
@@ -209,93 +212,12 @@ button {
 .nav-logo-dim {
   opacity: 0.28;
 }
+
+/* Hide the old pill nav items on desktop — replaced by vertical nav */
 .navbar-pill {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  background: var(--nav-pill);
-  border: 1px solid var(--border2);
-  border-radius: 100px;
-  padding: 6px 8px;
-  pointer-events: all;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 2px 20px rgba(0, 0, 0, 0.12),
-    0 0 0 1px var(--border);
-  transition:
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
-  flex-shrink: 1;
-  min-width: 0;
-}
-:root.dark .navbar-pill {
-  box-shadow:
-    0 2px 20px rgba(0, 0, 0, 0.5),
-    0 0 0 1px var(--border);
-}
-.navbar-pill.scrolled {
-  border-color: var(--border-h);
-}
-:root.dark .navbar-pill.scrolled {
-  box-shadow:
-    0 4px 40px rgba(0, 0, 0, 0.7),
-    0 0 0 1px var(--border-h);
-}
-.nav-btn {
-  font-family: "DM Mono", monospace;
-  font-size: 0.67rem;
-  letter-spacing: 0.05em;
-  color: var(--fg2);
-  background: none;
-  border: none;
-  padding: 7px 11px;
-  border-radius: 100px;
-  cursor: none;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-  transition:
-    color 0.2s,
-    background 0.2s;
-  flex-shrink: 0;
-}
-.nav-btn:hover {
-  color: var(--fg);
-  background: var(--border);
-}
-.nav-btn-num {
-  font-size: 0.54rem;
-  opacity: 0.3;
-  border: 1px solid var(--border2);
-  border-radius: 3px;
-  padding: 1px 3px;
-  letter-spacing: 0.03em;
-}
-.nav-btn:hover .nav-btn-num {
-  opacity: 0.6;
-}
-.hamburger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  border: none;
-  padding: 6px 4px;
-  cursor: none;
-  flex-shrink: 0;
 }
-.ham-line {
-  display: block;
-  width: 20px;
-  height: 1.5px;
-  background: var(--fg);
-  border-radius: 2px;
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-}
+
 .nav-right-outside {
   display: flex;
   align-items: center;
@@ -340,6 +262,30 @@ button {
   opacity: 0.8;
   transform: scale(0.97);
 }
+
+/* Hamburger — only mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  cursor: none;
+  flex-shrink: 0;
+  pointer-events: all;
+}
+.ham-line {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--fg);
+  border-radius: 2px;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -380,6 +326,132 @@ button {
   font-size: 1rem;
   color: var(--fg3);
   font-weight: 400;
+}
+
+/* ============================================================
+   VERTICAL FLOATING NAV — right side
+   ============================================================ */
+.vertical-nav {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: all;
+}
+
+.vnav-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
+  cursor: none;
+  background: none;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+.vnav-label {
+  font-family: "DM Mono", monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  color: var(--fg2);
+  text-transform: uppercase;
+  white-space: nowrap;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-width 0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(6px);
+  pointer-events: none;
+}
+
+.vnav-item:hover .vnav-label,
+.vnav-item.vnav-active .vnav-label {
+  max-width: 120px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.vnav-num-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--nav-pill);
+  border: 1px solid var(--border2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.10);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+:root.dark .vnav-num-wrap {
+  box-shadow: 0 2px 18px rgba(0,0,0,0.5);
+}
+
+.vnav-item:hover .vnav-num-wrap,
+.vnav-item.vnav-active .vnav-num-wrap {
+  background: var(--fg);
+  border-color: var(--fg);
+  transform: scale(1.1);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.18);
+}
+
+.vnav-num {
+  font-family: "DM Mono", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--fg3);
+  transition: color 0.25s ease;
+  line-height: 1;
+}
+
+.vnav-item:hover .vnav-num,
+.vnav-item.vnav-active .vnav-num {
+  color: var(--bg);
+}
+
+/* Active indicator dot inside circle */
+.vnav-active-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bg);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.vnav-item.vnav-active .vnav-active-dot {
+  opacity: 0;
+}
+
+/* Connector line between nav items */
+.vnav-connector {
+  width: 1px;
+  height: 14px;
+  background: var(--border2);
+  align-self: flex-end;
+  margin-right: 18px;
+  transition: background 0.3s;
 }
 
 /* ============================================================
@@ -461,18 +533,20 @@ button {
 }
 
 /* ============================================================
-   HERO
+   HERO — Redesigned: left-aligned, condensed editorial type
    ============================================================ */
 .hero-section {
-  margin-top: 25px;
   position: relative;
   height: 100vh;
   min-height: 620px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
   overflow: hidden;
   background: var(--bg);
+  /* Reduced left padding so DEVELOPER has room; right padding accounts for vertical nav */
+  padding: 0 80px 0 clamp(28px, 5vw, 72px);
 }
 .hero-grid-bg {
   display: none;
@@ -505,19 +579,23 @@ button {
     transform: translateY(0);
   }
 }
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
+/* Status badge */
 .hero-top-intro {
   position: relative;
   z-index: 3;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  padding-top: clamp(80px, 10vh, 110px);
   font-family: "DM Mono", monospace;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 0.05em;
   color: var(--fg2);
+  margin-bottom: clamp(20px, 3vh, 36px);
   animation: heroFadeUp 0.7s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .hero-top-intro strong {
@@ -533,74 +611,98 @@ button {
   display: inline-block;
   animation: pulseGreen 2.2s ease infinite;
 }
+
+/* Giant condensed editorial title — BRAND DESIGNER style
+   Key: font-size derived so "DEVELOPER" (longest word, 9 chars) fits within
+   available width = 100vw - left_pad - right_nav_space (~130px total).
+   Barlow Condensed 800: avg char width ≈ 0.52em, so 9 chars ≈ 4.68em.
+   font-size = (100vw - 130px) / 4.68 ≈ 21.4vw - 27.8px.
+   We use a safe slightly smaller value: ~18vw to account for letter-spacing variation.
+   WEB will be narrower but that's fine — it gets the decorative script overlay.
+*/
+.hero-title-giant {
+  font-family: "Barlow Condensed", "Oswald", "Anton", sans-serif;
+  font-weight: 800;
+  font-size: clamp(3.5rem, 18vw, 15rem);
+  letter-spacing: -0.025em;
+  color: var(--fg);
+  line-height: 0.9;
+  margin: 0;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.hero-title-ghost {
+  font-family: "Barlow Condensed", "Oswald", "Anton", sans-serif;
+  font-weight: 800;
+  font-size: clamp(3.5rem, 18vw, 15rem);
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+  margin: 0;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(10, 10, 10, 0.15);
+}
+:root.dark .hero-title-ghost {
+  -webkit-text-stroke: 1.5px rgba(240, 240, 240, 0.18);
+}
+
+/* Ensure DEVELOPER line always fits — overflow visible so it can extend */
 .hero-title-block {
   position: relative;
   z-index: 2;
-  text-align: center;
-  padding: 0 48px;
-  margin-top: clamp(6px, 1.5vh, 18px);
+  text-align: left;
   line-height: 1;
-}
-.hero-title-giant {
-  font-family: "Syne", sans-serif;
-  font-weight: 800;
-  font-size: clamp(4rem, 9.5vw, 10rem);
-  letter-spacing: -0.04em;
-  color: var(--fg);
-  line-height: 0.82;
-  margin: 0;
-  white-space: nowrap;
-}
-.hero-title-ghost {
-  font-family: "Syne", sans-serif;
-  font-weight: 800;
-  font-size: clamp(4rem, 9.5vw, 10rem);
-  letter-spacing: -0.04em;
-  line-height: 0.82;
-  margin: 0;
-  white-space: nowrap;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(10, 10, 10, 0.2);
-}
-:root.dark .hero-title-ghost {
-  -webkit-text-stroke: 1.5px rgba(240, 240, 240, 0.22);
+  overflow: visible;
 }
 .hero-title-line {
   overflow: hidden;
   display: block;
+  /* Allow ghost line to overflow right edge decoratively */
+}
+.hero-title-line.ghost-line {
+  overflow: visible;
 }
 .hero-title-inner {
   display: block;
   animation: heroLineUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Italic script name overlay — positioned over the title */
 .hero-name-script {
   position: absolute;
-  left: 37%;
-  top: 40%;
-  transform: translate(-50%, -50%);
+  left: clamp(80px, 12vw, 200px);
+  top: 42%;
+  transform: translateY(-50%);
   z-index: 10;
   white-space: nowrap;
   font-family: "Dancing Script", cursive;
-  font-size: clamp(1.8rem, 4vw, 4.2rem);
+  font-size: clamp(2rem, 4.5vw, 5rem);
   font-style: italic;
-  font-weight: 100;
-  color: rgba(10, 10, 10, 0.22);
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  /* Gold/warm tone to match the reference screenshot */
+  color: #b8935a;
+  letter-spacing: 0.02em;
   line-height: 1;
   pointer-events: none;
   user-select: none;
-  animation: heroFadeUp 0.85s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: heroFadeIn 1.2s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  text-shadow: 0 2px 20px rgba(184, 147, 90, 0.25);
 }
 :root.dark .hero-name-script {
-  color: rgba(240, 240, 240, 0.28);
+  color: #c9a46a;
+  text-shadow: 0 2px 28px rgba(201, 164, 106, 0.3);
 }
+
+/* Tagline below the main heading */
 .hero-tagline-block {
   position: relative;
   z-index: 5;
-  text-align: center;
-  padding: 0 48px;
-  margin-top: clamp(32px, 5vh, 56px);
+  text-align: left;
+  margin-top: clamp(24px, 4vh, 44px);
   animation: heroFadeUp 0.85s 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  max-width: 560px;
 }
 .hero-tagline-main {
   font-family: "DM Mono", monospace;
@@ -612,19 +714,20 @@ button {
 }
 .hero-tagline-sub {
   font-family: "DM Sans", sans-serif;
-  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  font-size: clamp(0.85rem, 1.1vw, 0.98rem);
   color: var(--fg3);
-  line-height: 1.6;
+  line-height: 1.7;
   font-style: italic;
 }
+
+/* CTA buttons */
 .hero-cta-row {
   position: relative;
   z-index: 6;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 14px;
-  margin-top: clamp(20px, 3.5vh, 36px);
+  margin-top: clamp(20px, 3vh, 36px);
   animation: heroFadeUp 0.85s 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .hero-btn-primary {
@@ -680,6 +783,8 @@ button {
 :root.dark .hero-btn-ghost:hover {
   background: rgba(255, 255, 255, 0.06);
 }
+
+/* Bottom bar */
 .hero-bottom-bar {
   position: absolute;
   bottom: 0;
@@ -689,7 +794,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 64px 32px;
+  padding: 0 clamp(28px, 5vw, 72px) 32px;
   animation: heroFadeUp 0.8s 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 .hero-location {
@@ -732,7 +837,7 @@ button {
 .hero-year {
   position: absolute;
   bottom: 36px;
-  right: 64px;
+  right: clamp(32px, 7vw, 96px);
   font-family: "DM Mono", monospace;
   font-size: 0.67rem;
   letter-spacing: 0.1em;
@@ -1864,7 +1969,6 @@ button {
 
 /* ============================================================
    CONTACT — SPLIT REVEAL
-   The center line fades out as the halves split via JS
    ============================================================ */
 .contact-section {
   position: relative;
@@ -1920,7 +2024,6 @@ button {
   padding: 18px 40px 0;
 }
 
-/* Center line — JS controls opacity so it disappears as halves split */
 .contact-center-line {
   position: absolute;
   left: 0;
@@ -2080,7 +2183,7 @@ button {
 }
 
 /* ============================================================
-   FOOTER — giant name decorative, bottom bar in normal flow
+   FOOTER
    ============================================================ */
 .site-footer {
   background: var(--bg2);
@@ -2169,7 +2272,6 @@ button {
   transform: translateY(-3px);
 }
 
-/* ── End zone: flex column so bottom bar sits below the name ── */
 .footer-end-zone {
   border-top: 1px solid var(--border);
   display: flex;
@@ -2178,7 +2280,6 @@ button {
   overflow: hidden;
 }
 
-/* Giant decorative name — fixed height container, name peeks from bottom */
 .footer-giant-name {
   width: 100%;
   height: clamp(80px, 14vw, 140px);
@@ -2206,7 +2307,6 @@ button {
   opacity: 0.09;
 }
 
-/* Bottom bar — sits BELOW in normal document flow, NOT absolutely positioned */
 .footer-bottom {
   position: relative;
   z-index: 2;
@@ -2277,21 +2377,18 @@ button {
   .hamburger {
     display: flex;
   }
-  .nav-btn {
+  .vertical-nav {
     display: none;
   }
   .navbar {
     padding: 14px 18px;
   }
-  .navbar-pill {
-    padding: 7px 7px 7px 18px;
-    justify-content: flex-end;
+  .hero-section {
+    padding: 0 24px;
   }
-  .nav-right-outside {
-    display: none;
-  }
-  .hero-title-block {
-    padding: 0 16px;
+  .hero-title-giant,
+  .hero-title-ghost {
+    font-size: clamp(3rem, 15vw, 7rem);
   }
   .hero-bottom-bar {
     padding: 0 24px 24px;
@@ -2381,7 +2478,7 @@ button {
 @media (max-width: 520px) {
   .hero-title-giant,
   .hero-title-ghost { 
-    font-size: clamp(3rem, 12vw, 5rem);
+    font-size: clamp(2.8rem, 16vw, 5rem);
   }
   .project-card {
     width: 280px;

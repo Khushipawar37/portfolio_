@@ -165,6 +165,39 @@ function IconArrow() {
 }
 
 /* ================================================================
+   VERTICAL FLOATING NAV
+   ================================================================ */
+function VerticalNav({
+  items,
+  activeId,
+  onNav,
+}: {
+  items: typeof NAV_ITEMS;
+  activeId: string;
+  onNav: (id: string) => void;
+}) {
+  return (
+    <nav className="vertical-nav" aria-label="Section navigation">
+      {items.map((item, i) => (
+        <div key={item.id} style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+          {i > 0 && <div className="vnav-connector" />}
+          <button
+            className={`vnav-item${activeId === item.id ? " vnav-active" : ""}`}
+            onClick={() => onNav(item.id)}
+            aria-label={`Navigate to ${item.label}`}
+          >
+            <span className="vnav-label">{item.label}</span>
+            <div className="vnav-num-wrap">
+              <span className="vnav-num">{item.num}</span>
+            </div>
+          </button>
+        </div>
+      ))}
+    </nav>
+  );
+}
+
+/* ================================================================
    MAIN PAGE
    ================================================================ */
 export default function PortfolioPage() {
@@ -172,6 +205,7 @@ export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [navScrolled, setNavScrolled] = useState(false);
   const [activeCat, setActiveCat] = useState(0);
+  const [activeSection, setActiveSection] = useState("");
   const [sent, setSent] = useState(false);
   const [kbToast, setKbToast] = useState("");
   const [kbShow, setKbShow] = useState(false);
@@ -190,7 +224,7 @@ export default function PortfolioPage() {
   const contactTopRef = useRef<HTMLDivElement>(null);
   const contactBotRef = useRef<HTMLDivElement>(null);
   const contactFormRef = useRef<HTMLDivElement>(null);
-  const contactLineRef = useRef<HTMLDivElement>(null);  // ← new ref for center line
+  const contactLineRef = useRef<HTMLDivElement>(null);
   const kbTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const anim = useRef({
@@ -236,6 +270,26 @@ export default function PortfolioPage() {
     };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
+  }, []);
+
+  /* Active section tracking for vertical nav */
+  useEffect(() => {
+    const sectionIds = NAV_ITEMS.map(i => i.id);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" }
+    );
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
   }, []);
 
   /* Scroll handler */
@@ -286,7 +340,7 @@ export default function PortfolioPage() {
     const on = () => document.body.classList.add("cursor-expand");
     const off = () => document.body.classList.remove("cursor-expand");
     const attach = () => {
-      document.querySelectorAll("a,button,.project-card,.skill-item,.edu-card")
+      document.querySelectorAll("a,button,.project-card,.skill-item,.edu-card,.vnav-item")
         .forEach(el => { el.addEventListener("mouseenter", on); el.addEventListener("mouseleave", off); });
     };
     attach();
@@ -305,7 +359,7 @@ export default function PortfolioPage() {
     return () => obs.disconnect();
   }, []);
 
-  /* ── Education bento cards: IntersectionObserver scroll-reveal ── */
+  /* Education bento cards */
   useEffect(() => {
     const obs = new IntersectionObserver(
       entries => entries.forEach(e => {
@@ -366,7 +420,6 @@ export default function PortfolioPage() {
       if (contactTopRef.current) contactTopRef.current.style.transform = `translateY(${-split * 100}%)`;
       if (contactBotRef.current) contactBotRef.current.style.transform = `translateY(${split * 100}%)`;
 
-      /* ── Center line fades out as halves split ── */
       if (contactLineRef.current) {
         const lineOpacity = 1 - clamp(split * 4, 0, 1);
         contactLineRef.current.style.opacity = String(lineOpacity);
@@ -410,29 +463,29 @@ export default function PortfolioPage() {
       <div className="scroll-progress" ref={progressBarRef} />
       <div className={`kb-nav-toast${kbShow ? " show" : ""}`}>{kbToast}</div>
 
-      {/* ══════════════════ NAVBAR ══════════════════ */}
+      {/* ══════════════════ VERTICAL FLOATING NAV ══════════════════ */}
+      <VerticalNav items={NAV_ITEMS} activeId={activeSection} onNav={scrollTo} />
+
+      {/* ══════════════════ NAVBAR (logo + controls only) ══════════════════ */}
       <nav className="navbar">
         <button className="nav-logo-outside" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <span className="nav-logo-dim">&lt;</span>YourName<span className="nav-logo-dim">/&gt;</span>
         </button>
-        <div className={`navbar-pill${navScrolled ? " scrolled" : ""}`}>
-          {NAV_ITEMS.map(item => (
-            <button key={item.id} className="nav-btn" onClick={() => scrollTo(item.id)}>
-              <span className="nav-btn-num">{item.num}</span>
-              {item.label}
-            </button>
-          ))}
-          <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
-            <span className="ham-line" style={{ transform: menuOpen ? "rotate(45deg) translateY(6.5px)" : undefined }} />
-            <span className="ham-line" style={{ opacity: menuOpen ? 0 : 1 }} />
-            <span className="ham-line" style={{ transform: menuOpen ? "rotate(-45deg) translateY(-6.5px)" : undefined }} />
-          </button>
-        </div>
+
+        {/* Hamburger — mobile only */}
+        <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
+          <span className="ham-line" style={{ transform: menuOpen ? "rotate(45deg) translateY(6.5px)" : undefined }} />
+          <span className="ham-line" style={{ opacity: menuOpen ? 0 : 1 }} />
+          <span className="ham-line" style={{ transform: menuOpen ? "rotate(-45deg) translateY(-6.5px)" : undefined }} />
+        </button>
+
         <div className="nav-right-outside">
           <button className="nav-theme-btn" onClick={toggleTheme}>{theme === "dark" ? "☀" : "☾"}</button>
           <button className="nav-hire-outside" onClick={() => scrollTo("contact")}>Hire Me</button>
         </div>
       </nav>
+
+      {/* Mobile menu */}
       <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
         {NAV_ITEMS.map(item => (
           <button key={item.id} className="mobile-nav-btn" onClick={() => scrollTo(item.id)}>
@@ -445,36 +498,48 @@ export default function PortfolioPage() {
         </button>
       </div>
 
-      {/* ══════════════════ HERO ══════════════════ */}
+      {/* ══════════════════ HERO — Redesigned ══════════════════ */}
       <section className="hero-section">
-        <div className="hero-grid-bg" />
+        {/* Status badge */}
         <div className="hero-top-intro">
           <span className="hero-badge-dot" />
-          &nbsp;&nbsp;my name is YourName and I am a&nbsp;<strong>Full Stack Developer</strong>
+          &nbsp;&nbsp;Available for work &nbsp;·&nbsp; <strong>New Delhi, India</strong>
         </div>
+
+        {/* Giant condensed title block */}
         <div className="hero-title-block">
+          {/* Line 1: WEB */}
           <h1 className="hero-title-giant">
             <span className="hero-title-line">
-              <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Full Stack</span>
+              <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span>
             </span>
           </h1>
+
+          {/* Script name overlay — sits between WEB and DEVELOPER */}
           <div className="hero-name-script" aria-hidden="true">AI/ML Enthusiast</div>
+
+          {/* Line 2: DEVELOPER (ghost/outline) */}
           <h2 className="hero-title-ghost">
-            <span className="hero-title-line">
+            <span className="hero-title-line ghost-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
             </span>
           </h2>
         </div>
+
+        {/* Tagline */}
         <div className="hero-tagline-block">
           <p className="hero-tagline-main">Engineering Digital Products — From Logic to Launch.</p>
           <p className="hero-tagline-sub">Full-stack developer building scalable systems with precision and purpose.</p>
         </div>
+
+        {/* CTA buttons */}
         <div className="hero-cta-row">
           <button className="hero-btn-primary" onClick={() => scrollTo("contact")}>Hire Me <IconArrow /></button>
           <button className="hero-btn-ghost" onClick={() => scrollTo("about")}>Read About Me</button>
         </div>
+
+        {/* Bottom bar */}
         <div className="hero-bottom-bar">
-          <div className="hero-location">based in New Delhi, India.</div>
           <div className="hero-scroll-hint-inline">
             <div className="scroll-hint-line" />
             SCROLL
@@ -540,8 +605,6 @@ export default function PortfolioPage() {
             <div className="section-label">EDUCATION</div>
           </div>
           <div className="edu-mosaic">
-
-            {/* ── B.Tech — featured tall card ── */}
             <div className="edu-card edu-card--featured">
               <div className="edu-card-watermark">9.49</div>
               <div>
@@ -559,8 +622,6 @@ export default function PortfolioPage() {
                 <div className="edu-card-score-unit">CGPA</div>
               </div>
             </div>
-
-            {/* ── Class XII ── */}
             <div className="edu-card">
               <div className="edu-card-watermark">95%</div>
               <div className="edu-card-corner-label">Class XII · CBSE</div>
@@ -572,8 +633,6 @@ export default function PortfolioPage() {
                 <div className="edu-card-score-unit">%</div>
               </div>
             </div>
-
-            {/* ── Class X ── */}
             <div className="edu-card">
               <div className="edu-card-watermark">96.6%</div>
               <div className="edu-card-corner-label">Class X · CBSE</div>
@@ -585,7 +644,6 @@ export default function PortfolioPage() {
                 <div className="edu-card-score-unit">%</div>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -815,10 +873,7 @@ export default function PortfolioPage() {
           <div className="contact-bottom-half" ref={contactBotRef}>
             <div className="contact-big-word faded">Something Great.</div>
           </div>
-
-          {/* Center line — fades out via JS as halves split */}
           <div className="contact-center-line" ref={contactLineRef} />
-
           <div className="contact-form-reveal" ref={contactFormRef}
             style={{ opacity: 0, transform: "scale(0.91) translateY(40px)", pointerEvents: "none" }}>
             <div className="contact-form-box">
@@ -885,12 +940,6 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-
-        {/*
-          End zone: flex-column layout
-          1) Giant decorative "Khushi" name (fixed height, decorative)
-          2) Bottom bar below it in normal document flow
-        */}
         <div className="footer-end-zone">
           <div className="footer-giant-name" aria-hidden="true">
             <div className="footer-giant-name-text">Khushi</div>
