@@ -188,7 +188,7 @@ function VerticalNav({
   onNav: (id: string) => void;
 }) {
   // Five diamonds, one per section, evenly spaced on the line
-  const GEM_VH   = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
+  const GEM_VH = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
   const activeIdx = items.findIndex(i => i.id === activeId); // -1 when hero/footer
 
   // inSections: true while any nav section is active
@@ -196,7 +196,7 @@ function VerticalNav({
   const activeGemVh = inSections ? GEM_VH[activeIdx] : null;
 
   // Cross-fade label text (only runs on section change, zero RAF)
-  const [label,    setLabel]    = useState('');
+  const [label, setLabel] = useState('');
   const [labelVis, setLabelVis] = useState(false);
   const prevId = useRef('');
   const t1 = useRef<ReturnType<typeof setTimeout>>();
@@ -234,8 +234,8 @@ function VerticalNav({
        • Active diamond filled, rest hollow
        • Section label appears left of line at active gem Y
   */
-  const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
-  const diamondOpacity = inSections ? 1      : 0;
+  const portfolioTop = inSections ? '8vh' : 'calc(50vh - 40px)';
+  const diamondOpacity = inSections ? 1 : 0;
 
   return (
     <div style={{
@@ -461,7 +461,7 @@ export default function PortfolioPage() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const prog = max > 0 ? sy / max : 0;
       if (progressBarRef.current)
-        progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
+        progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
       setNavScrolled(sy > 50);
 
       if (stackOuterRef.current) {
