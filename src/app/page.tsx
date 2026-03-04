@@ -239,8 +239,8 @@ function VerticalNav({
 
   return (
     <div style={{
-      position: 'fixed', right: 0, top: 0,
-      width: 52, height: '100vh',
+      position: 'fixed', right: 28, top: 0,
+      width: 68, height: '100vh',
       zIndex: 400, pointerEvents: 'none',
     }}>
 
@@ -249,22 +249,22 @@ function VerticalNav({
         position: 'absolute', left: '50%',
         transform: 'translateX(-50%)',
         top: '7vh', height: '87vh',
-        width: 1, background: 'var(--fg)', opacity: 0.2,
+        width: 1.5, background: 'var(--fg)', opacity: 0.45,
       }} />
 
       {/* ── Top dot ── */}
       <div style={{
         position: 'absolute', left: '50%', top: '7vh',
-        width: 3, height: 3, borderRadius: '50%',
-        background: 'var(--fg)', opacity: 0.35,
+        width: 5, height: 5, borderRadius: '50%',
+        background: 'var(--fg)', opacity: 0.6,
         transform: 'translate(-50%,-50%)',
       }} />
 
       {/* ── Bottom dot ── */}
       <div style={{
         position: 'absolute', left: '50%', top: '94vh',
-        width: 3, height: 3, borderRadius: '50%',
-        background: 'var(--fg)', opacity: 0.35,
+        width: 5, height: 5, borderRadius: '50%',
+        background: 'var(--fg)', opacity: 0.6,
         transform: 'translate(-50%,-50%)',
       }} />
 
@@ -277,31 +277,36 @@ function VerticalNav({
         transform: 'translateX(-50%)',
         writingMode: 'vertical-rl',
         fontFamily: '"DM Mono", monospace',
-        fontSize: '0.62rem', letterSpacing: '0.3em',
+        fontSize: '0.75rem', letterSpacing: '0.35em',
         textTransform: 'uppercase',
-        color: 'var(--fg)', opacity: 0.6,
+        color: 'var(--fg)', opacity: 0.85,
         whiteSpace: 'nowrap', userSelect: 'none',
         transition: 'top 0.9s cubic-bezier(0.16,1,0.3,1)',
       }}>
         Portfolio
       </div>
 
-      {/* ── Section name — left of line, at active gem Y ── */}
+      {/* ── Section label: "01 NAME" left of line ── */}
       <div style={{
         position: 'absolute',
-        right: 'calc(50% + 11px)',
+        right: 'calc(50% + 15px)',
         top: activeGemVh !== null ? `${activeGemVh}vh` : '50vh',
         transform: 'translateY(-50%) rotate(180deg)',
         writingMode: 'vertical-rl',
         fontFamily: '"DM Mono", monospace',
-        fontSize: '0.57rem', letterSpacing: '0.18em',
         textTransform: 'uppercase',
         color: 'var(--fg)',
-        opacity: labelVis ? 0.8 : 0,
+        opacity: labelVis ? 1 : 0,
         whiteSpace: 'nowrap', userSelect: 'none',
+        display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 3,
         transition: 'top 0.75s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease',
       }}>
-        {label}
+        <span style={{ fontSize: '0.58rem', letterSpacing: '0.1em', opacity: 0.5 }}>
+          {items[activeIdx]?.num}
+        </span>
+        <span style={{ fontSize: '0.72rem', letterSpacing: '0.22em', opacity: 1 }}>
+          {label}
+        </span>
       </div>
 
       {/* ── Diamonds ── */}
@@ -313,15 +318,20 @@ function VerticalNav({
             onClick={() => items[i] && onNav(items[i].id)}
             style={{
               position: 'absolute', left: '50%', top: `${vh}vh`,
-              width: 9, height: 9,
-              background: active ? 'var(--fg)' : 'transparent',
-              border: active ? 'none' : '1px solid var(--fg)',
-              opacity: diamondOpacity * (active ? 0.9 : 0.38),
-              transform: 'translate(-50%,-50%) rotate(45deg)',
               pointerEvents: 'all', cursor: 'pointer',
-              transition: 'background 0.4s ease, opacity 0.5s ease',
             }}
-          />
+          >
+            {/* Diamond */}
+            <div style={{
+              position: 'absolute',
+              width: 13, height: 13,
+              background: active ? 'var(--fg)' : 'transparent',
+              border: active ? 'none' : '1.5px solid var(--fg)',
+              opacity: diamondOpacity * (active ? 1 : 0.55),
+              transform: 'translate(-50%,-50%) rotate(45deg)',
+              transition: 'background 0.4s ease, opacity 0.5s ease',
+            }} />
+          </div>
         );
       })}
     </div>
