@@ -23,6 +23,16 @@
   --accent: #0a0a0a;
   --green: #16a34a;
   --nav-pill: rgba(245, 245, 245, 0.96);
+
+  /* Diamond nav specific */
+  --dnav-line: rgba(0, 0, 0, 0.2);
+  --dnav-gem: rgba(0, 0, 0, 0.2);
+  --dnav-gem-active: #0a0a0a;
+  --dnav-gem-border: rgba(0, 0, 0, 0.4);
+  --dnav-label-bg: rgba(245, 245, 245, 0.95);
+  --dnav-label-border: rgba(0, 0, 0, 0.1);
+  --dnav-label-color: #3a3a3a;
+  --dnav-line-color: rgba(0,0,0,0.18);
 }
 :root.dark {
   --bg: #0a0a0a;
@@ -41,6 +51,16 @@
   --accent: #f0f0f0;
   --green: #22c55e;
   --nav-pill: rgba(14, 14, 14, 0.97);
+
+  /* Diamond nav specific — dark */
+  --dnav-line: rgba(255, 255, 255, 0.14);
+  --dnav-gem: rgba(255, 255, 255, 0.2);
+  --dnav-gem-active: #d4a960;
+  --dnav-gem-border: rgba(212, 169, 96, 0.5);
+  --dnav-label-bg: rgba(14, 14, 14, 0.96);
+  --dnav-label-border: rgba(255, 255, 255, 0.1);
+  --dnav-label-color: #b8b8b8;
+  --dnav-line-color: rgba(180,140,70,0.45);
 }
 
 /* ============================================================
@@ -213,11 +233,6 @@ button {
   opacity: 0.28;
 }
 
-/* Hide the old pill nav items on desktop — replaced by vertical nav */
-.navbar-pill {
-  display: none;
-}
-
 .nav-right-outside {
   display: flex;
   align-items: center;
@@ -329,132 +344,20 @@ button {
 }
 
 /* ============================================================
-   VERTICAL FLOATING NAV — fixed oval pill, labels float outside
+   VERTICAL NAV — all styling is inline in the React component.
+   Only mobile hide rule needed here.
    ============================================================ */
 
-/* The pill itself — FIXED size, never grows or shrinks */
-.vertical-nav {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 300;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  /* Fixed width so pill never moves */
-  width: 64px;
-  padding: 18px 0;
-  border-radius: 100px;
-  background: rgba(240, 238, 234, 0.88);
-  border: 1px solid rgba(180, 175, 165, 0.5);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow:
-    0 8px 32px rgba(0,0,0,0.14),
-    0 1px 0 rgba(255,255,255,0.7) inset;
-  pointer-events: all;
+/* Hide on mobile */
+@media (max-width: 768px) {
+  [aria-label="Section navigation"] { display: none !important; }
 }
-:root.dark .vertical-nav {
-  background: rgba(28, 26, 24, 0.85);
-  border-color: rgba(90, 84, 75, 0.6);
-  box-shadow:
-    0 8px 36px rgba(0,0,0,0.55),
-    0 1px 0 rgba(255,255,255,0.06) inset;
-}
-
-/* Each item — fixed circle, no expanding */
-.vnav-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: none;
-  background: none;
-  border: none;
-  padding: 0;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-}
-
-/* The circle number badge */
-.vnav-num-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1.5px solid rgba(150, 144, 135, 0.5);
-  transition:
-    background 0.22s ease,
-    border-color 0.22s ease,
-    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.22s ease;
-  flex-shrink: 0;
-}
-.vnav-item:hover .vnav-num-wrap,
-.vnav-item.vnav-active .vnav-num-wrap {
-  background: var(--fg);
-  border-color: var(--fg);
-  transform: scale(1.08);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.24);
-}
-
-.vnav-num {
-  font-family: "DM Mono", monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.05em;
-  color: var(--fg3);
-  transition: color 0.22s ease;
-  line-height: 1;
-}
-.vnav-item:hover .vnav-num,
-.vnav-item.vnav-active .vnav-num {
-  color: var(--bg);
-}
-
-/* Label — absolutely positioned OUTSIDE the pill to the left.
-   The pill never knows it exists — zero layout impact. */
-.vnav-label {
-  position: absolute;
-  right: calc(100% + 12px);
-  top: 50%;
-  transform: translateY(-50%) translateX(8px);
-  font-family: "DM Mono", monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.13em;
-  color: var(--fg2);
-  text-transform: uppercase;
-  white-space: nowrap;
-  background: var(--nav-pill);
-  border: 1px solid var(--border2);
-  padding: 5px 12px;
-  border-radius: 100px;
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 0.25s ease,
-    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.vnav-item:hover .vnav-label,
-.vnav-item.vnav-active .vnav-label {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-}
-
-/* No connectors */
-.vnav-connector { display: none; }
-.vnav-active-dot { display: none; }
-
 
 /* ============================================================
    SECTION UTILS
+
+
+
    ============================================================ */
 .section-label {
   font-family: "DM Mono", monospace;
@@ -2401,7 +2304,8 @@ button {
   .hamburger {
     display: flex;
   }
-  .vertical-nav {
+  /* Hide vertical diamond nav on mobile */
+  .diamond-nav, .dnav-category, .dnav-section-name, .dnav-line, .dnav-gems {
     display: none;
   }
   .navbar {
@@ -2510,4 +2414,4 @@ button {
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-} 
+}

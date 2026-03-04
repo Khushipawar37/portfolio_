@@ -165,37 +165,168 @@ function IconArrow() {
 }
 
 /* ================================================================
-   VERTICAL FLOATING NAV — fixed oval pill, labels float outside
+   VERTICAL NAV — exact pixel-accurate recreation from video
+   
+   From frame-by-frame analysis of the reference video:
+   
+   STRUCTURE (always rendered):
+   • 1px SVG line: 7vh → 94vh  
+   • Dot at 7vh (top) and 94vh (bottom)
+   • "Portfolio" label: vertical text, top=7vh normally, slides to
+     ~42vh (center) only at END of page
+   • 5 diamond gems at fixed Y: 33, 42, 51, 61, 70 vh
+     - Active: filled solid  
+     - Inactive: hollow outline, slightly dimmer
+   • Section name: vertical text, LEFT of line, centered at active
+     gem's Y position, cross-fades on section change
    ================================================================ */
 function VerticalNav({
-  items,
-  activeId,
-  onNav,
+  items, activeId, onNav,
 }: {
   items: typeof NAV_ITEMS;
-  activeId: string;
+  activeId: string;        // "" = hero/footer,  "about"|"stack"... = section
   onNav: (id: string) => void;
 }) {
+  // Five diamonds, one per section, evenly spaced on the line
+  const GEM_VH   = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
+  const activeIdx = items.findIndex(i => i.id === activeId); // -1 when hero/footer
+
+  // inSections: true while any nav section is active
+  const inSections = activeIdx >= 0;
+  const activeGemVh = inSections ? GEM_VH[activeIdx] : null;
+
+  // Cross-fade label text (only runs on section change, zero RAF)
+  const [label,    setLabel]    = useState('');
+  const [labelVis, setLabelVis] = useState(false);
+  const prevId = useRef('');
+  const t1 = useRef<ReturnType<typeof setTimeout>>();
+  const t2 = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    if (!activeId) {
+      // hero or footer — hide label
+      prevId.current = '';
+      clearTimeout(t1.current); clearTimeout(t2.current);
+      setLabelVis(false);
+      return;
+    }
+    const it = items.find(i => i.id === activeId);
+    if (!it || activeId === prevId.current) return;
+    prevId.current = activeId;
+    clearTimeout(t1.current); clearTimeout(t2.current);
+    setLabelVis(false);
+    t1.current = setTimeout(() => {
+      setLabel(it.label.toUpperCase());
+      t2.current = setTimeout(() => setLabelVis(true), 40);
+    }, 240);
+  }, [activeId, items]);
+
+  /* ── Three visual states ──
+     HERO / FOOTER  (inSections=false):
+       • "Portfolio" centered (top=50vh, shifted up by half its own height)
+       • Line passes through it like a strikethrough
+       • Diamonds hidden (opacity 0)
+       • Section label hidden
+
+     IN SECTIONS  (inSections=true):
+       • "Portfolio" moves to TOP of line (top=8vh)
+       • Diamonds appear (opacity transition)
+       • Active diamond filled, rest hollow
+       • Section label appears left of line at active gem Y
+  */
+  const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
+  const diamondOpacity = inSections ? 1      : 0;
+
   return (
-    <nav className="vertical-nav" aria-label="Section navigation">
-      {items.map((item) => (
-        <button
-          key={item.id}
-          className={`vnav-item${activeId === item.id ? " vnav-active" : ""}`}
-          onClick={() => onNav(item.id)}
-          aria-label={`Navigate to ${item.label}`}
-        >
-          {/* Label floats absolutely outside the pill — never affects pill size */}
-          <span className="vnav-label">{item.label}</span>
-          <div className="vnav-num-wrap">
-            <span className="vnav-num">{item.num}</span>
-          </div>
-        </button>
-      ))}
-    </nav>
+    <div style={{
+      position: 'fixed', right: 0, top: 0,
+      width: 52, height: '100vh',
+      zIndex: 400, pointerEvents: 'none',
+    }}>
+
+      {/* ── 1px vertical line (always) ── */}
+      <div style={{
+        position: 'absolute', left: '50%',
+        transform: 'translateX(-50%)',
+        top: '7vh', height: '87vh',
+        width: 1, background: 'var(--fg)', opacity: 0.2,
+      }} />
+
+      {/* ── Top dot ── */}
+      <div style={{
+        position: 'absolute', left: '50%', top: '7vh',
+        width: 3, height: 3, borderRadius: '50%',
+        background: 'var(--fg)', opacity: 0.35,
+        transform: 'translate(-50%,-50%)',
+      }} />
+
+      {/* ── Bottom dot ── */}
+      <div style={{
+        position: 'absolute', left: '50%', top: '94vh',
+        width: 3, height: 3, borderRadius: '50%',
+        background: 'var(--fg)', opacity: 0.35,
+        transform: 'translate(-50%,-50%)',
+      }} />
+
+      {/* ── "Portfolio" label ──
+          Hero/Footer: sits at ~50vh — line strikes through it
+          Sections:    slides up to 8vh                           */}
+      <div style={{
+        position: 'absolute', left: '50%',
+        top: portfolioTop,
+        transform: 'translateX(-50%)',
+        writingMode: 'vertical-rl',
+        fontFamily: '"DM Mono", monospace',
+        fontSize: '0.62rem', letterSpacing: '0.3em',
+        textTransform: 'uppercase',
+        color: 'var(--fg)', opacity: 0.6,
+        whiteSpace: 'nowrap', userSelect: 'none',
+        transition: 'top 0.9s cubic-bezier(0.16,1,0.3,1)',
+      }}>
+        Portfolio
+      </div>
+
+      {/* ── Section name — left of line, at active gem Y ── */}
+      <div style={{
+        position: 'absolute',
+        right: 'calc(50% + 11px)',
+        top: activeGemVh !== null ? `${activeGemVh}vh` : '50vh',
+        transform: 'translateY(-50%) rotate(180deg)',
+        writingMode: 'vertical-rl',
+        fontFamily: '"DM Mono", monospace',
+        fontSize: '0.57rem', letterSpacing: '0.18em',
+        textTransform: 'uppercase',
+        color: 'var(--fg)',
+        opacity: labelVis ? 0.8 : 0,
+        whiteSpace: 'nowrap', userSelect: 'none',
+        transition: 'top 0.75s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease',
+      }}>
+        {label}
+      </div>
+
+      {/* ── Diamonds ── */}
+      {GEM_VH.map((vh, i) => {
+        const active = i === activeIdx;
+        return (
+          <div
+            key={i}
+            onClick={() => items[i] && onNav(items[i].id)}
+            style={{
+              position: 'absolute', left: '50%', top: `${vh}vh`,
+              width: 9, height: 9,
+              background: active ? 'var(--fg)' : 'transparent',
+              border: active ? 'none' : '1px solid var(--fg)',
+              opacity: diamondOpacity * (active ? 0.9 : 0.38),
+              transform: 'translate(-50%,-50%) rotate(45deg)',
+              pointerEvents: 'all', cursor: 'pointer',
+              transition: 'background 0.4s ease, opacity 0.5s ease',
+            }}
+          />
+        );
+      })}
+    </div>
   );
 }
-
 /* ================================================================
    MAIN PAGE
    ================================================================ */
@@ -273,22 +404,44 @@ export default function PortfolioPage() {
 
   /* Active section tracking for vertical nav */
   useEffect(() => {
-    const sectionIds = NAV_ITEMS.map(i => i.id);
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" }
-    );
-    sectionIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) obs.observe(el);
-    });
-    return () => obs.disconnect();
+    const lastActive = { current: "" };
+
+    const update = () => {
+      const vh = window.innerHeight;
+
+      // Hero still visible (bottom still above midpoint) → collapsed
+      const heroEl = document.querySelector(".hero-section") as HTMLElement | null;
+      if (heroEl && heroEl.getBoundingClientRect().bottom > vh * 0.55) {
+        if (lastActive.current !== "") { lastActive.current = ""; setActiveSection(""); }
+        return;
+      }
+
+      // Footer entering view → collapsed
+      const footerEl = document.querySelector(".site-footer") as HTMLElement | null;
+      if (footerEl && footerEl.getBoundingClientRect().top < vh * 0.9) {
+        if (lastActive.current !== "") { lastActive.current = ""; setActiveSection(""); }
+        return;
+      }
+
+      // Walk sections in reverse — last one whose top has passed 60% vh is active
+      let active = "";
+      for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(NAV_ITEMS[i].id);
+        if (el && el.getBoundingClientRect().top < vh * 0.6) {
+          active = NAV_ITEMS[i].id;
+          break;
+        }
+      }
+
+      if (active !== lastActive.current) {
+        lastActive.current = active;
+        setActiveSection(active);
+      }
+    };
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   /* Scroll handler */
@@ -296,8 +449,9 @@ export default function PortfolioPage() {
     const h = () => {
       const sy = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
+      const prog = max > 0 ? sy / max : 0;
       if (progressBarRef.current)
-        progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
+        progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
       setNavScrolled(sy > 50);
 
       if (stackOuterRef.current) {
@@ -339,7 +493,7 @@ export default function PortfolioPage() {
     const on = () => document.body.classList.add("cursor-expand");
     const off = () => document.body.classList.remove("cursor-expand");
     const attach = () => {
-      document.querySelectorAll("a,button,.project-card,.skill-item,.edu-card,.vnav-item")
+      document.querySelectorAll("a,button,.project-card,.skill-item,.edu-card,.diamond-nav-item")
         .forEach(el => { el.addEventListener("mouseenter", on); el.addEventListener("mouseleave", off); });
     };
     attach();
@@ -462,7 +616,7 @@ export default function PortfolioPage() {
       <div className="scroll-progress" ref={progressBarRef} />
       <div className={`kb-nav-toast${kbShow ? " show" : ""}`}>{kbToast}</div>
 
-      {/* ══════════════════ VERTICAL FLOATING NAV ══════════════════ */}
+      {/* ══════════════════ ANIMATED VERTICAL NAV ══════════════════ */}
       <VerticalNav items={NAV_ITEMS} activeId={activeSection} onNav={scrollTo} />
 
       {/* ══════════════════ NAVBAR (logo + controls only) ══════════════════ */}
