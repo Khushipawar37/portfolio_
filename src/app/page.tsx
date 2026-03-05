@@ -188,7 +188,7 @@ function VerticalNav({
   onNav: (id: string) => void;
 }) {
   // Five diamonds, one per section, evenly spaced on the line
-  const GEM_VH = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
+  const GEM_VH   = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
   const activeIdx = items.findIndex(i => i.id === activeId); // -1 when hero/footer
 
   // inSections: true while any nav section is active
@@ -196,7 +196,7 @@ function VerticalNav({
   const activeGemVh = inSections ? GEM_VH[activeIdx] : null;
 
   // Cross-fade label text (only runs on section change, zero RAF)
-  const [label, setLabel] = useState('');
+  const [label,    setLabel]    = useState('');
   const [labelVis, setLabelVis] = useState(false);
   const prevId = useRef('');
   const t1 = useRef<ReturnType<typeof setTimeout>>();
@@ -234,8 +234,8 @@ function VerticalNav({
        • Active diamond filled, rest hollow
        • Section label appears left of line at active gem Y
   */
-  const portfolioTop = inSections ? '8vh' : 'calc(50vh - 40px)';
-  const diamondOpacity = inSections ? 1 : 0;
+  const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
+  const diamondOpacity = inSections ? 1      : 0;
 
   return (
     <div style={{
@@ -461,7 +461,7 @@ export default function PortfolioPage() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const prog = max > 0 ? sy / max : 0;
       if (progressBarRef.current)
-        progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
+        progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
       setNavScrolled(sy > 50);
 
       if (stackOuterRef.current) {
@@ -765,87 +765,6 @@ export default function PortfolioPage() {
           ))}
         </ul>
 
-        {/* ══ EDUCATION — BENTO MOSAIC ══ */}
-        <div className="education-wrap">
-          <div className="edu-section-header">
-            <div className="section-label">EDUCATION</div>
-          </div>
-          <div className="edu-mosaic">
-            <div className="edu-card edu-card--featured">
-              <div className="edu-card-watermark">9.49</div>
-              <div>
-                <div className="edu-badge">
-                  <span className="edu-badge-dot" />
-                  Currently Enrolled
-                </div>
-                <div className="edu-card-label">2023 — 2027</div>
-                <div className="edu-card-degree">B.Tech · Computer Science Engineering</div>
-                <div className="edu-card-school">Maharaja Surajmal Institute of Technology</div>
-                <div className="edu-card-location">Delhi, India</div>
-              </div>
-              <div className="edu-card-score-block">
-                <div className="edu-card-score-num">9.49</div>
-                <div className="edu-card-score-unit">CGPA</div>
-              </div>
-            </div>
-            <div className="edu-card">
-              <div className="edu-card-watermark">95%</div>
-              <div className="edu-card-corner-label">Class XII · CBSE</div>
-              <div className="edu-card-label" style={{ marginTop: 28 }}>Senior Secondary</div>
-              <div className="edu-card-degree">Holy Child Auxilium School</div>
-              <div className="edu-card-location">New Delhi</div>
-              <div className="edu-card-score-block">
-                <div className="edu-card-score-num">95</div>
-                <div className="edu-card-score-unit">%</div>
-              </div>
-            </div>
-            <div className="edu-card">
-              <div className="edu-card-watermark">96.6%</div>
-              <div className="edu-card-corner-label">Class X · CBSE</div>
-              <div className="edu-card-label" style={{ marginTop: 28 }}>Secondary</div>
-              <div className="edu-card-degree">Holy Child Auxilium School</div>
-              <div className="edu-card-location">New Delhi</div>
-              <div className="edu-card-score-block">
-                <div className="edu-card-score-num">96.6</div>
-                <div className="edu-card-score-unit">%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="about-info-strip">
-          <div className="info-strip-item">
-            <span className="info-strip-icon">📍</span>
-            <div>
-              <div className="info-strip-label">LOCATION</div>
-              <div className="info-strip-value">New Delhi, India</div>
-            </div>
-          </div>
-          <div className="info-strip-divider" />
-          <div className="info-strip-item">
-            <span className="info-strip-icon">🟢</span>
-            <div>
-              <div className="info-strip-label">AVAILABILITY</div>
-              <div className="info-strip-value">Open to Work</div>
-            </div>
-          </div>
-          <div className="info-strip-divider" />
-          <div className="info-strip-item">
-            <span className="info-strip-icon">🕐</span>
-            <div>
-              <div className="info-strip-label">HOURS</div>
-              <div className="info-strip-value">Flexible · Full-time & Freelance</div>
-            </div>
-          </div>
-          <div className="info-strip-divider" />
-          <div className="info-strip-item">
-            <span className="info-strip-icon">🌐</span>
-            <div>
-              <div className="info-strip-label">REMOTE</div>
-              <div className="info-strip-value">Yes, worldwide</div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* ══════════════════ TECH STACK ══════════════════ */}
@@ -972,8 +891,67 @@ export default function PortfolioPage() {
               </div>
             ))}
           </div>
+          {/* ══ EDUCATION ══ */}
+          <div className="edu-divider-band">
+            <div className="edu-divider-line" />
+            <span className="edu-divider-label">Education</span>
+            <div className="edu-divider-line" />
+          </div>
+          <div className="edu-rows-wrap reveal" style={{ marginTop: 0, paddingBottom: 80 }}>
+            <div className="edu-rows-header">
+              <span className="section-label">Academic Background</span>
+            </div>
+            <div className="edu-row edu-row--primary reveal">
+              <div className="edu-row-left">
+                <span className="edu-row-badge">
+                  <span className="edu-row-badge-dot" />
+                  Current
+                </span>
+                <div className="edu-row-year">2023 — 2027</div>
+              </div>
+              <div className="edu-row-center">
+                <div className="edu-row-degree">B.Tech · Computer Science Engineering</div>
+                <div className="edu-row-school">Maharaja Surajmal Institute of Technology · Delhi, India</div>
+              </div>
+              <div className="edu-row-right">
+                <div className="edu-row-score">9.49</div>
+                <div className="edu-row-score-unit">CGPA</div>
+              </div>
+            </div>
+            <div className="edu-row-divider" />
+            <div className="edu-row reveal">
+              <div className="edu-row-left">
+                <div className="edu-row-tag">Class XII · CBSE</div>
+                <div className="edu-row-year">Senior Secondary</div>
+              </div>
+              <div className="edu-row-center">
+                <div className="edu-row-degree">Holy Child Auxilium School</div>
+                <div className="edu-row-school">New Delhi, India</div>
+              </div>
+              <div className="edu-row-right">
+                <div className="edu-row-score">95</div>
+                <div className="edu-row-score-unit">%</div>
+              </div>
+            </div>
+            <div className="edu-row-divider" />
+            <div className="edu-row reveal">
+              <div className="edu-row-left">
+                <div className="edu-row-tag">Class X · CBSE</div>
+                <div className="edu-row-year">Secondary</div>
+              </div>
+              <div className="edu-row-center">
+                <div className="edu-row-degree">Holy Child Auxilium School</div>
+                <div className="edu-row-school">New Delhi, India</div>
+              </div>
+              <div className="edu-row-right">
+                <div className="edu-row-score">96.6</div>
+                <div className="edu-row-score-unit">%</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
 
       {/* ══════════════════ RESUME ══════════════════ */}
       <section id="resume" className="resume-section">
@@ -989,10 +967,10 @@ export default function PortfolioPage() {
               </div>
               <div className="resume-highlights reveal d1">
                 {[
-                  { icon: "🎓", title: "B.Tech Computer Science", sub: "XYZ University · 2016–2020" },
-                  { icon: "🏆", title: "AWS Certified Developer", sub: "Amazon Web Services · 2022" },
-                  { icon: "📘", title: "Meta Frontend Certificate", sub: "Coursera · 2021" },
-                  { icon: "✍️", title: "Tech Blog Author", sub: "3,000+ monthly readers" },
+                  { icon: "🎓", title: "B.Tech Computer Science", sub: "MSIT · 2023–2027" },
+                  { icon: "🏆", title: "Research Intern", sub: "IIT Delhi · MEC Simulation" },
+                  { icon: "💡", title: "Full Stack Projects", sub: "CareerCompass · Notivio · More" },
+                  { icon: "⚡", title: "9.49 CGPA", sub: "Consistent Academic Excellence" },
                 ].map(h => (
                   <div key={h.title} className="resume-highlight-item">
                     <div className="rh-icon">{h.icon}</div>
@@ -1007,33 +985,34 @@ export default function PortfolioPage() {
             <div className="resume-mock-card reveal from-right">
               <div className="resume-mock-header">
                 <div>
-                  <div className="resume-name">Your Name</div>
+                  <div className="resume-name">Khushi</div>
                   <div className="resume-role-sub">Full Stack Developer</div>
                 </div>
                 <div className="resume-contact-block">
-                  you@email.com<br />linkedin.com/in/yourname<br />github.com/yourname<br />+1 (555) 000-0000
+                  you@email.com<br />linkedin.com/in/yourname<br />github.com/yourname<br />New Delhi, India
                 </div>
               </div>
               <div className="rm-section-head">Experience</div>
               <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">Senior Full Stack Engineer · Veritas Tech</span><span className="rm-entry-date">2023–Now</span></div>
-                <div className="rm-entry-sub">Led microservices migration, 60% performance improvement, CI/CD pipeline from scratch.</div>
+                <div className="rm-entry-row"><span className="rm-entry-title">Research Intern · IIT Delhi</span><span className="rm-entry-date">2024</span></div>
+                <div className="rm-entry-sub">MEC simulation system — edge computing, network latency optimisation.</div>
+              </div>
+              <div className="rm-section-head">Projects</div>
+              <div className="rm-entry">
+                <div className="rm-entry-row"><span className="rm-entry-title">CareerCompass — AI Career Platform</span><span className="rm-entry-date">2024</span></div>
+                <div className="rm-entry-sub">MERN + LangChain · resume analysis, job matching, interview prep.</div>
               </div>
               <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">Full Stack Developer · Axiom Labs</span><span className="rm-entry-date">2021–2023</span></div>
-                <div className="rm-entry-sub">TypeScript adoption across 3 SaaS products, reusable component library, 40% bug rate reduction.</div>
-              </div>
-              <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">Frontend Developer · Freelance</span><span className="rm-entry-date">2020–2021</span></div>
-                <div className="rm-entry-sub">15+ client projects across fintech, healthcare, e-commerce.</div>
+                <div className="rm-entry-row"><span className="rm-entry-title">Notivio — Smart Notification SaaS</span><span className="rm-entry-date">2023</span></div>
+                <div className="rm-entry-sub">Next.js · multi-channel notifications, real-time dashboard.</div>
               </div>
               <div className="rm-section-head">Education</div>
               <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">B.Tech Computer Science · XYZ University</span><span className="rm-entry-date">2016–2020</span></div>
+                <div className="rm-entry-row"><span className="rm-entry-title">B.Tech CSE · MSIT Delhi</span><span className="rm-entry-date">2023–2027</span></div>
               </div>
               <div className="rm-section-head">Core Skills</div>
               <div className="rm-tags-row">
-                {["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "AWS", "Docker", "GraphQL", "Python", "Redis"].map(s => (
+                {["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "MongoDB", "Docker", "AWS", "Python", "LangChain"].map(s => (
                   <span key={s} className="tag-pill">{s}</span>
                 ))}
               </div>
@@ -1066,7 +1045,15 @@ export default function PortfolioPage() {
               <div className="contact-form-grid">
                 <div>
                   <div className="contact-left-heading">Let&apos;s build<br />something<br /><span style={{ opacity: 0.22 }}>great.</span></div>
-                  <div className="contact-left-desc">Open to full-time roles, freelance projects, and interesting collaborations. If you have something in mind, I&apos;d love to hear it.</div>
+                  <div className="contact-otw-inline">
+                    <span className="contact-otw-signal"><span className="contact-otw-dot" />Available Now</span>
+                    <div className="contact-otw-chips">
+                      <span className="otw-chip">Internship</span>
+                      <span className="otw-chip">Freelance</span>
+                      <span className="otw-chip">Full-time</span>
+                    </div>
+                  </div>
+                  <div className="contact-left-desc">Open to full-stack roles, freelance projects, and interesting collaborations. If you have something in mind, I&apos;d love to hear it.</div>
                   <div className="contact-info-links">
                     <a href="mailto:you@email.com" className="contact-info-link"><IconMail /> you@email.com</a>
                     <a href="#" className="contact-info-link"><IconLinkedIn /> linkedin.com/in/yourname</a>
