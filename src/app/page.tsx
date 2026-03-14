@@ -123,11 +123,6 @@ const EXPERIENCES = [
     desc: "Developed and maintained 3 production SaaS products. Introduced TypeScript across the codebase, reducing the bug rate by 40%. Built a reusable component library adopted by 8 product teams.",
     skills: ["React", "Node.js", "TypeScript", "GraphQL"],
   },
-  {
-    period: "2020 — 2021", company: "Freelance", role: "Frontend Developer",
-    desc: "Delivered 15+ projects for clients across fintech, healthcare, and e-commerce. Specialized in React SPAs and interactive data visualizations built with D3.js.",
-    skills: ["React", "Vue", "D3.js", "Firebase"],
-  },
 ];
 
 /* ================================================================
@@ -188,7 +183,7 @@ function VerticalNav({
   onNav: (id: string) => void;
 }) {
   // Five diamonds, one per section, evenly spaced on the line
-  const GEM_VH = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
+  const GEM_VH   = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
   const activeIdx = items.findIndex(i => i.id === activeId); // -1 when hero/footer
 
   // inSections: true while any nav section is active
@@ -196,7 +191,7 @@ function VerticalNav({
   const activeGemVh = inSections ? GEM_VH[activeIdx] : null;
 
   // Cross-fade label text (only runs on section change, zero RAF)
-  const [label, setLabel] = useState('');
+  const [label,    setLabel]    = useState('');
   const [labelVis, setLabelVis] = useState(false);
   const prevId = useRef('');
   const t1 = useRef<ReturnType<typeof setTimeout>>();
@@ -234,8 +229,8 @@ function VerticalNav({
        • Active diamond filled, rest hollow
        • Section label appears left of line at active gem Y
   */
-  const portfolioTop = inSections ? '8vh' : 'calc(50vh - 40px)';
-  const diamondOpacity = inSections ? 1 : 0;
+  const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
+  const diamondOpacity = inSections ? 1      : 0;
 
   return (
     <div style={{
@@ -360,6 +355,8 @@ export default function PortfolioPage() {
   const projOuterRef = useRef<HTMLDivElement>(null);
   const projTrackRef = useRef<HTMLDivElement>(null);
   const projFillRef = useRef<HTMLDivElement>(null);
+  const eduParallaxRef      = useRef<HTMLDivElement>(null);
+  const eduParallaxInnerRef = useRef<HTMLDivElement>(null);
   const contactOuterRef = useRef<HTMLDivElement>(null);
   const contactTopRef = useRef<HTMLDivElement>(null);
   const contactBotRef = useRef<HTMLDivElement>(null);
@@ -371,6 +368,7 @@ export default function PortfolioPage() {
     mx: 0, my: 0, rx: 0, ry: 0,
     stackT: 0, stackC: 0,
     projT: 0, projC: 0,
+    eduT: 0, eduC: 0,
     contT: 0, contC: 0,
     prevCat: -1,
   });
@@ -461,8 +459,15 @@ export default function PortfolioPage() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const prog = max > 0 ? sy / max : 0;
       if (progressBarRef.current)
-        progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
+        progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
       setNavScrolled(sy > 50);
+
+      // Experience sticky 3D — progress 0→1 as section scrolls through
+      if (eduParallaxRef.current) {
+        const r = eduParallaxRef.current.getBoundingClientRect();
+        const ht = eduParallaxRef.current.offsetHeight - window.innerHeight;
+        anim.current.eduT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1);
+      }
 
       if (stackOuterRef.current) {
         const r = stackOuterRef.current.getBoundingClientRect();
@@ -570,10 +575,26 @@ export default function PortfolioPage() {
       /* Projects horizontal scroll */
       a.projC = lerp(a.projC, a.projT, 0.075);
       if (projTrackRef.current) {
-        const totalW = PROJECTS.length * CARD_W - 22 - (window.innerWidth - 160);
-        projTrackRef.current.style.transform = `translateX(${-a.projC * Math.max(0, totalW)}px)`;
+        // Each slide is 100vw wide; scroll through all slides
+        const totalW = (PROJECTS.length - 1) * window.innerWidth;
+        projTrackRef.current.style.transform = `translateX(${-a.projC * totalW}px)`;
       }
       if (projFillRef.current) projFillRef.current.style.width = (a.projC * 100) + "%";
+
+      /* Experience — smooth 3D entry */
+      a.eduC = lerp(a.eduC, a.eduT, 0.08);
+      if (eduParallaxInnerRef.current) {
+        const p = a.eduC;
+        const entry  = Math.min(p / 0.6, 1);
+        const eased  = entry < 1 ? 1 - Math.pow(1 - entry, 2.5) : 1;
+        const rotX   = (1 - eased) * -16;
+        const transY = (1 - eased) * 72;
+        const sc     = 0.84 + eased * 0.16;
+        const op     = clamp(p / 0.12, 0, 1);
+        eduParallaxInnerRef.current.style.transform =
+          `rotateX(${rotX}deg) translateY(${transY}px) scale(${sc})`;
+        eduParallaxInnerRef.current.style.opacity = String(op);
+      }
 
       /* Contact split */
       a.contC = lerp(a.contC, a.contT, 0.065);
@@ -814,55 +835,126 @@ export default function PortfolioPage() {
       </div>
 
       {/* ══════════════════ PROJECTS ══════════════════ */}
-      <div id="work" className="projects-section" ref={projOuterRef} style={{ height: `${PROJECTS.length * 88 + 100}vh` }}>
+      <div id="work" className="projects-section" ref={projOuterRef} style={{ height: `${PROJECTS.length * 100}vh` }}>
         <div className="projects-sticky">
-          <div className="projects-header">
-            <div>
-              <div className="section-num-wrap">
-                <span className="section-num">03</span>
-                <div className="section-num-content">
-                  <div className="section-label">FEATURED PROJECTS</div>
-                  <h2 className="section-title">My Work</h2>
-                </div>
-              </div>
+          {/* Section heading */}
+          <div className="proj-heading-wrap">
+            <div className="proj-section-label">
+              <span className="section-num">03</span>
+              <span className="section-label">FEATURED WORK</span>
             </div>
-            <span className="projects-count-badge">
-              {String(PROJECTS.length).padStart(2, "0")} Projects &nbsp;·&nbsp; Scroll to explore →
-            </span>
+            <h2 className="proj-main-heading">My Work</h2>
           </div>
-          <div className="projects-track" ref={projTrackRef}>
-            {PROJECTS.map(p => (
-              <div key={p.num} className="project-card">
-                <div className="project-thumb">
-                  <div className="project-emoji">{p.emoji}</div>
-                  <span className="project-card-num">{p.num}</span>
+
+          {/* Progress bar */}
+          <div className="proj-progress-bar">
+            <div className="proj-progress-fill" ref={projFillRef} style={{ width: "0%" }} />
+          </div>
+
+          {/* Fullscreen slide track */}
+          <div className="proj-track" ref={projTrackRef}>
+            {PROJECTS.map((p, i) => (
+              <div key={p.num} className="proj-slide">
+                {/* Background — full viewport image placeholder with emoji */}
+                <div className="proj-slide-bg">
+                  <div className="proj-slide-emoji-bg">{p.emoji}</div>
+                  <div className="proj-slide-bg-overlay" />
                 </div>
-                <div className="project-body">
-                  <div className="project-tags">
-                    {p.tags.map(t => <span key={t} className="tag-pill">{t}</span>)}
-                  </div>
-                  <div className="project-title">{p.title}</div>
-                  <div className="project-desc">{p.desc}</div>
-                  <div className="project-links">
-                    <a href={p.github} className="project-link">
-                      <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                        <IconGitHub /> View on GitHub
-                      </span>
+
+                {/* Right side — big number */}
+                <div className="proj-slide-num">{p.num}</div>
+
+                {/* Bottom overlay — title, desc, tags, link */}
+                <div className="proj-slide-info">
+                  <div className="proj-slide-title">{p.title}</div>
+                  <div className="proj-slide-desc">{p.desc}</div>
+                  <div className="proj-slide-footer">
+                    <div className="proj-slide-tags">
+                      {p.tags.map(t => <span key={t} className="proj-slide-tag">{t}</span>)}
+                    </div>
+                    <a href={p.github} className="proj-slide-link">
+                      <IconGitHub /> GitHub
                     </a>
                   </div>
+                </div>
+
+                {/* Slide counter */}
+                <div className="proj-slide-counter">
+                  {String(i + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
                 </div>
               </div>
             ))}
           </div>
-          <div className="projects-progress-wrap">
-            <div className="projects-progress-fill" ref={projFillRef} style={{ width: "0%" }} />
+        </div>
+      </div>
+
+      {/* ══════════════════ EDUCATION — sticky 3D section ══════════════════ */}
+      <div className="edu-scene-outer" style={{ height: "160vh" }}>
+        <div className="edu-scene-sticky">
+          <div className="edu-scene-panel" ref={eduParallaxInnerRef} style={{ opacity: 1, transform: "none" }}>
+            {/* Section label */}
+            <div className="edu-scene-header">
+              <div className="section-label">ACADEMIC BACKGROUND</div>
+              <h2 className="section-title">Education</h2>
+            </div>
+            {/* Rows */}
+            <div className="edu-rows-wrap" style={{ marginTop: 48, paddingBottom: 0 }}>
+              <div className="edu-row edu-row--primary">
+                <div className="edu-row-left">
+                  <span className="edu-row-badge">
+                    <span className="edu-row-badge-dot" />
+                    Current
+                  </span>
+                  <div className="edu-row-year">2023 — 2027</div>
+                </div>
+                <div className="edu-row-center">
+                  <div className="edu-row-degree">B.Tech · Computer Science Engineering</div>
+                  <div className="edu-row-school">Maharaja Surajmal Institute of Technology · Delhi, India</div>
+                </div>
+                <div className="edu-row-right">
+                  <div className="edu-row-score">9.49</div>
+                  <div className="edu-row-score-unit">CGPA</div>
+                </div>
+              </div>
+              <div className="edu-row-divider" />
+              <div className="edu-row">
+                <div className="edu-row-left">
+                  <div className="edu-row-tag">Class XII · CBSE</div>
+                  <div className="edu-row-year">Senior Secondary</div>
+                </div>
+                <div className="edu-row-center">
+                  <div className="edu-row-degree">Holy Child Auxilium School</div>
+                  <div className="edu-row-school">New Delhi, India</div>
+                </div>
+                <div className="edu-row-right">
+                  <div className="edu-row-score">95</div>
+                  <div className="edu-row-score-unit">%</div>
+                </div>
+              </div>
+              <div className="edu-row-divider" />
+              <div className="edu-row">
+                <div className="edu-row-left">
+                  <div className="edu-row-tag">Class X · CBSE</div>
+                  <div className="edu-row-year">Secondary</div>
+                </div>
+                <div className="edu-row-center">
+                  <div className="edu-row-degree">Holy Child Auxilium School</div>
+                  <div className="edu-row-school">New Delhi, India</div>
+                </div>
+                <div className="edu-row-right">
+                  <div className="edu-row-score">96.6</div>
+                  <div className="edu-row-score-unit">%</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="projects-count-row"><span>01</span><span>06</span></div>
         </div>
       </div>
 
       {/* ══════════════════ EXPERIENCE ══════════════════ */}
-      <section id="experience" className="experience-section">
+      <div className="exp-scene-outer" ref={eduParallaxRef} style={{ height: "170vh" }}>
+      <div className="exp-scene-sticky">
+      <section id="experience" className="experience-section exp-scene-panel" ref={eduParallaxInnerRef}>
         <div className="experience-inner">
           <div className="experience-header reveal">
             <div className="section-num-wrap">
@@ -891,66 +983,10 @@ export default function PortfolioPage() {
               </div>
             ))}
           </div>
-          {/* ══ EDUCATION ══ */}
-          <div className="edu-divider-band">
-            <div className="edu-divider-line" />
-            <span className="edu-divider-label">Education</span>
-            <div className="edu-divider-line" />
-          </div>
-          <div className="edu-rows-wrap reveal" style={{ marginTop: 0, paddingBottom: 80 }}>
-            <div className="edu-rows-header">
-              <span className="section-label">Academic Background</span>
-            </div>
-            <div className="edu-row edu-row--primary reveal">
-              <div className="edu-row-left">
-                <span className="edu-row-badge">
-                  <span className="edu-row-badge-dot" />
-                  Current
-                </span>
-                <div className="edu-row-year">2023 — 2027</div>
-              </div>
-              <div className="edu-row-center">
-                <div className="edu-row-degree">B.Tech · Computer Science Engineering</div>
-                <div className="edu-row-school">Maharaja Surajmal Institute of Technology · Delhi, India</div>
-              </div>
-              <div className="edu-row-right">
-                <div className="edu-row-score">9.49</div>
-                <div className="edu-row-score-unit">CGPA</div>
-              </div>
-            </div>
-            <div className="edu-row-divider" />
-            <div className="edu-row reveal">
-              <div className="edu-row-left">
-                <div className="edu-row-tag">Class XII · CBSE</div>
-                <div className="edu-row-year">Senior Secondary</div>
-              </div>
-              <div className="edu-row-center">
-                <div className="edu-row-degree">Holy Child Auxilium School</div>
-                <div className="edu-row-school">New Delhi, India</div>
-              </div>
-              <div className="edu-row-right">
-                <div className="edu-row-score">95</div>
-                <div className="edu-row-score-unit">%</div>
-              </div>
-            </div>
-            <div className="edu-row-divider" />
-            <div className="edu-row reveal">
-              <div className="edu-row-left">
-                <div className="edu-row-tag">Class X · CBSE</div>
-                <div className="edu-row-year">Secondary</div>
-              </div>
-              <div className="edu-row-center">
-                <div className="edu-row-degree">Holy Child Auxilium School</div>
-                <div className="edu-row-school">New Delhi, India</div>
-              </div>
-              <div className="edu-row-right">
-                <div className="edu-row-score">96.6</div>
-                <div className="edu-row-score-unit">%</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </div>{/* end experience-inner */}
       </section>
+      </div>{/* exp-scene-sticky */}
+      </div>{/* exp-scene-outer */}
 
 
       {/* ══════════════════ RESUME ══════════════════ */}
@@ -1020,6 +1056,40 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+
+      {/* ══════════════════ OPEN TO WORK ══════════════════ */}
+      <div className="otw-wrap reveal">
+        <div className="otw-signal">
+          <span className="otw-pulse" />
+          <span className="otw-signal-text">Available Now</span>
+        </div>
+        <div className="otw-statement">
+          Looking for my next<br />
+          <em>challenge.</em>
+        </div>
+        <div className="otw-meta">
+          <div className="otw-meta-item">
+            <span className="otw-meta-label">Role</span>
+            <span className="otw-meta-value">Full Stack Developer</span>
+          </div>
+          <div className="otw-meta-item">
+            <span className="otw-meta-label">Open to</span>
+            <div className="otw-chips">
+              <span className="otw-chip">Internship</span>
+              <span className="otw-chip">Freelance</span>
+              <span className="otw-chip">Full-time</span>
+            </div>
+          </div>
+          <div className="otw-meta-item">
+            <span className="otw-meta-label">Location</span>
+            <span className="otw-meta-value">New Delhi · Remote Worldwide</span>
+          </div>
+        </div>
+        <button className="otw-cta" onClick={() => scrollTo('contact')}>
+          Let&apos;s connect
+          <span className="otw-cta-arrow">↗</span>
+        </button>
+      </div>
 
       {/* ══════════════════ CONTACT ══════════════════ */}
       <div id="contact" className="contact-section" ref={contactOuterRef} style={{ height: "270vh" }}>
@@ -1116,17 +1186,6 @@ export default function PortfolioPage() {
         <div className="footer-end-zone">
           <div className="footer-giant-name" aria-hidden="true">
             <div className="footer-giant-name-text">Khushi</div>
-          </div>
-          <div className="footer-bottom">
-            <span className="footer-copy">© {new Date().getFullYear()} YourName. Built with Next.js & TypeScript.</span>
-            <div className="footer-bottom-links">
-              <button className="footer-bl-btn">Terms & Conditions</button>
-              <button className="footer-bl-btn">Privacy Policy</button>
-            </div>
-            <div className="footer-status-row">
-              <span className="footer-status-dot" />
-              Open to work · UTC+5:30
-            </div>
           </div>
         </div>
       </footer>

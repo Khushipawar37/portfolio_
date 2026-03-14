@@ -467,6 +467,67 @@ button {
 /* ============================================================
    HERO — Redesigned: left-aligned, condensed editorial type
    ============================================================ */
+
+/* ── Hero photo — right side decorative frame ── */
+.hero-photo-frame {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: clamp(320px, 38vw, 520px);
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  animation: heroFadeIn 1.4s 0.5s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.hero-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  filter: grayscale(100%) contrast(1.08) brightness(0.92);
+}
+
+/* Light mode: blend the black background away using multiply */
+:root:not(.dark) .hero-photo-img {
+  mix-blend-mode: multiply;
+  filter: grayscale(100%) contrast(1.1) brightness(1.0);
+  opacity: 0.75;
+}
+
+/* Dark mode: slightly dimmer, normal blend */
+:root.dark .hero-photo-img {
+  mix-blend-mode: normal;
+  opacity: 0.35;
+  filter: grayscale(100%) contrast(1.12) brightness(0.85);
+}
+
+/* Multi-directional fade — blends photo into background on all edges */
+.hero-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, var(--bg) 0%, transparent 28%),
+    linear-gradient(to bottom, var(--bg) 0%, transparent 18%),
+    linear-gradient(to top, var(--bg) 0%, transparent 22%);
+}
+
+/* Remove old name tag and corner brackets — replaced with nothing */
+.hero-photo-name-tag,
+.hero-photo-name-line,
+.hero-photo-surname,
+.hero-photo-corner-tl,
+.hero-photo-corner-br {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .hero-photo-frame { display: none; }
+}
+
+
 .hero-section {
   position: relative;
   height: 100vh;
@@ -1096,9 +1157,20 @@ button {
    OPEN TO WORK — cinematic statement panel
    ============================================================ */
 
+@keyframes otwReveal {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .otw-wrap {
   width: min(1100px, 90%);
-  margin: 72px auto 0;
+  margin: 96px auto 80px;
   padding: 64px 72px;
   border: 1px solid var(--border2);
   border-radius: 24px;
@@ -1110,6 +1182,14 @@ button {
   align-items: end;
   position: relative;
   overflow: hidden;
+  /* default hidden — JS .reveal class fades it in via site-wide observer */
+  opacity: 0;
+  transform: translateY(48px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.otw-wrap.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Faint large text watermark */
@@ -1450,151 +1530,260 @@ button {
   top: 0;
   height: 100vh;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
-.projects-header {
-  padding: 0 80px;
-  margin-bottom: 38px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+
+
+
+/* Progress bar — bottom */
+
+/* Projects section heading */
+.proj-heading-wrap {
+  position: absolute;
+  top: 40px;
+  left: 64px;
+  z-index: 10;
+  pointer-events: none;
 }
-.projects-count-badge {
+.proj-section-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 6px;
+}
+.proj-section-label .section-num {
   font-family: "DM Mono", monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   color: var(--fg3);
-  padding-bottom: 6px;
+  font-weight: 400;
 }
-.projects-track {
+.proj-section-label .section-label {
+  color: var(--fg3);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+}
+.proj-main-heading {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.03em;
+  color: var(--fg);
+  line-height: 1;
+  margin: 0;
+  opacity: 0.9;
+  mix-blend-mode: normal;
+}
+
+.proj-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border);
+  z-index: 10;
+}
+.proj-progress-fill {
+  height: 100%;
+  background: var(--fg);
+  transition: width 0.05s linear;
+}
+
+/* Slide track — horizontal flex, each slide = 100vw */
+.proj-track {
   display: flex;
-  gap: 22px;
-  padding: 0 80px;
+  /* Width set by JS slide count — must overflow the sticky container */
+  width: max-content;
+  height: 100%;
   will-change: transform;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Each slide — full viewport */
+.proj-slide {
   flex-shrink: 0;
-}
-.project-card {
-  flex-shrink: 0;
-  width: 420px;
-  height: 540px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  border-radius: 6px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition:
-    border-color 0.3s ease,
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.project-card:hover {
-  border-color: var(--border-h);
-  transform: translateY(-10px);
-}
-.project-thumb {
-  height: 220px;
+  width: 100vw;
+  height: 100vh;
   position: relative;
   overflow: hidden;
-  background: var(--bg3);
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Background layer — fills the whole slide */
+.proj-slide-bg {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  background: var(--bg2);
 }
-.project-emoji {
-  font-size: 5rem;
-  line-height: 1;
-  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.project-card:hover .project-emoji {
-  transform: scale(1.15) rotate(6deg);
-}
-.project-card-num {
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  font-family: "DM Mono", monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  color: rgba(0, 0, 0, 0.12);
-}
-:root.dark .project-card-num {
-  color: rgba(255, 255, 255, 0.12);
-}
-.project-body {
-  padding: 26px 28px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 14px;
-}
-.project-title {
-  font-family: "Syne", sans-serif;
-  font-weight: 700;
-  font-size: 1.32rem;
-  letter-spacing: -0.025em;
-  color: var(--fg);
-  margin-bottom: 10px;
-}
-.project-desc {
-  font-size: 0.85rem;
-  color: var(--fg2);
-  line-height: 1.68;
-  flex: 1;
-}
-.project-links {
-  display: flex;
-  gap: 10px;
-  margin-top: 18px;
-}
-.project-link {
-  font-family: "DM Mono", monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--fg);
-  border: 1px solid var(--border2);
-  padding: 8px 16px;
-  border-radius: 100px;
-  background: none;
-  cursor: none;
-  display: block;
-  transition:
-    border-color 0.2s,
-    background 0.2s;
-}
-.project-link:hover {
-  border-color: var(--border-h);
-  background: var(--bg3);
-}
-.projects-progress-wrap {
-  margin: 18px 80px 0;
-  height: 1px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.projects-progress-fill {
-  height: 100%;
-  background: var(--fg);
-  border-radius: 2px;
-}
-.projects-count-row {
-  padding: 8px 80px 0;
-  display: flex;
-  justify-content: space-between;
-  font-family: "DM Mono", monospace;
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-  color: var(--fg3);
+:root.dark .proj-slide-bg {
+  background: #111;
 }
 
+/* Giant emoji as stand-in for screenshot */
+.proj-slide-emoji-bg {
+  font-size: clamp(18rem, 40vw, 36rem);
+  line-height: 1;
+  opacity: 0.09;
+  pointer-events: none;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Dark gradient overlay — bottom-up so text is readable */
+.proj-slide-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+}
+:root:not(.dark) .proj-slide-bg-overlay {
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.22) 55%, transparent 100%);
+}
+
+/* Big number — right side, vertical center */
+.proj-slide-num {
+  position: absolute;
+  right: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(10rem, 22vw, 20rem);
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: #fff;
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+}
+
+/* Info panel — bottom left overlay */
+.proj-slide-info {
+  position: relative;
+  z-index: 5;
+  padding: 0 64px 56px;
+  max-width: 680px;
+}
+.proj-slide-title {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.proj-slide-desc {
+  font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+  color: rgba(255,255,255,0.62);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  max-width: 520px;
+}
+.proj-slide-footer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.proj-slide-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.proj-slide-tag {
+  font-family: "DM Mono", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 4px 11px;
+  border-radius: 100px;
+}
+.proj-slide-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: "DM Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 8px 18px;
+  border-radius: 100px;
+  cursor: none;
+  transition: background 0.2s, border-color 0.2s;
+  text-decoration: none;
+}
+.proj-slide-link:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* Slide counter — bottom right */
+.proj-slide-counter {
+  position: absolute;
+  bottom: 56px;
+  right: 64px;
+  z-index: 5;
+  font-family: "DM Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.45);
+}
+
+@media (max-width: 700px) {
+  .proj-slide-info { padding: 0 28px 48px; }
+  .proj-slide-num  { right: 24px; }
+  .proj-section-label { left: 28px; }
+}
+
+
+/* ── Education parallax transition ── */
+/* ── Education sticky 3D scene ── */
+.edu-scene-outer {
+  position: relative;
+  background: var(--bg);
+  /* perspective set here so the sticky child gets true 3D depth */
+  perspective: 1200px;
+  perspective-origin: 50% 0%;
+}
+.edu-scene-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The panel that actually animates — full viewport width */
+.edu-scene-panel {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 64px;
+  opacity: 1;
+  transform: none;
+}
+.edu-scene-header {
+  margin-bottom: 16px;
+}
+@media (max-width: 700px) {
+  .edu-scene-panel { padding: 0 24px; }
+}
 
 /* ── Education divider inside Experience ── */
 .edu-divider-band {
@@ -1654,6 +1843,33 @@ button {
 /* ============================================================
    EXPERIENCE
    ============================================================ */
+
+/* ── Experience sticky 3D scene (same approach as edu) ── */
+.exp-scene-outer {
+  position: relative;
+  background: var(--bg);
+  /* perspective on outer = true 3D stage for the sticky child */
+  perspective: 1400px;
+  perspective-origin: 50% 30%;  /* lower origin = softer tilt angle */
+}
+.exp-scene-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  /* NO overflow:hidden — clipping kills the scale/translate effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.exp-scene-panel {
+  width: 100%;
+  opacity: 0;
+  transform: rotateX(-16deg) translateY(72px) scale(0.84);
+  transform-origin: center 40%;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
 .experience-section {
   padding: 160px 64px;
   background: var(--bg2);
@@ -1740,7 +1956,7 @@ button {
    RESUME
    ============================================================ */
 .resume-section {
-  padding: 160px 64px;
+  padding: 80px 64px 100px;
   background: var(--bg);
   position: relative;
   overflow: hidden;
@@ -2177,7 +2393,7 @@ button {
   overflow: hidden;
 }
 .footer-main {
-  padding: 72px 64px 52px;
+  padding: 48px 64px 36px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2472,4 +2688,4 @@ button {
   .skills-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-} 
+}
