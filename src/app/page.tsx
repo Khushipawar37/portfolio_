@@ -13,30 +13,29 @@ const NAV_ITEMS = [
 ];
 
 const MARQUEE_WORDS = [
-  "React", "Next.js", "TypeScript", "Node.js", "PostgreSQL",
-  "Docker", "AWS", "GraphQL", "TailwindCSS", "Redis", "Kubernetes", "Prisma", "Figma", "CI/CD", "MongoDB", "Terraform",
+  "React", "Next.js", "TypeScript", "Node.js", "Express.js", "MongoDB", "Firebase", "Tailwind CSS", "Shadcn UI", "Figma", "Git", "Vercel", "Netlify", "Python", "C++", "Java",
 ];
 
 const ABOUT_CARDS = [
   {
-    num: "01 / IDENTITY", icon: "🧠", title: "DSA Practitioner",
-    desc: "I think in algorithms. From dynamic programming to graph traversal, I approach every engineering problem with a strong foundation in data structures and algorithmic thinking, ensuring solutions are not just correct but optimal.",
-    chips: ["LeetCode", "Competitive Prog.", "Algorithms", "Complexity Analysis"],
+    num: "01 / IDENTITY", icon: "🎓", title: "Web Developer & DSA Enthusiast",
+    desc: "I'm a passionate web developer with strong foundations in Data Structures & Algorithms. Through continuous competitive programming on LeetCode and building real-world applications, I approach every engineering challenge with algorithmic precision and scalable solutions.",
+    chips: ["LeetCode", "DSA", "Problem-Solving", "Competitive Prog."],
   },
   {
-    num: "02 / MINDSET", icon: "💡", title: "Analytical Thinker & Problem Solver",
-    desc: "Complex problems are just puzzles waiting to be decomposed. I break down ambiguous challenges into structured solutions, drawing on systems thinking and first-principles reasoning to build things that actually scale.",
-    chips: ["Systems Design", "First Principles", "Architecture", "Debugging"],
+    num: "02 / MINDSET", icon: "💡", title: "Innovative & Collaborative Builder",
+    desc: "I thrive at turning ambitious ideas into tangible solutions. Active hackathon participant who loves collaborating with teams to innovate. I break down complex problems systematically and focus on shipping products that create real impact for users.",
+    chips: ["Hackathons", "Collaboration", "Innovation", "Rapid Prototyping"],
   },
   {
-    num: "03 / CRAFT", icon: "⚡", title: "Full Stack Web Developer",
-    desc: "From pixel-perfect React interfaces to resilient Node.js APIs and cloud infrastructure — I own the full vertical. I care about performance, developer experience, and shipping products that users genuinely love.",
-    chips: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS", "Docker"],
+    num: "03 / CRAFT", icon: "⚛️", title: "Full Stack MERN Developer",
+    desc: "From pixel-perfect React interfaces to resilient Node.js backends and robust database solutions — I build complete web experiences. Proficient in designing intuitive UX with Figma and deploying scalable applications on modern cloud platforms.",
+    chips: ["MERN Stack", "Next.js", "Figma Design", "Responsive UI"],
   },
   {
-    num: "04 / FRONTIER", icon: "🤖", title: "AI / ML Enthusiast",
-    desc: "The intersection of intelligence and software is where I want to build. From LLM integrations and RAG pipelines to fine-tuning models — I actively explore how AI transforms what's possible in product engineering.",
-    chips: ["LangChain", "OpenAI API", "RAG", "Python", "ML Fundamentals"],
+    num: "04 / FRONTIER", icon: "🤖", title: "AI Integration & ML Enthusiast",
+    desc: "Actively exploring the intersection of AI and web development. I integrate cutting-edge AI models like Groq and leverage AI tools to enhance applications. Expanding skillset with ML fundamentals to complement my development expertise.",
+    chips: ["Groq AI", "LLM Integration", "ML Fundamentals", "AI-Powered Apps"],
   },
 ];
 
@@ -45,83 +44,83 @@ const TECH_CATEGORIES = [
     label: "01 / FRONTEND", name: "Frontend", emoji: "🖥️",
     skills: [
       { icon: "⚛️", name: "React" }, { icon: "▲", name: "Next.js" },
-      { icon: "🔷", name: "TypeScript" }, { icon: "🎨", name: "Tailwind" },
-      { icon: "⚡", name: "Vite" }, { icon: "🌐", name: "Vue.js" },
-      { icon: "🎭", name: "Framer" }, { icon: "📦", name: "Redux" },
+      { icon: "🔷", name: "TypeScript" }, { icon: "🎨", name: "Tailwind CSS" },
+      { icon: "📦", name: "Shadcn UI" }, { icon: "🌐", name: "HTML/CSS" },
+      { icon: "⚡", name: "JavaScript" }, { icon: "🎭", name: "Responsive Design" },
     ],
   },
   {
     label: "02 / BACKEND", name: "Backend", emoji: "⚙️",
     skills: [
-      { icon: "🟢", name: "Node.js" }, { icon: "🚂", name: "Express" },
-      { icon: "🐍", name: "Python" }, { icon: "🦅", name: "NestJS" },
-      { icon: "🐘", name: "PostgreSQL" }, { icon: "🍃", name: "MongoDB" },
-      { icon: "⚡", name: "Redis" }, { icon: "📡", name: "GraphQL" },
+      { icon: "🟢", name: "Node.js" }, { icon: "🚂", name: "Express.js" },
+      { icon: "🐍", name: "Python" }, { icon: "☕", name: "Java" },
+      { icon: "🔷", name: "C++" }, { icon: "🌐", name: "REST APIs" },
+      { icon: "📡", name: "GraphQL" }, { icon: "🔐", name: "Authentication" },
     ],
   },
   {
-    label: "03 / DEVOPS & CLOUD", name: "DevOps & Cloud", emoji: "☁️",
+    label: "03 / DATABASES & TOOLS", name: "Databases & Tools", emoji: "🗄️",
     skills: [
-      { icon: "🐳", name: "Docker" }, { icon: "☸", name: "Kubernetes" },
-      { icon: "🟠", name: "AWS" }, { icon: "🔵", name: "Azure" },
-      { icon: "🔁", name: "CI/CD" }, { icon: "📊", name: "Terraform" },
-      { icon: "🔍", name: "Datadog" }, { icon: "🌊", name: "Vercel" },
+      { icon: "🍃", name: "MongoDB" }, { icon: "🔐", name: "Firebase" },
+      { icon: "🐘", name: "SQL" }, { icon: "🎯", name: "Figma" },
+      { icon: "📦", name: "Git/GitHub" }, { icon: "🌊", name: "Vercel" },
+      { icon: "🌐", name: "Netlify" }, { icon: "📊", name: "Jupyter Notebook" },
     ],
   },
   {
-    label: "04 / DATABASES", name: "Databases & Tools", emoji: "🗄️",
+    label: "04 / LANGUAGES", name: "Programming Languages", emoji: "💻",
     skills: [
-      { icon: "🐘", name: "PostgreSQL" }, { icon: "🍃", name: "MongoDB" },
-      { icon: "⚡", name: "Redis" }, { icon: "🔷", name: "Prisma" },
-      { icon: "🔍", name: "Elastic" }, { icon: "📬", name: "RabbitMQ" },
-      { icon: "📋", name: "Jira" }, { icon: "🎯", name: "Figma" },
+      { icon: "🌐", name: "JavaScript" }, { icon: "🔷", name: "TypeScript" },
+      { icon: "🐍", name: "Python" }, { icon: "⚙️", name: "C" },
+      { icon: "⚙️", name: "C++" }, { icon: "☕", name: "Java" },
+      { icon: "🌐", name: "HTML/CSS" }, { icon: "📝", name: "SQL" },
     ],
   },
 ];
 
 const PROJECTS = [
   {
-    num: "01", emoji: "🛍️", title: "EcoMart",
-    desc: "Full-stack e-commerce platform with real-time inventory, Stripe payments, admin dashboard, and multi-vendor support. Handles 10k+ daily transactions.",
-    tags: ["Next.js", "Node.js", "PostgreSQL", "Stripe"], github: "#",
+    num: "01", emoji: "🎓", title: "careerCompass",
+    desc: "AI-powered career guidance platform covering 350+ career paths with personalized recommendations, detailed roadmaps, curated resources, expert blogs, and a counselor-student portal.",
+    tags: ["MERN", "AI Chatbot", "Next.js", "Groq"], github: "https://github.com/Khushipawar37/careerCompasss.git",
   },
   {
-    num: "02", emoji: "💬", title: "Synapse",
-    desc: "Real-time collaborative workspace with live document editing, video calls, nested docs, and granular permission management for distributed remote teams.",
-    tags: ["React", "Socket.io", "Redis", "AWS"], github: "#",
+    num: "02", emoji: "📝", title: "Notivio",
+    desc: "AI note-taking app that converts YouTube lectures into structured notes, summaries, review questions, flashcards, and mindmaps. Reduces study time by 60% with collaborative workspace.",
+    tags: ["MERN", "Next.js", "Firebase", "Groq AI"], github: "https://github.com/Khushipawar37/Notivio.git",
   },
   {
-    num: "03", emoji: "📊", title: "DataLens",
-    desc: "Enterprise analytics platform with custom chart builder, automated reports, anomaly detection, and multi-source data connectors for business intelligence.",
-    tags: ["Vue.js", "Python", "FastAPI", "D3.js"], github: "#",
+    num: "03", emoji: "☁️", title: "MEC: Multi Access Edge Computing",
+    desc: "Web-based MEC simulation platform for managing projects, running bandwidth/concurrency tests, and simulating results through interactive graphs with real-time visualization.",
+    tags: ["MERN", "Next.js", "Firebase", "Judge0"], github: "https://github.com/Khushipawar37/virtual_machine.git",
   },
   {
-    num: "04", emoji: "🤖", title: "Dockie",
-    desc: "RAG-based AI document assistant. Upload PDFs or links and chat with your data. Supports multi-session memory, document export, and team sharing.",
-    tags: ["Next.js", "OpenAI", "LangChain", "Pinecone"], github: "#",
+    num: "04", emoji: "🎨", title: "GDG on Campus MSIT",
+    desc: "Full-stack responsive website for GDG on Campus community. Collaborated with team to deliver a polished, maintainable platform with modern design and optimal performance.",
+    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"], github: "#",
   },
   {
-    num: "05", emoji: "🏠", title: "NestFind",
-    desc: "Cross-platform real estate app with map-based search, 3D virtual tours, mortgage calculator, and secure document signing flow for buyers and agents.",
-    tags: ["React Native", "NestJS", "MongoDB"], github: "#",
+    num: "05", emoji: "📸", title: "Instagram Clone",
+    desc: "Full-stack Instagram clone project applying scalable architecture and responsive UI/UX best practices. Features social authentication, image uploads, and real-time interactions.",
+    tags: ["MERN Stack", "Firebase", "MongoDB", "Socket.io"], github: "#",
   },
   {
-    num: "06", emoji: "📋", title: "FlowBoard",
-    desc: "Visual project management tool with kanban boards, timeline views, automated workflow triggers, team analytics dashboard, and Slack integrations.",
-    tags: ["React", "TypeScript", "Zustand", "Supabase"], github: "#",
+    num: "06", emoji: "💼", title: "Personal Portfolio",
+    desc: "Modern portfolio website showcasing projects and skills. Built with Next.js and cutting-edge design patterns featuring smooth animations, dark mode, and responsive layouts.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Animation"], github: "#",
   },
 ];
 
 const EXPERIENCES = [
   {
-    period: "2023 — Present", company: "Veritas Tech", role: "Senior Full Stack Engineer",
-    desc: "Led a team of 5 engineers to rebuild a legacy monolith into microservices. Improved system performance by 60% and reduced deployment time from 4 hours to 15 minutes with a new CI/CD pipeline.",
-    skills: ["Next.js", "NestJS", "AWS", "Docker", "PostgreSQL"],
+    period: "June 2025 — August 2025", company: "IIT Delhi", role: "Research Intern",
+    desc: "Researched Multi-access Edge Computing (MEC) concepts including scalability, low-latency processing, and distributed system performance. Developed a prototype MEC platform while gaining hands-on experience with real-time projects in a research environment.",
+    skills: ["MEC Architecture", "System Design", "Real-time Processing", "Research"],
   },
   {
-    period: "2021 — 2023", company: "Axiom Labs", role: "Full Stack Developer",
-    desc: "Developed and maintained 3 production SaaS products. Introduced TypeScript across the codebase, reducing the bug rate by 40%. Built a reusable component library adopted by 8 product teams.",
-    skills: ["React", "Node.js", "TypeScript", "GraphQL"],
+    period: "2024 — 2025", company: "GDG on Campus - MSIT", role: "Web Developer",
+    desc: "Contributed to development of the GDG on Campus MSIT website, collaborating with team to deliver a polished, responsive platform. Built a full-stack Instagram clone as minor project, applying scalable architecture and responsive UI/UX best practices.",
+    skills: ["React", "Node.js", "Firebase", "Full Stack Development"],
   },
 ];
 
@@ -631,7 +630,7 @@ export default function PortfolioPage() {
       {/* ══════════════════ NAVBAR (logo + controls only) ══════════════════ */}
       <nav className="navbar">
         <button className="nav-logo-outside" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-          <span className="nav-logo-dim">&lt;</span>YourName<span className="nav-logo-dim">/&gt;</span>
+          <span className="nav-logo-dim">&lt;</span>Khushi<span className="nav-logo-dim">/&gt;</span>
         </button>
 
         {/* Hamburger — mobile only */}
@@ -688,8 +687,8 @@ export default function PortfolioPage() {
 
         {/* Tagline */}
         <div className="hero-tagline-block">
-          <p className="hero-tagline-main">Engineering Digital Products — From Logic to Launch.</p>
-          <p className="hero-tagline-sub">Full-stack developer building scalable systems with precision and purpose.</p>
+          <p className="hero-tagline-main">MERN Stack Engineer & AI Enthusiast — Building Tomorrow's Solutions.</p>
+          <p className="hero-tagline-sub">Full-stack developer crafting intelligent applications with cutting-edge AI integration and scalable architecture.</p>
         </div>
 
         {/* CTA buttons */}
@@ -702,10 +701,14 @@ export default function PortfolioPage() {
             SCROLL
           </div>
           <div className="hero-brands">
-            {["GitHub", "LinkedIn", "Twitter"].map((b, i) => (
-              <span key={b} style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            {[
+              { name: "GitHub", url: "https://github.com/Khushipawar37" },
+              { name: "LinkedIn", url: "https://linkedin.com/in/khushi-pawar" },
+              { name: "Email", url: "mailto:khushipawar987@gmail.com" },
+            ].map((b, i) => (
+              <span key={b.name} style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 {i > 0 && <span className="hero-social-sep" />}
-                <a href="#" className="hero-brand-label">{b}</a>
+                <a href={b.url} target={b.url.startsWith("http") ? "_blank" : undefined} rel={b.url.startsWith("http") ? "noopener noreferrer" : undefined} className="hero-brand-label">{b.name}</a>
               </span>
             ))}
           </div>
@@ -976,26 +979,26 @@ export default function PortfolioPage() {
             <div className="resume-mock-card reveal from-right">
               <div className="resume-mock-header">
                 <div>
-                  <div className="resume-name">Khushi</div>
-                  <div className="resume-role-sub">Full Stack Developer</div>
+                  <div className="resume-name">Khushi Pawar</div>
+                  <div className="resume-role-sub">Full Stack Web Developer</div>
                 </div>
                 <div className="resume-contact-block">
-                  you@email.com<br />linkedin.com/in/yourname<br />github.com/yourname<br />New Delhi, India
+                  khushipawar987@gmail.com<br />linkedin.com/in/khushi-pawar<br />github.com/Khushipawar37<br />New Delhi, India
                 </div>
               </div>
               <div className="rm-section-head">Experience</div>
               <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">Research Intern · IIT Delhi</span><span className="rm-entry-date">2024</span></div>
-                <div className="rm-entry-sub">MEC simulation system — edge computing, network latency optimisation.</div>
+                <div className="rm-entry-row"><span className="rm-entry-title">Research Intern · IIT Delhi</span><span className="rm-entry-date">2025</span></div>
+                <div className="rm-entry-sub">Multi-access Edge Computing — scalability, low-latency processing, distributed systems.</div>
               </div>
               <div className="rm-section-head">Projects</div>
               <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">CareerCompass — AI Career Platform</span><span className="rm-entry-date">2024</span></div>
-                <div className="rm-entry-sub">MERN + LangChain · resume analysis, job matching, interview prep.</div>
+                <div className="rm-entry-row"><span className="rm-entry-title">CareerCompass — AI Career Guidance</span><span className="rm-entry-date">2024</span></div>
+                <div className="rm-entry-sub">MERN + AI · 350+ career paths, personalized roadmaps, 20+ strategies.</div>
               </div>
               <div className="rm-entry">
-                <div className="rm-entry-row"><span className="rm-entry-title">Notivio — Smart Notification SaaS</span><span className="rm-entry-date">2023</span></div>
-                <div className="rm-entry-sub">Next.js · multi-channel notifications, real-time dashboard.</div>
+                <div className="rm-entry-row"><span className="rm-entry-title">Notivio — AI Note-Taking App</span><span className="rm-entry-date">2024</span></div>
+                <div className="rm-entry-sub">Next.js + Groq AI · YouTube to notes, 60% study time reduction.</div>
               </div>
               <div className="rm-section-head">Education</div>
               <div className="rm-entry">
@@ -1003,7 +1006,7 @@ export default function PortfolioPage() {
               </div>
               <div className="rm-section-head">Core Skills</div>
               <div className="rm-tags-row">
-                {["React", "Next.js", "Node.js", "TypeScript", "PostgreSQL", "MongoDB", "Docker", "AWS", "Python", "LangChain"].map(s => (
+                {["React", "Next.js", "Node.js", "Express.js", "MongoDB", "Firebase", "TypeScript", "Groq AI", "Python", "C++"].map(s => (
                   <span key={s} className="tag-pill">{s}</span>
                 ))}
               </div>
@@ -1078,11 +1081,11 @@ export default function PortfolioPage() {
                       <span className="otw-chip">Full-time</span>
                     </div>
                   </div>
-                  <div className="contact-left-desc">Open to full-stack roles, freelance projects, and interesting collaborations. If you have something in mind, I&apos;d love to hear it.</div>
+                  <div className="contact-left-desc">Always excited to collaborate on innovative projects combining web development and AI. Whether it's a startup venture, research opportunity, or exciting freelance challenge, I'm eager to make an impact.</div>
                   <div className="contact-info-links">
-                    <a href="mailto:you@email.com" className="contact-info-link"><IconMail /> you@email.com</a>
-                    <a href="#" className="contact-info-link"><IconLinkedIn /> linkedin.com/in/yourname</a>
-                    <a href="#" className="contact-info-link"><IconGitHub /> github.com/yourname</a>
+                    <a href="mailto:khushipawar987@gmail.com" className="contact-info-link"><IconMail /> khushipawar987@gmail.com</a>
+                    <a href="https://linkedin.com/in/khushi-pawar" target="_blank" rel="noopener noreferrer" className="contact-info-link"><IconLinkedIn /> linkedin.com/in/khushi-pawar</a>
+                    <a href="https://github.com/Khushipawar37" target="_blank" rel="noopener noreferrer" className="contact-info-link"><IconGitHub /> github.com/Khushipawar37</a>
                   </div>
                 </div>
                 <form className="contact-form-fields" onSubmit={handleSubmit}>
@@ -1118,8 +1121,8 @@ export default function PortfolioPage() {
       {/* ══════════════════ FOOTER ══════════════════ */}
       <footer className="site-footer">
         <div className="footer-main">
-          <div className="footer-logo"><span>&lt;</span>YourName<span>/&gt;</span></div>
-          <div className="footer-tagline">Engineering Digital Products · From Logic to Launch</div>
+          <div className="footer-logo"><span>&lt;</span>Khushi<span>/&gt;</span></div>
+          <div className="footer-tagline">Full Stack Developer · AI Enthusiast · Hackathon Participant</div>
           <div className="footer-nav-primary">
             {NAV_ITEMS.map(item => (
               <button key={item.id} className="footer-nav-primary-btn" onClick={() => scrollTo(item.id)}>
@@ -1129,12 +1132,11 @@ export default function PortfolioPage() {
           </div>
           <div className="footer-socials-row">
             {[
-              { icon: <IconGitHub />, label: "GitHub" },
-              { icon: <IconTwitter />, label: "Twitter" },
-              { icon: <IconLinkedIn />, label: "LinkedIn" },
-              { icon: <IconMail />, label: "Email" },
+              { icon: <IconGitHub />, label: "GitHub", url: "https://github.com/Khushipawar37" },
+              { icon: <IconLinkedIn />, label: "LinkedIn", url: "https://linkedin.com/in/khushi-pawar" },
+              { icon: <IconMail />, label: "Email", url: "mailto:khushipawar987@gmail.com" },
             ].map(s => (
-              <a key={s.label} href="#" className="footer-social-circ" title={s.label}>{s.icon}</a>
+              <a key={s.label} href={s.url} target={s.url.startsWith("http") ? "_blank" : undefined} rel={s.url.startsWith("http") ? "noopener noreferrer" : undefined} className="footer-social-circ" title={s.label}>{s.icon}</a>
             ))}
           </div>
         </div>
