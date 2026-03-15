@@ -462,13 +462,6 @@ export default function PortfolioPage() {
         progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
       setNavScrolled(sy > 50);
 
-      // Experience sticky 3D — progress 0→1 as section scrolls through
-      if (eduParallaxRef.current) {
-        const r = eduParallaxRef.current.getBoundingClientRect();
-        const ht = eduParallaxRef.current.offsetHeight - window.innerHeight;
-        anim.current.eduT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1);
-      }
-
       if (stackOuterRef.current) {
         const r = stackOuterRef.current.getBoundingClientRect();
         const ht = stackOuterRef.current.offsetHeight - window.innerHeight;
@@ -580,21 +573,6 @@ export default function PortfolioPage() {
         projTrackRef.current.style.transform = `translateX(${-a.projC * totalW}px)`;
       }
       if (projFillRef.current) projFillRef.current.style.width = (a.projC * 100) + "%";
-
-      /* Experience — smooth 3D entry */
-      a.eduC = lerp(a.eduC, a.eduT, 0.08);
-      if (eduParallaxInnerRef.current) {
-        const p = a.eduC;
-        const entry  = Math.min(p / 0.6, 1);
-        const eased  = entry < 1 ? 1 - Math.pow(1 - entry, 2.5) : 1;
-        const rotX   = (1 - eased) * -16;
-        const transY = (1 - eased) * 72;
-        const sc     = 0.84 + eased * 0.16;
-        const op     = clamp(p / 0.12, 0, 1);
-        eduParallaxInnerRef.current.style.transform =
-          `rotateX(${rotX}deg) translateY(${transY}px) scale(${sc})`;
-        eduParallaxInnerRef.current.style.opacity = String(op);
-      }
 
       /* Contact split */
       a.contC = lerp(a.contC, a.contT, 0.065);
@@ -715,10 +693,7 @@ export default function PortfolioPage() {
         </div>
 
         {/* CTA buttons */}
-        <div className="hero-cta-row">
-          <button className="hero-btn-primary" onClick={() => scrollTo("contact")}>Hire Me <IconArrow /></button>
-          <button className="hero-btn-ghost" onClick={() => scrollTo("about")}>Read About Me</button>
-        </div>
+
 
         {/* Bottom bar */}
         <div className="hero-bottom-bar">
@@ -952,9 +927,7 @@ export default function PortfolioPage() {
       </div>
 
       {/* ══════════════════ EXPERIENCE ══════════════════ */}
-      <div className="exp-scene-outer" ref={eduParallaxRef} style={{ height: "170vh" }}>
-      <div className="exp-scene-sticky">
-      <section id="experience" className="experience-section exp-scene-panel" ref={eduParallaxInnerRef}>
+      <section id="experience" className="experience-section">
         <div className="experience-inner">
           <div className="experience-header reveal">
             <div className="section-num-wrap">
@@ -985,8 +958,6 @@ export default function PortfolioPage() {
           </div>
         </div>{/* end experience-inner */}
       </section>
-      </div>{/* exp-scene-sticky */}
-      </div>{/* exp-scene-outer */}
 
 
       {/* ══════════════════ RESUME ══════════════════ */}
@@ -1000,22 +971,6 @@ export default function PortfolioPage() {
               <div className="resume-action-btns">
                 <button className="resume-dl-btn">Download PDF <IconDownload /></button>
                 <button className="resume-view-btn">View Online <IconExternal /></button>
-              </div>
-              <div className="resume-highlights reveal d1">
-                {[
-                  { icon: "🎓", title: "B.Tech Computer Science", sub: "MSIT · 2023–2027" },
-                  { icon: "🏆", title: "Research Intern", sub: "IIT Delhi · MEC Simulation" },
-                  { icon: "💡", title: "Full Stack Projects", sub: "CareerCompass · Notivio · More" },
-                  { icon: "⚡", title: "9.49 CGPA", sub: "Consistent Academic Excellence" },
-                ].map(h => (
-                  <div key={h.title} className="resume-highlight-item">
-                    <div className="rh-icon">{h.icon}</div>
-                    <div>
-                      <div className="rh-title">{h.title}</div>
-                      <div className="rh-sub">{h.sub}</div>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
             <div className="resume-mock-card reveal from-right">

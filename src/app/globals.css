@@ -1,7 +1,7 @@
 /* ============================================================
    GOOGLE FONTS — load condensed display fonts for hero
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Oswald:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Dancing+Script:wght@600&family=Oswald:wght@600;700&display=swap');
 
 /* ============================================================
    THEME VARIABLES — DEFAULT = LIGHT, dark class = dark mode
@@ -1864,7 +1864,7 @@ button {
 .exp-scene-panel {
   width: 100%;
   opacity: 0;
-  transform: rotateX(-16deg) translateY(72px) scale(0.84);
+  transform: rotateX(-14deg) translateY(56px) scale(0.86);
   transform-origin: center 40%;
   will-change: transform, opacity;
   backface-visibility: hidden;
