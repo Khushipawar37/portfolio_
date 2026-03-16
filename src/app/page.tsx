@@ -80,33 +80,33 @@ const TECH_CATEGORIES = [
 
 const PROJECTS = [
   {
-    num: "01", emoji: "🎓", title: "careerCompass",
+    num: "01", image: "/1.png", title: "careerCompass",
     desc: "AI-powered career guidance platform covering 350+ career paths with personalized recommendations, detailed roadmaps, curated resources, expert blogs, and a counselor-student portal.",
     tags: ["MERN", "AI Chatbot", "Next.js", "Groq"], github: "https://github.com/Khushipawar37/careerCompasss.git",
   },
   {
-    num: "02", emoji: "📝", title: "Notivio",
+    num: "02", image: "/2.png", title: "Notivio",
     desc: "AI note-taking app that converts YouTube lectures into structured notes, summaries, review questions, flashcards, and mindmaps. Reduces study time by 60% with collaborative workspace.",
     tags: ["MERN", "Next.js", "Firebase", "Groq AI"], github: "https://github.com/Khushipawar37/Notivio.git",
   },
   {
-    num: "03", emoji: "☁️", title: "MEC: Multi Access Edge Computing",
+    num: "03", image: "/3.png", title: "MEC Platform",
     desc: "Web-based MEC simulation platform for managing projects, running bandwidth/concurrency tests, and simulating results through interactive graphs with real-time visualization.",
     tags: ["MERN", "Next.js", "Firebase", "Judge0"], github: "https://github.com/Khushipawar37/virtual_machine.git",
   },
   {
-    num: "04", emoji: "🎨", title: "GDG on Campus MSIT",
+    num: "04", image: "/4.png", title: "GDG on Campus MSIT",
     desc: "Full-stack responsive website for GDG on Campus community. Collaborated with team to deliver a polished, maintainable platform with modern design and optimal performance.",
     tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"], github: "#",
   },
   {
-    num: "05", emoji: "📸", title: "Instagram Clone",
+    num: "05", image: "/5.png", title: "Instagram Clone",
     desc: "Full-stack Instagram clone project applying scalable architecture and responsive UI/UX best practices. Features social authentication, image uploads, and real-time interactions.",
     tags: ["MERN Stack", "Firebase", "MongoDB", "Socket.io"], github: "#",
   },
   {
-    num: "06", emoji: "💼", title: "Personal Portfolio",
-    desc: "Modern portfolio website showcasing projects and skills. Built with Next.js and cutting-edge design patterns featuring smooth animations, dark mode, and responsive layouts.",
+    num: "06", image: "/6.png", title: "Clothify",
+    desc: "Modern E-commerce website- showcasing men and women's collection with seamless shopping experience. Built with React, Next.js, TypeScript, and Tailwind CSS for a responsive and visually appealing design.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Animation"], github: "#",
   },
 ];
@@ -159,37 +159,20 @@ function IconArrow() {
 }
 
 /* ================================================================
-   VERTICAL NAV — exact pixel-accurate recreation from video
-   
-   From frame-by-frame analysis of the reference video:
-   
-   STRUCTURE (always rendered):
-   • 1px SVG line: 7vh → 94vh  
-   • Dot at 7vh (top) and 94vh (bottom)
-   • "Portfolio" label: vertical text, top=7vh normally, slides to
-     ~42vh (center) only at END of page
-   • 5 diamond gems at fixed Y: 33, 42, 51, 61, 70 vh
-     - Active: filled solid  
-     - Inactive: hollow outline, slightly dimmer
-   • Section name: vertical text, LEFT of line, centered at active
-     gem's Y position, cross-fades on section change
+   VERTICAL NAV
    ================================================================ */
 function VerticalNav({
   items, activeId, onNav,
 }: {
   items: typeof NAV_ITEMS;
-  activeId: string;        // "" = hero/footer,  "about"|"stack"... = section
+  activeId: string;
   onNav: (id: string) => void;
 }) {
-  // Five diamonds, one per section, evenly spaced on the line
-  const GEM_VH   = [33, 42, 51, 61, 70];   // fixed Y positions (vh)
-  const activeIdx = items.findIndex(i => i.id === activeId); // -1 when hero/footer
-
-  // inSections: true while any nav section is active
+  const GEM_VH   = [33, 42, 51, 61, 70];
+  const activeIdx = items.findIndex(i => i.id === activeId);
   const inSections = activeIdx >= 0;
   const activeGemVh = inSections ? GEM_VH[activeIdx] : null;
 
-  // Cross-fade label text (only runs on section change, zero RAF)
   const [label,    setLabel]    = useState('');
   const [labelVis, setLabelVis] = useState(false);
   const prevId = useRef('');
@@ -198,7 +181,6 @@ function VerticalNav({
 
   useEffect(() => {
     if (!activeId) {
-      // hero or footer — hide label
       prevId.current = '';
       clearTimeout(t1.current); clearTimeout(t2.current);
       setLabelVis(false);
@@ -215,19 +197,6 @@ function VerticalNav({
     }, 240);
   }, [activeId, items]);
 
-  /* ── Three visual states ──
-     HERO / FOOTER  (inSections=false):
-       • "Portfolio" centered (top=50vh, shifted up by half its own height)
-       • Line passes through it like a strikethrough
-       • Diamonds hidden (opacity 0)
-       • Section label hidden
-
-     IN SECTIONS  (inSections=true):
-       • "Portfolio" moves to TOP of line (top=8vh)
-       • Diamonds appear (opacity transition)
-       • Active diamond filled, rest hollow
-       • Section label appears left of line at active gem Y
-  */
   const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
   const diamondOpacity = inSections ? 1      : 0;
 
@@ -237,34 +206,24 @@ function VerticalNav({
       width: 68, height: '100vh',
       zIndex: 400, pointerEvents: 'none',
     }}>
-
-      {/* ── 1px vertical line (always) ── */}
       <div style={{
         position: 'absolute', left: '50%',
         transform: 'translateX(-50%)',
         top: '7vh', height: '87vh',
         width: 1.5, background: 'var(--fg)', opacity: 0.45,
       }} />
-
-      {/* ── Top dot ── */}
       <div style={{
         position: 'absolute', left: '50%', top: '7vh',
         width: 5, height: 5, borderRadius: '50%',
         background: 'var(--fg)', opacity: 0.6,
         transform: 'translate(-50%,-50%)',
       }} />
-
-      {/* ── Bottom dot ── */}
       <div style={{
         position: 'absolute', left: '50%', top: '94vh',
         width: 5, height: 5, borderRadius: '50%',
         background: 'var(--fg)', opacity: 0.6,
         transform: 'translate(-50%,-50%)',
       }} />
-
-      {/* ── "Portfolio" label ──
-          Hero/Footer: sits at ~50vh — line strikes through it
-          Sections:    slides up to 8vh                           */}
       <div style={{
         position: 'absolute', left: '50%',
         top: portfolioTop,
@@ -279,8 +238,6 @@ function VerticalNav({
       }}>
         Portfolio
       </div>
-
-      {/* ── Section label: "01 NAME" left of line ── */}
       <div style={{
         position: 'absolute',
         right: 'calc(50% + 15px)',
@@ -302,8 +259,6 @@ function VerticalNav({
           {label}
         </span>
       </div>
-
-      {/* ── Diamonds ── */}
       {GEM_VH.map((vh, i) => {
         const active = i === activeIdx;
         return (
@@ -315,7 +270,6 @@ function VerticalNav({
               pointerEvents: 'all', cursor: 'pointer',
             }}
           >
-            {/* Diamond */}
             <div style={{
               position: 'absolute',
               width: 13, height: 13,
@@ -331,6 +285,7 @@ function VerticalNav({
     </div>
   );
 }
+
 /* ================================================================
    MAIN PAGE
    ================================================================ */
@@ -341,6 +296,7 @@ export default function PortfolioPage() {
   const [activeCat, setActiveCat] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const [sent, setSent] = useState(false);
+  const [isHiding, setIsHiding] = useState(false);
   const [kbToast, setKbToast] = useState("");
   const [kbShow, setKbShow] = useState(false);
 
@@ -385,6 +341,39 @@ export default function PortfolioPage() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Show success message immediately
+    setSent(true);
+    setIsHiding(false);
+    form.reset();
+
+    // Start hiding animation after 2.5 seconds
+    setTimeout(() => { setIsHiding(true); }, 2500);
+    
+    // Reset state after animation completes
+    setTimeout(() => { setSent(false); setIsHiding(false); }, 3200);
+
+    // Send email in the background without blocking the UI
+    try {
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          subject: formData.get('subject'),
+          message: formData.get('message'),
+        }),
+      });
+    } catch (error) {
+      console.error('Contact form error:', error);
+    }
+  }, []);
+
   /* Keyboard nav */
   useEffect(() => {
     const map: Record<string, { id: string; label: string }> = {
@@ -409,28 +398,25 @@ export default function PortfolioPage() {
     return () => window.removeEventListener("keydown", h);
   }, []);
 
-  /* Active section tracking for vertical nav */
+  /* Active section tracking */
   useEffect(() => {
     const lastActive = { current: "" };
 
     const update = () => {
       const vh = window.innerHeight;
 
-      // Hero still visible (bottom still above midpoint) → collapsed
       const heroEl = document.querySelector(".hero-section") as HTMLElement | null;
       if (heroEl && heroEl.getBoundingClientRect().bottom > vh * 0.55) {
         if (lastActive.current !== "") { lastActive.current = ""; setActiveSection(""); }
         return;
       }
 
-      // Footer entering view → collapsed
       const footerEl = document.querySelector(".site-footer") as HTMLElement | null;
       if (footerEl && footerEl.getBoundingClientRect().top < vh * 0.9) {
         if (lastActive.current !== "") { lastActive.current = ""; setActiveSection(""); }
         return;
       }
 
-      // Walk sections in reverse — last one whose top has passed 60% vh is active
       let active = "";
       for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
         const el = document.getElementById(NAV_ITEMS[i].id);
@@ -456,7 +442,6 @@ export default function PortfolioPage() {
     const h = () => {
       const sy = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      const prog = max > 0 ? sy / max : 0;
       if (progressBarRef.current)
         progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
       setNavScrolled(sy > 50);
@@ -495,7 +480,7 @@ export default function PortfolioPage() {
     return () => document.removeEventListener("mousemove", mv);
   }, []);
 
-  /* Cursor expand on interactive elements */
+  /* Cursor expand */
   useEffect(() => {
     const on = () => document.body.classList.add("cursor-expand");
     const off = () => document.body.classList.remove("cursor-expand");
@@ -535,12 +520,10 @@ export default function PortfolioPage() {
   useEffect(() => {
     let raf = 0;
     const TOTAL_CATS = TECH_CATEGORIES.length;
-    const CARD_W = 420 + 22;
 
     const frame = () => {
       const a = anim.current;
 
-      /* Cursor ring lerp */
       a.rx = lerp(a.rx, a.mx, 0.1);
       a.ry = lerp(a.ry, a.my, 0.1);
       if (cursorRingRef.current) {
@@ -567,7 +550,6 @@ export default function PortfolioPage() {
       /* Projects horizontal scroll */
       a.projC = lerp(a.projC, a.projT, 0.075);
       if (projTrackRef.current) {
-        // Each slide is 100vw wide; scroll through all slides
         const totalW = (PROJECTS.length - 1) * window.innerWidth;
         projTrackRef.current.style.transform = `translateX(${-a.projC * totalW}px)`;
       }
@@ -609,12 +591,6 @@ export default function PortfolioPage() {
     if (techCardRef.current) techCardRef.current.style.transform = "rotateX(0) rotateY(0)";
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3200);
-  }, []);
-
   const cat = TECH_CATEGORIES[activeCat];
 
   return (
@@ -624,16 +600,26 @@ export default function PortfolioPage() {
       <div className="scroll-progress" ref={progressBarRef} />
       <div className={`kb-nav-toast${kbShow ? " show" : ""}`}>{kbToast}</div>
 
+      {/* Success Message Overlay */}
+      {sent && (
+        <div className={`success-message-overlay${isHiding ? " hiding" : ""}`}>
+          <div className="success-message-content">
+            <div className="success-checkmark">✓</div>
+            <p className="success-message-text">Message Sent Successfully!</p>
+            <p className="success-message-subtext">I'll get back to you soon.</p>
+          </div>
+        </div>
+      )}
+
       {/* ══════════════════ ANIMATED VERTICAL NAV ══════════════════ */}
       <VerticalNav items={NAV_ITEMS} activeId={activeSection} onNav={scrollTo} />
 
-      {/* ══════════════════ NAVBAR (logo + controls only) ══════════════════ */}
+      {/* ══════════════════ NAVBAR ══════════════════ */}
       <nav className="navbar">
         <button className="nav-logo-outside" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <span className="nav-logo-dim">&lt;</span>Khushi<span className="nav-logo-dim">/&gt;</span>
         </button>
 
-        {/* Hamburger — mobile only */}
         <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Menu">
           <span className="ham-line" style={{ transform: menuOpen ? "rotate(45deg) translateY(6.5px)" : undefined }} />
           <span className="ham-line" style={{ opacity: menuOpen ? 0 : 1 }} />
@@ -659,25 +645,20 @@ export default function PortfolioPage() {
         </button>
       </div>
 
-      {/* ══════════════════ HERO — Redesigned ══════════════════ */}
+      {/* ══════════════════ HERO ══════════════════ */}
       <section className="hero-section">
-        {/* Status badge */}
         <div className="hero-top-intro">
           <span className="hero-badge-dot" />
           &nbsp;&nbsp;Available for work &nbsp;·&nbsp; <strong>New Delhi, India</strong>
         </div>
 
-        {/* Giant condensed title block — WEB / DEVELOPER stacked tight */}
         <div className="hero-title-block">
           <h1 className="hero-title-giant">
             <span className="hero-title-line">
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span>
             </span>
           </h1>
-
-          {/* Script overlay — centred exactly at the seam between WEB & DEVELOPER */}
           <div className="hero-name-script" aria-hidden="true">AI/ML Enthusiast</div>
-
           <h2 className="hero-title-ghost">
             <span className="hero-title-line ghost-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
@@ -685,25 +666,17 @@ export default function PortfolioPage() {
           </h2>
         </div>
 
-        {/* Tagline */}
         <div className="hero-tagline-block">
           <p className="hero-tagline-main">MERN Stack Engineer & AI Enthusiast — Building Tomorrow's Solutions.</p>
           <p className="hero-tagline-sub">Full-stack developer crafting intelligent applications with cutting-edge AI integration and scalable architecture.</p>
         </div>
 
-        {/* CTA buttons */}
-
-
-        {/* Bottom bar */}
         <div className="hero-bottom-bar">
-          <div className="hero-scroll-hint-inline">
-            <div className="scroll-hint-line" />
-            SCROLL
-          </div>
+          <div className="hero-scroll-hint-inline" />
           <div className="hero-brands">
             {[
               { name: "GitHub", url: "https://github.com/Khushipawar37" },
-              { name: "LinkedIn", url: "https://linkedin.com/in/khushi-pawar" },
+              { name: "LinkedIn", url: "https://www.linkedin.com/in/khushi-pawar-2823952b0/" },
               { name: "Email", url: "mailto:khushipawar987@gmail.com" },
             ].map((b, i) => (
               <span key={b.name} style={{ display: "flex", alignItems: "center", gap: 14 }}>
@@ -713,7 +686,6 @@ export default function PortfolioPage() {
             ))}
           </div>
         </div>
-        <div className="hero-year">© 2025</div>
       </section>
 
       {/* ══════════════════ MARQUEE ══════════════════ */}
@@ -763,7 +735,6 @@ export default function PortfolioPage() {
             </li>
           ))}
         </ul>
-
       </section>
 
       {/* ══════════════════ TECH STACK ══════════════════ */}
@@ -815,7 +786,6 @@ export default function PortfolioPage() {
       {/* ══════════════════ PROJECTS ══════════════════ */}
       <div id="work" className="projects-section" ref={projOuterRef} style={{ height: `${PROJECTS.length * 100}vh` }}>
         <div className="projects-sticky">
-          {/* Section heading */}
           <div className="proj-heading-wrap">
             <div className="proj-section-label">
               <span className="section-num">03</span>
@@ -824,25 +794,33 @@ export default function PortfolioPage() {
             <h2 className="proj-main-heading">My Work</h2>
           </div>
 
-          {/* Progress bar */}
           <div className="proj-progress-bar">
             <div className="proj-progress-fill" ref={projFillRef} style={{ width: "0%" }} />
           </div>
 
-          {/* Fullscreen slide track */}
           <div className="proj-track" ref={projTrackRef}>
             {PROJECTS.map((p, i) => (
               <div key={p.num} className="proj-slide">
-                {/* Background — full viewport image placeholder with emoji */}
+                {/* ── Background image with dark overlay ── */}
                 <div className="proj-slide-bg">
-                  <div className="proj-slide-emoji-bg">{p.emoji}</div>
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                      zIndex: 0,
+                    }}
+                  />
                   <div className="proj-slide-bg-overlay" />
                 </div>
 
-                {/* Right side — big number */}
                 <div className="proj-slide-num">{p.num}</div>
 
-                {/* Bottom overlay — title, desc, tags, link */}
                 <div className="proj-slide-info">
                   <div className="proj-slide-title">{p.title}</div>
                   <div className="proj-slide-desc">{p.desc}</div>
@@ -856,7 +834,6 @@ export default function PortfolioPage() {
                   </div>
                 </div>
 
-                {/* Slide counter */}
                 <div className="proj-slide-counter">
                   {String(i + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
                 </div>
@@ -866,16 +843,14 @@ export default function PortfolioPage() {
         </div>
       </div>
 
-      {/* ══════════════════ EDUCATION — sticky 3D section ══════════════════ */}
+      {/* ══════════════════ EDUCATION ══════════════════ */}
       <div className="edu-scene-outer" style={{ height: "160vh" }}>
         <div className="edu-scene-sticky">
           <div className="edu-scene-panel" ref={eduParallaxInnerRef} style={{ opacity: 1, transform: "none" }}>
-            {/* Section label */}
             <div className="edu-scene-header">
               <div className="section-label">ACADEMIC BACKGROUND</div>
               <h2 className="section-title">Education</h2>
             </div>
-            {/* Rows */}
             <div className="edu-rows-wrap" style={{ marginTop: 48, paddingBottom: 0 }}>
               <div className="edu-row edu-row--primary">
                 <div className="edu-row-left">
@@ -890,7 +865,7 @@ export default function PortfolioPage() {
                   <div className="edu-row-school">Maharaja Surajmal Institute of Technology · Delhi, India</div>
                 </div>
                 <div className="edu-row-right">
-                  <div className="edu-row-score">9.49</div>
+                  <div className="edu-row-score">9.47</div>
                   <div className="edu-row-score-unit">CGPA</div>
                 </div>
               </div>
@@ -920,7 +895,7 @@ export default function PortfolioPage() {
                   <div className="edu-row-school">New Delhi, India</div>
                 </div>
                 <div className="edu-row-right">
-                  <div className="edu-row-score">96.6</div>
+                  <div className="edu-row-score">97</div>
                   <div className="edu-row-score-unit">%</div>
                 </div>
               </div>
@@ -959,9 +934,8 @@ export default function PortfolioPage() {
               </div>
             ))}
           </div>
-        </div>{/* end experience-inner */}
+        </div>
       </section>
-
 
       {/* ══════════════════ RESUME ══════════════════ */}
       <section id="resume" className="resume-section">
@@ -972,8 +946,25 @@ export default function PortfolioPage() {
               <h2 className="section-title">Download<br />My CV</h2>
               <p>A concise overview of my experience, skills, and the projects I&apos;ve shipped — ready to share with your team.</p>
               <div className="resume-action-btns">
-                <button className="resume-dl-btn">Download PDF <IconDownload /></button>
-                <button className="resume-view-btn">View Online <IconExternal /></button>
+                <button
+                  className="resume-dl-btn"
+                  onClick={() => {
+                    const link = document.createElement('a');
+                    link.href = '/resume.pdf';
+                    link.download = 'Khushi_Pawar_Resume.pdf';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
+                >
+                  Download PDF <IconDownload />
+                </button>
+                <button
+                  className="resume-view-btn"
+                  onClick={() => window.open('/resume.pdf', '_blank')}
+                >
+                  View Online <IconExternal />
+                </button>
               </div>
             </div>
             <div className="resume-mock-card reveal from-right">
@@ -983,7 +974,7 @@ export default function PortfolioPage() {
                   <div className="resume-role-sub">Full Stack Web Developer</div>
                 </div>
                 <div className="resume-contact-block">
-                  khushipawar987@gmail.com<br />linkedin.com/in/khushi-pawar<br />github.com/Khushipawar37<br />New Delhi, India
+                  khushipawar987@gmail.com<br />New Delhi, India
                 </div>
               </div>
               <div className="rm-section-head">Experience</div>
@@ -1084,7 +1075,7 @@ export default function PortfolioPage() {
                   <div className="contact-left-desc">Always excited to collaborate on innovative projects combining web development and AI. Whether it's a startup venture, research opportunity, or exciting freelance challenge, I'm eager to make an impact.</div>
                   <div className="contact-info-links">
                     <a href="mailto:khushipawar987@gmail.com" className="contact-info-link"><IconMail /> khushipawar987@gmail.com</a>
-                    <a href="https://linkedin.com/in/khushi-pawar" target="_blank" rel="noopener noreferrer" className="contact-info-link"><IconLinkedIn /> linkedin.com/in/khushi-pawar</a>
+                    <a href="https://www.linkedin.com/in/khushi-pawar-2823952b0/" target="_blank" rel="noopener noreferrer" className="contact-info-link"><IconLinkedIn /> https://www.linkedin.com/in/khushi-pawar-2823952b0/</a>
                     <a href="https://github.com/Khushipawar37" target="_blank" rel="noopener noreferrer" className="contact-info-link"><IconGitHub /> github.com/Khushipawar37</a>
                   </div>
                 </div>
@@ -1092,20 +1083,20 @@ export default function PortfolioPage() {
                   <div className="form-two-col">
                     <div className="form-field">
                       <label className="form-field-label">YOUR NAME</label>
-                      <input type="text" className="form-field-input" placeholder="John Doe" />
+                      <input type="text" name="name" className="form-field-input" placeholder="John Doe" required />
                     </div>
                     <div className="form-field">
                       <label className="form-field-label">EMAIL</label>
-                      <input type="email" className="form-field-input" placeholder="john@company.com" />
+                      <input type="email" name="email" className="form-field-input" placeholder="john@company.com" required />
                     </div>
                   </div>
                   <div className="form-field">
                     <label className="form-field-label">SUBJECT</label>
-                    <input type="text" className="form-field-input" placeholder="Project Collaboration" />
+                    <input type="text" name="subject" className="form-field-input" placeholder="Project Collaboration" required />
                   </div>
                   <div className="form-field">
                     <label className="form-field-label">MESSAGE</label>
-                    <textarea className="form-field-textarea" placeholder="Tell me about your project..." />
+                    <textarea name="message" className="form-field-textarea" placeholder="Tell me about your project..." required />
                   </div>
                   <button type="submit" className="form-submit-btn">
                     {sent ? "Message Sent ✓" : "Send Message"}
@@ -1133,7 +1124,7 @@ export default function PortfolioPage() {
           <div className="footer-socials-row">
             {[
               { icon: <IconGitHub />, label: "GitHub", url: "https://github.com/Khushipawar37" },
-              { icon: <IconLinkedIn />, label: "LinkedIn", url: "https://linkedin.com/in/khushi-pawar" },
+              { icon: <IconLinkedIn />, label: "LinkedIn", url: "https://www.linkedin.com/in/khushi-pawar-2823952b0/" },
               { icon: <IconMail />, label: "Email", url: "mailto:khushipawar987@gmail.com" },
             ].map(s => (
               <a key={s.label} href={s.url} target={s.url.startsWith("http") ? "_blank" : undefined} rel={s.url.startsWith("http") ? "noopener noreferrer" : undefined} className="footer-social-circ" title={s.label}>{s.icon}</a>
