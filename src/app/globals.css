@@ -661,6 +661,7 @@ button {
    top:50% on the inline-block title block = exactly the gap between the 2 lines.
    left: -2% nudges it just a touch left for that editorial offset feel. */
 .hero-name-script {
+  display: none;
   position: absolute;
   left: -1%;
   top: 50%;
@@ -2780,48 +2781,31 @@ button {
 }
 
 /* ========================================
-   PROJECT CARD IMAGE STYLES
+   PROJECT SLIDE IMAGE STYLES
    ======================================== */
-.project-card {
-  position: relative;
-  overflow: hidden;
+.proj-slide-bg img {
+  opacity: 0.65 !important;
+  filter: brightness(0.55) saturate(0.8) blur(2px) !important;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-.project-card img {
-  opacity: 0.25;
-  filter: brightness(0.35) saturate(0.5) blur(2px);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 0;
+.proj-slide-bg:hover img {
+  opacity: 0.75 !important;
+  filter: brightness(0.65) saturate(0.95) blur(2px) !important;
 }
 
-.project-card:hover img {
-  opacity: 0.3;
-  filter: brightness(0.5) saturate(0.65) blur(1px);
+.proj-slide-bg-overlay {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.15) 100%) !important;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
 }
 
-.project-card::before {
+.proj-slide-bg-overlay::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.45) 100%);
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 100%);
   pointer-events: none;
-  border-radius: 8px;
-  z-index: 2;
-}
-
-.project-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 30% 30%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.4) 100%);
-  pointer-events: none;
-  border-radius: 8px;
-  z-index: 3;
 }

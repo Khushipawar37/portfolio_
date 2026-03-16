@@ -32,11 +32,6 @@ const ABOUT_CARDS = [
     desc: "From pixel-perfect React interfaces to resilient Node.js backends and robust database solutions — I build complete web experiences. Proficient in designing intuitive UX with Figma and deploying scalable applications on modern cloud platforms.",
     chips: ["MERN Stack", "Next.js", "Figma Design", "Responsive UI"],
   },
-  {
-    num: "04 / FRONTIER", icon: "🤖", title: "AI Integration & ML Enthusiast",
-    desc: "Actively exploring the intersection of AI and web development. I integrate cutting-edge AI models like Groq and leverage AI tools to enhance applications. Expanding skillset with ML fundamentals to complement my development expertise.",
-    chips: ["Groq AI", "LLM Integration", "ML Fundamentals", "AI-Powered Apps"],
-  },
 ];
 
 const TECH_CATEGORIES = [
@@ -658,7 +653,7 @@ export default function PortfolioPage() {
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span>
             </span>
           </h1>
-          <div className="hero-name-script" aria-hidden="true">AI/ML Enthusiast</div>
+          <div className="hero-name-script" aria-hidden="true">builder</div>
           <h2 className="hero-title-ghost">
             <span className="hero-title-line ghost-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
