@@ -171,26 +171,37 @@ function VerticalNav({
   const [label,    setLabel]    = useState('');
   const [labelVis, setLabelVis] = useState(false);
   const prevId = useRef('');
-  const t1 = useRef<ReturnType<typeof setTimeout>>();
-  const t2 = useRef<ReturnType<typeof setTimeout>>();
+  const t1 = useRef<ReturnType<typeof setTimeout>| null>(null);
+  const t2 = useRef<ReturnType<typeof setTimeout>| null>(null);
 
-  useEffect(() => {
-    if (!activeId) {
-      prevId.current = '';
-      clearTimeout(t1.current); clearTimeout(t2.current);
-      setLabelVis(false);
-      return;
-    }
-    const it = items.find(i => i.id === activeId);
-    if (!it || activeId === prevId.current) return;
-    prevId.current = activeId;
-    clearTimeout(t1.current); clearTimeout(t2.current);
+useEffect(() => {
+  if (!activeId) {
+    prevId.current = '';
+
+    if (t1.current !== null) clearTimeout(t1.current);
+    if (t2.current !== null) clearTimeout(t2.current);
+
     setLabelVis(false);
-    t1.current = setTimeout(() => {
-      setLabel(it.label.toUpperCase());
-      t2.current = setTimeout(() => setLabelVis(true), 40);
-    }, 240);
-  }, [activeId, items]);
+    return;
+  }
+
+  const it = items.find(i => i.id === activeId);
+  if (!it || activeId === prevId.current) return;
+
+  prevId.current = activeId;
+
+  if (t1.current !== null) clearTimeout(t1.current);
+  if (t2.current !== null) clearTimeout(t2.current);
+
+  setLabelVis(false);
+
+  t1.current = setTimeout(() => {
+    setLabel(it.label.toUpperCase());
+
+    t2.current = setTimeout(() => setLabelVis(true), 40);
+  }, 240);
+
+}, [activeId, items]);
 
   const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
   const diamondOpacity = inSections ? 1      : 0;
