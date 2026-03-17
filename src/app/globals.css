@@ -1,7 +1,7 @@
 /* ============================================================
    GOOGLE FONTS — load condensed display fonts for hero
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Dancing+Script:wght@600&family=Oswald:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Dancing+Script:wght@400;600&family=Oswald:wght@600;700&display=swap');
 
 /* ============================================================
    THEME VARIABLES — DEFAULT = LIGHT, dark class = dark mode
@@ -355,9 +355,6 @@ button {
 
 /* ============================================================
    SECTION UTILS
-
-
-
    ============================================================ */
 .section-label {
   font-family: "DM Mono", monospace;
@@ -657,31 +654,32 @@ button {
   animation: heroLineUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Script overlay — centred at the seam, shifted slightly left of WEB start.
-   top:50% on the inline-block title block = exactly the gap between the 2 lines.
-   left: -2% nudges it just a touch left for that editorial offset feel. */
+/* ============================================================
+   HERO NAME SCRIPT — cursive italic overlay spanning WEB + DEVELOPER
+   Sits at the seam between the two headline lines, ghostly + thin.
+   ============================================================ */
 .hero-name-script {
-  display: none;
+  display: block;
   position: absolute;
-  left: -1%;
-  top: 50%;
+  left: 1%;
+  top: 46%;
   transform: translateY(-50%);
   z-index: 10;
   white-space: nowrap;
   font-family: "Dancing Script", cursive;
-  font-size: clamp(1.6rem, 3.4vw, 3.8rem);
+  font-size: clamp(2.2rem, 4.8vw, 5.4rem);
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   /* Semi-transparent warm grey — visible but ghostly, overlays both words */
-  color: rgba(80, 72, 65, 0.45);
-  letter-spacing: 0.02em;
+  color: rgba(60, 52, 46, 0.38);
+  letter-spacing: 0.04em;
   line-height: 1;
   pointer-events: none;
   user-select: none;
   animation: heroFadeIn 1.2s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 :root.dark .hero-name-script {
-  color: rgba(220, 210, 195, 0.4);
+  color: rgba(230, 218, 200, 0.35);
 }
 
 /* Tagline below the main heading */
@@ -1023,9 +1021,6 @@ button {
 }
 
 /* ============================================================
-   EDUCATION — BENTO MOSAIC with IntersectionObserver scroll-reveal
-   ============================================================ */
-/* ============================================================
    EDUCATION — horizontal rows, no boxes
    ============================================================ */
 
@@ -1183,7 +1178,6 @@ button {
   align-items: end;
   position: relative;
   overflow: hidden;
-  /* default hidden — JS .reveal class fades it in via site-wide observer */
   opacity: 0;
   transform: translateY(48px);
   transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
@@ -1332,7 +1326,6 @@ button {
 
 /* ============================================================
    TECH STACK
-
    ============================================================ */
 .stack-section {
   position: relative;
@@ -1533,10 +1526,6 @@ button {
   overflow: hidden;
 }
 
-
-
-/* Progress bar — bottom */
-
 /* Projects section heading */
 .proj-heading-wrap {
   position: absolute;
@@ -1593,7 +1582,6 @@ button {
 /* Slide track — horizontal flex, each slide = 100vw */
 .proj-track {
   display: flex;
-  /* Width set by JS slide count — must overflow the sticky container */
   width: max-content;
   height: 100%;
   will-change: transform;
@@ -1753,12 +1741,10 @@ button {
 }
 
 
-/* ── Education parallax transition ── */
 /* ── Education sticky 3D scene ── */
 .edu-scene-outer {
   position: relative;
   background: var(--bg);
-  /* perspective set here so the sticky child gets true 3D depth */
   perspective: 1200px;
   perspective-origin: 50% 0%;
 }
@@ -1845,19 +1831,16 @@ button {
    EXPERIENCE
    ============================================================ */
 
-/* ── Experience sticky 3D scene (same approach as edu) ── */
 .exp-scene-outer {
   position: relative;
   background: var(--bg);
-  /* perspective on outer = true 3D stage for the sticky child */
   perspective: 1400px;
-  perspective-origin: 50% 30%;  /* lower origin = softer tilt angle */
+  perspective-origin: 50% 30%;
 }
 .exp-scene-sticky {
   position: sticky;
   top: 0;
   height: 100vh;
-  /* NO overflow:hidden — clipping kills the scale/translate effect */
   display: flex;
   align-items: center;
   justify-content: center;

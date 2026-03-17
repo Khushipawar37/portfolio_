@@ -653,7 +653,8 @@ export default function PortfolioPage() {
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span>
             </span>
           </h1>
-          <div className="hero-name-script" aria-hidden="true">builder</div>
+          {/* ── Cursive script overlay spanning both lines ── */}
+          <div className="hero-name-script" aria-hidden="true">web developer</div>
           <h2 className="hero-title-ghost">
             <span className="hero-title-line ghost-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
