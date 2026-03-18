@@ -33,6 +33,11 @@ const ABOUT_CARDS = [
     desc: "From pixel-perfect React interfaces to resilient Node.js backends and robust database solutions — I build complete web experiences. Proficient in designing intuitive UX with Figma and deploying scalable applications on modern cloud platforms.",
     chips: ["MERN Stack", "Next.js", "Figma Design", "Responsive UI"],
   },
+  {
+    num: "04 / INTELLIGENCE", icon: "🧠", title: "AI / ML & Deep Learning Explorer",
+    desc: "Actively exploring the intersection of software engineering and artificial intelligence. Grounded in core ML concepts and currently diving deep into neural networks and deep learning architectures, with Generative AI and LLM engineering as my next frontier.",
+    chips: ["Machine Learning", "Deep Learning", "Neural Networks", "Gen AI"],
+  },
 ];
 
 const TECH_CATEGORIES = [
@@ -639,8 +644,6 @@ export default function PortfolioPage() {
               <span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span>
             </span>
           </h1>
-          {/* ── Cursive script overlay spanning both lines ── */}
-          <div className="hero-name-script" aria-hidden="true">web developer</div>
           <h2 className="hero-title-ghost">
             <span className="hero-title-line ghost-line">
               <span className="hero-title-inner" style={{ animationDelay: "0.12s" }}>Developer</span>
@@ -783,27 +786,15 @@ export default function PortfolioPage() {
           <div className="proj-track" ref={projTrackRef}>
             {PROJECTS.map((p, i) => (
               <div key={p.num} className="proj-slide">
-                {/* ── Background image with dark overlay ── */}
-                <div className="proj-slide-bg">
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "center",
-                      zIndex: 0,
-                    }}
-                  />
-                  <div className="proj-slide-bg-overlay" />
-                </div>
+                <div className="proj-slide-bg" />
 
-                <div className="proj-slide-num">{p.num}</div>
-
+                {/* ── LEFT: Info panel ── */}
                 <div className="proj-slide-info">
+                  <div className="proj-slide-meta">
+                    <span className="proj-slide-index">{p.num}</span>
+                    <span className="proj-slide-meta-sep" />
+                    <span className="proj-slide-category">Project</span>
+                  </div>
                   <div className="proj-slide-title">{p.title}</div>
                   <div className="proj-slide-desc">{p.desc}</div>
                   <div className="proj-slide-footer">
@@ -811,13 +802,51 @@ export default function PortfolioPage() {
                       {p.tags.map(t => <span key={t} className="proj-slide-tag">{t}</span>)}
                     </div>
                     <a href={p.github} className="proj-slide-link">
-                      <IconGitHub /> GitHub
+                      <IconGitHub /> View on GitHub
                     </a>
                   </div>
                 </div>
 
-                <div className="proj-slide-counter">
-                  {String(i + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+                {/* ── RIGHT: 3D Browser Mockup ── */}
+                <div className="proj-mockup-wrap">
+                  {/* Glow blob behind card */}
+                  <div className="proj-mockup-glow" />
+
+                  <div className="proj-mockup-card">
+                    {/* Browser chrome top bar */}
+                    <div className="proj-mockup-bar">
+                      <div className="proj-mockup-dots">
+                        <span className="pmd pmd-red" />
+                        <span className="pmd pmd-yellow" />
+                        <span className="pmd pmd-green" />
+                      </div>
+                      <div className="proj-mockup-url">
+                        <span className="proj-mockup-lock">🔒</span>
+                        <span>{p.title.toLowerCase().replace(/\s/g, '')}.vercel.app</span>
+                      </div>
+                      <div className="proj-mockup-actions">
+                        <span className="proj-mockup-action-dot" />
+                        <span className="proj-mockup-action-dot" />
+                      </div>
+                    </div>
+
+                    {/* Screenshot viewport */}
+                    <div className="proj-mockup-screen">
+                      <img
+                        src={p.image}
+                        alt={p.title}
+                        className="proj-mockup-img"
+                      />
+                      <div className="proj-mockup-screen-shine" />
+                    </div>
+                  </div>
+
+                  {/* Floating counter pill */}
+                  <div className="proj-mockup-counter">
+                    <span>{p.num}</span>
+                    <span className="proj-mockup-counter-sep">—</span>
+                    <span>{String(PROJECTS.length).padStart(2,"0")}</span>
+                  </div>
                 </div>
               </div>
             ))}
