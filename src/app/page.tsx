@@ -285,6 +285,14 @@ export default function PortfolioPage() {
   const [isHiding, setIsHiding] = useState(false);
   const [kbToast, setKbToast] = useState("");
   const [kbShow, setKbShow] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   /* refs */
   const cursorDotRef = useRef<HTMLDivElement>(null);
@@ -598,7 +606,7 @@ export default function PortfolioPage() {
       )}
 
       {/* ══════════════════ ANIMATED VERTICAL NAV ══════════════════ */}
-      <VerticalNav items={NAV_ITEMS} activeId={activeSection} onNav={scrollTo} />
+      {!isMobile && <VerticalNav items={NAV_ITEMS} activeId={activeSection} onNav={scrollTo} />}
 
       {/* ══════════════════ NAVBAR ══════════════════ */}
       <nav className="navbar">
