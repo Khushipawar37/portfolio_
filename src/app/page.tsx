@@ -143,48 +143,48 @@ function VerticalNav({
   activeId: string;
   onNav: (id: string) => void;
 }) {
-  const GEM_VH   = [33, 42, 51, 61, 70];
+  const GEM_VH = [33, 42, 51, 61, 70];
   const activeIdx = items.findIndex(i => i.id === activeId);
   const inSections = activeIdx >= 0;
   const activeGemVh = inSections ? GEM_VH[activeIdx] : null;
 
-  const [label,    setLabel]    = useState('');
+  const [label, setLabel] = useState('');
   const [labelVis, setLabelVis] = useState(false);
   const prevId = useRef('');
-  const t1 = useRef<ReturnType<typeof setTimeout>| null>(null);
-  const t2 = useRef<ReturnType<typeof setTimeout>| null>(null);
+  const t1 = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const t2 = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-useEffect(() => {
-  if (!activeId) {
-    prevId.current = '';
+  useEffect(() => {
+    if (!activeId) {
+      prevId.current = '';
+
+      if (t1.current !== null) clearTimeout(t1.current);
+      if (t2.current !== null) clearTimeout(t2.current);
+
+      setLabelVis(false);
+      return;
+    }
+
+    const it = items.find(i => i.id === activeId);
+    if (!it || activeId === prevId.current) return;
+
+    prevId.current = activeId;
 
     if (t1.current !== null) clearTimeout(t1.current);
     if (t2.current !== null) clearTimeout(t2.current);
 
     setLabelVis(false);
-    return;
-  }
 
-  const it = items.find(i => i.id === activeId);
-  if (!it || activeId === prevId.current) return;
+    t1.current = setTimeout(() => {
+      setLabel(it.label.toUpperCase());
 
-  prevId.current = activeId;
+      t2.current = setTimeout(() => setLabelVis(true), 40);
+    }, 240);
 
-  if (t1.current !== null) clearTimeout(t1.current);
-  if (t2.current !== null) clearTimeout(t2.current);
+  }, [activeId, items]);
 
-  setLabelVis(false);
-
-  t1.current = setTimeout(() => {
-    setLabel(it.label.toUpperCase());
-
-    t2.current = setTimeout(() => setLabelVis(true), 40);
-  }, 240);
-
-}, [activeId, items]);
-
-  const portfolioTop  = inSections ? '8vh'  : 'calc(50vh - 40px)';
-  const diamondOpacity = inSections ? 1      : 0;
+  const portfolioTop = inSections ? '8vh' : 'calc(50vh - 40px)';
+  const diamondOpacity = inSections ? 1 : 0;
 
   return (
     <div style={{
@@ -304,7 +304,7 @@ export default function PortfolioPage() {
   const projOuterRef = useRef<HTMLDivElement>(null);
   const projTrackRef = useRef<HTMLDivElement>(null);
   const projFillRef = useRef<HTMLDivElement>(null);
-  const eduParallaxRef      = useRef<HTMLDivElement>(null);
+  const eduParallaxRef = useRef<HTMLDivElement>(null);
   const eduParallaxInnerRef = useRef<HTMLDivElement>(null);
   const contactOuterRef = useRef<HTMLDivElement>(null);
   const contactTopRef = useRef<HTMLDivElement>(null);
@@ -347,7 +347,7 @@ export default function PortfolioPage() {
 
     // Start hiding animation after 2.5 seconds
     setTimeout(() => { setIsHiding(true); }, 2500);
-    
+
     // Reset state after animation completes
     setTimeout(() => { setSent(false); setIsHiding(false); }, 3200);
 
@@ -437,7 +437,7 @@ export default function PortfolioPage() {
       const sy = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       if (progressBarRef.current)
-        progressBarRef.current.style.width = (max > 0 ? (sy/max)*100 : 0) + "%";
+        progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
       setNavScrolled(sy > 50);
 
       if (stackOuterRef.current) {
@@ -853,7 +853,7 @@ export default function PortfolioPage() {
                   <div className="proj-mockup-counter">
                     <span>{p.num}</span>
                     <span className="proj-mockup-counter-sep">—</span>
-                    <span>{String(PROJECTS.length).padStart(2,"0")}</span>
+                    <span>{String(PROJECTS.length).padStart(2, "0")}</span>
                   </div>
                 </div>
               </div>
