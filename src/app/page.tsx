@@ -96,16 +96,6 @@ const PROJECTS = [
     tags: ["MERN", "Next.js", "Firebase", "Judge0"], github: "https://github.com/Khushipawar37/virtual_machine.git",
   },
   {
-    num: "04", image: "/4.png", title: "GDG on Campus MSIT",
-    desc: "Full-stack responsive website for GDG on Campus community. Collaborated with team to deliver a polished, maintainable platform with modern design and optimal performance.",
-    tags: ["React", "Next.js", "TypeScript", "Tailwind CSS"], github: "#",
-  },
-  {
-    num: "05", image: "/5.png", title: "Instagram Clone",
-    desc: "Full-stack Instagram clone project applying scalable architecture and responsive UI/UX best practices. Features social authentication, image uploads, and real-time interactions.",
-    tags: ["MERN Stack", "Firebase", "MongoDB", "Socket.io"], github: "#",
-  },
-  {
     num: "06", image: "/6.png", title: "Clothify",
     desc: "Modern E-commerce website- showcasing men and women's collection with seamless shopping experience. Built with React, Next.js, TypeScript, and Tailwind CSS for a responsive and visually appealing design.",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Animation"], github: "#",
