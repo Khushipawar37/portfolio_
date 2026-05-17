@@ -207,13 +207,26 @@ export default function PortfolioPage() {
   const [kbToast, setKbToast] = useState("");
   const [kbShow, setKbShow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
+    const check = () => {
+      setIsMobile(window.innerWidth <= 920);
+      setIsTouchDevice(
+        window.matchMedia("(pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0
+      );
+    };
     check();
     window.addEventListener("resize", check, { passive: true });
     return () => window.removeEventListener("resize", check);
   }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle("touch-device", isTouchDevice);
+    return () => document.body.classList.remove("touch-device");
+  }, [isTouchDevice]);
 
   const cursorDotRef = useRef<HTMLDivElement>(null);
   const cursorRingRef = useRef<HTMLDivElement>(null);
@@ -295,6 +308,10 @@ export default function PortfolioPage() {
 
   /* About story scroll */
   useEffect(() => {
+    if (isMobile) {
+      setActiveStory(0);
+      return;
+    }
     const onScroll = () => {
       if (!aboutOuterRef.current) return;
       const r = aboutOuterRef.current.getBoundingClientRect();
@@ -305,37 +322,69 @@ export default function PortfolioPage() {
     };
     window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     const h = () => {
       const sy = window.scrollY; const max = document.documentElement.scrollHeight - window.innerHeight;
       if (progressBarRef.current) progressBarRef.current.style.width = (max > 0 ? (sy / max) * 100 : 0) + "%";
       if (stackOuterRef.current) { const r = stackOuterRef.current.getBoundingClientRect(); const ht = stackOuterRef.current.offsetHeight - window.innerHeight; anim.current.stackT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1); }
-      if (projOuterRef.current) { const r = projOuterRef.current.getBoundingClientRect(); const ht = projOuterRef.current.offsetHeight - window.innerHeight; anim.current.projT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1); }
-      if (contactOuterRef.current) { const r = contactOuterRef.current.getBoundingClientRect(); const ht = contactOuterRef.current.offsetHeight - window.innerHeight; anim.current.contT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1); }
+      if (!isMobile && projOuterRef.current) { const r = projOuterRef.current.getBoundingClientRect(); const ht = projOuterRef.current.offsetHeight - window.innerHeight; anim.current.projT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1); }
+      if (!isMobile && contactOuterRef.current) { const r = contactOuterRef.current.getBoundingClientRect(); const ht = contactOuterRef.current.offsetHeight - window.innerHeight; anim.current.contT = clamp(ht > 0 ? -r.top / ht : 0, 0, 1); }
     };
     window.addEventListener("scroll", h, { passive: true });
+    h();
     return () => window.removeEventListener("scroll", h);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
+    if (isTouchDevice) return;
     const mv = (e: MouseEvent) => {
       anim.current.mx = e.clientX; anim.current.my = e.clientY;
       if (cursorDotRef.current) { cursorDotRef.current.style.left = e.clientX + "px"; cursorDotRef.current.style.top = e.clientY + "px"; }
     };
     document.addEventListener("mousemove", mv);
     return () => document.removeEventListener("mousemove", mv);
-  }, []);
+  }, [isTouchDevice]);
 
   useEffect(() => {
+    if (isTouchDevice) return;
     const on = () => document.body.classList.add("cursor-expand");
     const off = () => document.body.classList.remove("cursor-expand");
     const attach = () => { document.querySelectorAll("a,button,.skill-item").forEach(el => { el.addEventListener("mouseenter", on); el.addEventListener("mouseleave", off); }); };
+    const release = () => off();
     attach();
     const mo = new MutationObserver(attach); mo.observe(document.body, { childList: true, subtree: true });
-    return () => mo.disconnect();
-  }, []);
+    document.addEventListener("mouseup", release);
+    document.addEventListener("mousedown", release);
+    window.addEventListener("blur", release);
+    window.addEventListener("scroll", release, { passive: true });
+    return () => {
+      mo.disconnect();
+      document.removeEventListener("mouseup", release);
+      document.removeEventListener("mousedown", release);
+      window.removeEventListener("blur", release);
+      window.removeEventListener("scroll", release);
+      off();
+    };
+  }, [isTouchDevice]);
+
+  useEffect(() => {
+    if (isMobile) {
+      if (contactTopRef.current) contactTopRef.current.style.transform = "none";
+      if (contactBotRef.current) contactBotRef.current.style.transform = "none";
+      if (contactLineRef.current) contactLineRef.current.style.opacity = "1";
+      if (contactFormRef.current) {
+        contactFormRef.current.style.opacity = "1";
+        contactFormRef.current.style.transform = "none";
+        contactFormRef.current.style.pointerEvents = "auto";
+      }
+    } else if (contactFormRef.current) {
+      contactFormRef.current.style.opacity = "0";
+      contactFormRef.current.style.transform = "scale(0.91) translateY(40px)";
+      contactFormRef.current.style.pointerEvents = "none";
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } }), { threshold: 0.08 });
@@ -354,19 +403,21 @@ export default function PortfolioPage() {
       const seg = 1 / N; const cat = clamp(Math.floor(a.stackC * N), 0, N - 1); const loc = clamp((a.stackC - cat * seg) / seg, 0, 1);
       if (cat !== a.prevCat) { a.prevCat = cat; setActiveCat(cat); }
       if (card3dRef.current) { const eY = (1 - clamp(loc * 2.4, 0, 1)) * 80; const xY = clamp(loc * 2.4 - 1, 0, 1) * -80; const sc = 0.84 + clamp(loc, 0, 1) * 0.16 - clamp((loc - 0.5) * 0.1, 0, 0.1); const op = clamp(loc * 12, 0, 1) * (1 - clamp((loc - 0.78) * 7, 0, 1)); const rx = (1 - loc) * 20 - loc * 10; card3dRef.current.style.transform = `translateY(${eY + xY}px) scale(${sc}) rotateX(${rx}deg)`; card3dRef.current.style.opacity = String(Math.max(0, op)); }
-      a.projC = lerp(a.projC, a.projT, 0.075);
-      if (projTrackRef.current) { const tw = (PROJECTS.length - 1) * window.innerWidth; projTrackRef.current.style.transform = `translateX(${-a.projC * tw}px)`; }
-      if (projFillRef.current) projFillRef.current.style.width = (a.projC * 100) + "%";
-      a.contC = lerp(a.contC, a.contT, 0.065); const sp = clamp(a.contC * 2.8, 0, 1); const fv = clamp((a.contC - 0.28) * 3.4, 0, 1);
-      if (contactTopRef.current) contactTopRef.current.style.transform = `translateY(${-sp * 100}%)`;
-      if (contactBotRef.current) contactBotRef.current.style.transform = `translateY(${sp * 100}%)`;
-      if (contactLineRef.current) contactLineRef.current.style.opacity = String(1 - clamp(sp * 4, 0, 1));
-      if (contactFormRef.current) { contactFormRef.current.style.opacity = String(fv); contactFormRef.current.style.transform = `scale(${0.91 + fv * 0.09}) translateY(${(1 - fv) * 40}px)`; contactFormRef.current.style.pointerEvents = fv > 0.45 ? "auto" : "none"; }
+      if (!isMobile) {
+        a.projC = lerp(a.projC, a.projT, 0.075);
+        if (projTrackRef.current) { const tw = (PROJECTS.length - 1) * window.innerWidth; projTrackRef.current.style.transform = `translateX(${-a.projC * tw}px)`; }
+        if (projFillRef.current) projFillRef.current.style.width = (a.projC * 100) + "%";
+        a.contC = lerp(a.contC, a.contT, 0.065); const sp = clamp(a.contC * 2.8, 0, 1); const fv = clamp((a.contC - 0.28) * 3.4, 0, 1);
+        if (contactTopRef.current) contactTopRef.current.style.transform = `translateY(${-sp * 100}%)`;
+        if (contactBotRef.current) contactBotRef.current.style.transform = `translateY(${sp * 100}%)`;
+        if (contactLineRef.current) contactLineRef.current.style.opacity = String(1 - clamp(sp * 4, 0, 1));
+        if (contactFormRef.current) { contactFormRef.current.style.opacity = String(fv); contactFormRef.current.style.transform = `scale(${0.91 + fv * 0.09}) translateY(${(1 - fv) * 40}px)`; contactFormRef.current.style.pointerEvents = fv > 0.45 ? "auto" : "none"; }
+      }
       raf = requestAnimationFrame(frame);
     };
     raf = requestAnimationFrame(frame);
     return () => cancelAnimationFrame(raf);
-  }, []);
+  }, [isMobile]);
 
   const onCardMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!techCardRef.current) return;
@@ -380,8 +431,8 @@ export default function PortfolioPage() {
 
   return (
     <>
-      <div className="cursor-dot" ref={cursorDotRef} />
-      <div className="cursor-ring" ref={cursorRingRef} />
+      {!isTouchDevice && <div className="cursor-dot" ref={cursorDotRef} />}
+      {!isTouchDevice && <div className="cursor-ring" ref={cursorRingRef} />}
       <div className="scroll-progress" ref={progressBarRef} />
       <div className={`kb-nav-toast${kbShow ? " show" : ""}`}>{kbToast}</div>
 
@@ -460,11 +511,11 @@ export default function PortfolioPage() {
           ══════════════════════════════════════════════ */}
 
       {/* Unified about section — title lives inside the sticky area */}
-      <div id="about" className="about-stories-outer" ref={aboutOuterRef} style={{ height: `${ABOUT_STORIES.length * 100}vh` }}>
+      <div id="about" className="about-stories-outer" ref={aboutOuterRef} style={{ height: isMobile ? "auto" : `${ABOUT_STORIES.length * 100}vh` }}>
         <div className="about-stories-sticky">
 
           {/* Section label + title — top left of sticky area */}
-          <div style={{ position: 'absolute', top: 'clamp(24px, 3vh, 36px)', left: 'clamp(80px, 8vw, 120px)', zIndex: 10, pointerEvents: 'none' }}>
+          <div className="about-stories-heading" style={{ position: 'absolute', top: 'clamp(24px, 3vh, 36px)', left: 'clamp(80px, 8vw, 120px)', zIndex: 10, pointerEvents: 'none' }}>
             <div className="section-num-wrap" style={{ marginBottom: 0 }}>
               <span className="section-num">01</span>
               <div className="section-num-content">
@@ -492,8 +543,8 @@ export default function PortfolioPage() {
           {ABOUT_STORIES.map((s, i) => (
             <div
               key={i}
-              className={`about-panel${i === activeStory ? " active" : i < activeStory ? " past" : ""}`}
-              aria-hidden={i !== activeStory}
+              className={`about-panel${isMobile || i === activeStory ? " active" : i < activeStory ? " past" : ""}`}
+              aria-hidden={!isMobile && i !== activeStory}
             >
               <div className="ap-eyebrow">
                 <span className="ap-index">{s.index}</span>
@@ -561,7 +612,7 @@ export default function PortfolioPage() {
       </div>
 
       {/* ══════════ PROJECTS ══════════ */}
-      <div id="work" className="projects-section" ref={projOuterRef} style={{ height: `${PROJECTS.length * 100}vh` }}>
+      <div id="work" className="projects-section" ref={projOuterRef} style={{ height: isMobile ? "auto" : `${PROJECTS.length * 100}vh` }}>
         <div className="projects-sticky">
           <div className="proj-heading-wrap">
             <div className="proj-section-label"><span className="section-num">03</span><span className="section-label">FEATURED WORK</span></div>
@@ -697,7 +748,7 @@ export default function PortfolioPage() {
       </div>
 
       {/* ══════════ CONTACT ══════════ */}
-      <div id="contact" className="contact-section" ref={contactOuterRef} style={{ height: "270vh" }}>
+      <div id="contact" className="contact-section" ref={contactOuterRef} style={{ height: isMobile ? "auto" : "270vh" }}>
         <div className="contact-sticky-wrap">
           <div className="contact-top-half" ref={contactTopRef}>
             <div style={{ textAlign: "center" }}>
@@ -710,7 +761,7 @@ export default function PortfolioPage() {
           </div>
           <div className="contact-bottom-half" ref={contactBotRef}><div className="contact-big-word faded">Something Great.</div></div>
           <div className="contact-center-line" ref={contactLineRef} />
-          <div className="contact-form-reveal" ref={contactFormRef} style={{ opacity: 0, transform: "scale(0.91) translateY(40px)", pointerEvents: "none" }}>
+          <div className="contact-form-reveal" ref={contactFormRef} style={isMobile ? { opacity: 1, transform: "none", pointerEvents: "auto" } : { opacity: 0, transform: "scale(0.91) translateY(40px)", pointerEvents: "none" }}>
             <div className="contact-form-box">
               <div className="contact-form-grid">
                 <div>

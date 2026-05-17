@@ -38,6 +38,22 @@ button{font-family:inherit;cursor:none}
 .cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(239,239,239,.3);border-radius:50%;pointer-events:none;z-index:9998;mix-blend-mode:difference;transform:translate(-50%,-50%);transition:width .22s ease,height .22s ease,opacity .22s ease;will-change:left,top}
 .cursor-expand .cursor-dot{transform:translate(-50%,-50%) scale(2.6)}
 .cursor-expand .cursor-ring{width:62px;height:62px;opacity:.15}
+body.touch-device{cursor:auto}
+body.touch-device a,
+body.touch-device button,
+body.touch-device .nav-logo-outside,
+body.touch-device .nav-theme-btn,
+body.touch-device .nav-hire-outside,
+body.touch-device .mobile-nav-btn,
+body.touch-device .form-field-input,
+body.touch-device .form-field-textarea,
+body.touch-device .form-submit-btn,
+body.touch-device .proj-slide-link,
+body.touch-device .otw-cta,
+body.touch-device .footer-social-circ,
+body.touch-device .footer-nav-primary-btn{cursor:auto}
+body.touch-device .cursor-dot,
+body.touch-device .cursor-ring{display:none!important}
 
 /* ============================================================
    SCROLL PROGRESS
@@ -396,38 +412,53 @@ button{font-family:inherit;cursor:none}
 /* Mobile: stack naturally */
 @media (max-width: 768px) {
   .about-stories-outer { height: auto !important; }
-  .about-stories-sticky { position: relative; height: auto; min-height: 100vh; }
+  .about-stories-sticky {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    display: block;
+    padding: 132px 0 18px;
+  }
 
   .about-panel {
     position: relative;
     inset: auto;
-    opacity: 0;
-    transform: translateY(16px);
-    padding: 16px 24px 56px;
-    display: none;
-    justify-content: flex-end;
-  }
-  .about-panel.active {
-    display: flex;
     opacity: 1;
     transform: none;
-    min-height: 60vh;
+    min-height: auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: 24px 18px;
+    margin: 0 14px 14px;
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    background: var(--card);
+  }
+  .about-panel.active {
+    opacity: 1;
+    transform: none;
+    min-height: auto;
   }
 
-  .about-panel.past { display: none; }
+  .about-panel.past { opacity: 1; transform: none; }
 
   .about-bg-label span { font-size: clamp(6rem, 22vw, 12rem); }
 
-  .about-progress-rail { left: 16px; gap: 8px; }
-  .about-rail-dot { width: 5px; height: 5px; }
-  .about-counter { top: 20px; right: 20px; }
+  .about-progress-rail,
+  .about-counter { display: none; }
 
   .ap-byline { font-size: clamp(1.4rem, 6vw, 2.2rem); }
   .ap-body { font-size: .9rem; }
   .about-scroll-nudge { display: none; }
+  .about-stories-heading {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    padding: 0 20px 14px;
+  }
 }
 
-@media (max-width: 900px) {
+@media (min-width: 769px) and (max-width: 900px) {
   .about-header-para { max-width: 100%; }
   .about-panel { padding: clamp(60px, 8vh, 80px) clamp(48px, 6vw, 80px); }
   .ap-byline { font-size: clamp(1.5rem, 4vw, 2.4rem); }
@@ -675,6 +706,9 @@ button{font-family:inherit;cursor:none}
 @media(max-width:920px){
   .hamburger{display:flex}
   .navbar{padding:14px 20px}
+  .section-num{font-size:clamp(2.2rem,12vw,4rem)}
+  .section-title{font-size:clamp(1.7rem,7.2vw,2.8rem)}
+  .mobile-nav-btn{font-size:clamp(1.8rem,10vw,2.3rem)}
   .hero-section{padding:90px 24px 0;min-height:100svh}
   .hero-title-giant,.hero-title-ghost{font-size:clamp(3.4rem,15vw,7rem)}
   .hero-tagline-block{max-width:100%;margin-top:22px}
@@ -682,16 +716,27 @@ button{font-family:inherit;cursor:none}
   .hero-bottom-bar{padding:0 24px 32px;flex-wrap:wrap;gap:10px}
   .stack-top-left{left:24px;top:40px}
   .stack-top-right{right:24px;top:40px}
-  .stack-card-wrap{padding:100px 24px 80px}
-  .tech-card{padding:36px 28px}
+  .stack-card-wrap{padding:92px 20px 72px}
+  .tech-card{padding:30px 22px}
   .skills-grid{grid-template-columns:repeat(4,1fr);gap:8px}
   .skill-item{padding:16px 8px}
   .proj-heading-wrap{left:20px;top:28px}
-  .proj-slide-info{width:100%;height:auto;position:relative;padding:100px 24px 16px;justify-content:flex-start}
+  .proj-heading-wrap{position:relative;top:auto;left:auto;padding:22px 20px 0}
+  .proj-slide-info{width:100%;height:auto;position:relative;padding:88px 20px 14px;justify-content:flex-start}
   .proj-mockup-wrap{position:relative;width:100%;height:auto;padding:0 20px 32px;perspective:none}
   .proj-mockup-card{transform:none!important;animation:none!important;max-width:100%}
-  .proj-slide{display:flex;flex-direction:column;overflow-y:auto;height:100vh}
-  .proj-slide-bg{position:fixed}
+  .proj-slide{display:flex;flex-direction:column;overflow:visible;height:auto}
+  .proj-slide-bg{position:absolute}
+  .projects-section{overflow-x:clip}
+  .projects-sticky{position:relative;height:auto;overflow:visible}
+  .proj-track{position:relative;display:flex;flex-direction:column;width:100%;height:auto;transform:none!important}
+  .proj-slide{width:100%;height:auto;min-height:auto;overflow:hidden;border-top:1px solid var(--border)}
+  .proj-slide:first-child{border-top:none}
+  .proj-slide-info{padding:18px 20px 10px}
+  .proj-slide-footer{gap:12px}
+  .proj-slide-link{width:100%;justify-content:center}
+  .proj-mockup-counter{position:static;padding:0 20px 20px;justify-content:flex-end}
+  .proj-progress-bar{display:none}
   .proj-slide-title{font-size:clamp(1.8rem,6vw,3rem)}
   .proj-slide-desc{max-width:100%}
   .edu-scene-panel{padding:0 24px}
@@ -701,20 +746,24 @@ button{font-family:inherit;cursor:none}
   .edu-row-center{grid-column:1;grid-row:2}
   .edu-row-right{grid-column:2;grid-row:1/3;align-self:center}
   .edu-row-score{font-size:clamp(1.8rem,6vw,2.6rem)}
-  .experience-section{padding:80px 24px}
+  .experience-section{padding:72px 20px}
   .experience-inner{max-width:100%}
   .exp-row{grid-template-columns:1fr;gap:8px;padding:28px 0 28px 36px}
-  .resume-section{padding:80px 24px 80px}
+  .resume-section{padding:72px 20px}
   .resume-inner{max-width:100%}
   .resume-mock-header{flex-direction:column;gap:12px}
   .resume-contact-block{text-align:left}
   .resume-mock-card{padding:28px}
-  .otw-wrap{grid-template-columns:1fr;padding:36px 28px;gap:24px;margin:60px auto}
+  .otw-wrap{grid-template-columns:1fr;padding:30px 22px;gap:20px;margin:48px auto}
   .otw-meta{grid-column:1;grid-row:auto}
   .otw-statement{font-size:clamp(1.6rem,5vw,2.4rem)}
-  .contact-form-reveal{padding:12px}
-  .contact-form-box{padding:24px 20px}
-  .contact-form-grid{grid-template-columns:1fr;gap:24px}
+  .contact-form-reveal{padding:10px}
+  .contact-form-box{padding:20px 16px}
+  .contact-section{overflow-x:clip}
+  .contact-sticky-wrap{position:relative;height:auto;overflow:visible;padding:18px 0 28px}
+  .contact-top-half,.contact-bottom-half,.contact-center-line{display:none}
+  .contact-form-reveal{position:relative;inset:auto;pointer-events:auto}
+  .contact-form-grid{grid-template-columns:1fr;gap:18px}
   .form-two-col{grid-template-columns:1fr}
   .contact-big-word{font-size:clamp(2.8rem,8vw,5rem)}
   .contact-left-heading{font-size:clamp(1.6rem,5vw,2.2rem)}
@@ -722,19 +771,20 @@ button{font-family:inherit;cursor:none}
   .footer-nav-primary{gap:16px}
 }
 @media(max-width:600px){
-  .hero-section{padding:80px 20px 0}
+  html,body{max-width:100%;overflow-x:clip}
+  .hero-section{padding:76px 16px 0}
   .hero-title-giant,.hero-title-ghost{font-size:clamp(2.8rem,16vw,5rem)}
   .section-title{font-size:clamp(2rem,7vw,3rem)}
   .skills-grid{grid-template-columns:repeat(2,1fr);gap:8px}
-  .proj-slide-info{padding:90px 16px 12px}
-  .proj-mockup-wrap{padding:0 16px 24px}
+  .proj-slide-info{padding:14px 14px 8px}
+  .proj-mockup-wrap{padding:0 14px 20px}
   .proj-slide-title{font-size:clamp(1.6rem,7vw,2.4rem)}
   .edu-scene-panel{padding:0 16px}
-  .experience-section{padding:60px 16px}
+  .experience-section{padding:52px 14px}
   .exp-row{padding:24px 0 24px 28px}
-  .resume-section{padding:60px 16px}
+  .resume-section{padding:52px 14px}
   .resume-mock-card{padding:20px}
-  .otw-wrap{padding:28px 20px;margin:40px auto}
+  .otw-wrap{padding:24px 16px;margin:32px auto}
   .contact-form-box{padding:20px 16px}
   .contact-big-word{font-size:clamp(2rem,9vw,3.5rem)}
   .footer-main{padding:36px 16px 28px}
