@@ -485,7 +485,7 @@ export default function PortfolioPage() {
             </div>
             <div className="hero-access-photo">
               <img
-                src="/khushi_photo_portfolio.jpeg"
+                src={theme === "light" ? "/khushi_light.jpeg" : "/khushi_photo_portfolio.jpeg"}
                 alt="Khushi Pawar portrait"
                 className="hero-access-photo-img"
               />
