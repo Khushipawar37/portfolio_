@@ -475,6 +475,31 @@ export default function PortfolioPage() {
 
       {/* ══════════ HERO ══════════ */}
       <section className="hero-section">
+        <div className="hero-access-wrap" aria-hidden>
+          <div className="hero-access-strap" />
+          <div className="hero-access-knot" />
+          <div className="hero-access-card">
+            <div className="hero-access-head">
+              <div className="hero-access-dots"><span /><span /><span /></div>
+              <span>PROFILE.SH</span>
+            </div>
+            <div className="hero-access-photo">
+              <img
+                src="/khushi_photo_portfolio.jpeg"
+                alt="Khushi Pawar portrait"
+                className="hero-access-photo-img"
+              />
+            </div>
+            <div className="hero-access-name">Khushi Pawar</div>
+            <div className="hero-access-role">Full Stack Developer</div>
+            <div className="hero-access-marquee" aria-hidden>
+              <div className="hero-access-marquee-track">
+                <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>AI</span><span>MongoDB</span>
+                <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span><span>AI</span><span>MongoDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="hero-top-intro"><span className="hero-badge-dot" />&nbsp;&nbsp;Available for work &nbsp;·&nbsp; <strong>New Delhi, India</strong></div>
         <div className="hero-title-block">
           <h1 className="hero-title-giant"><span className="hero-title-line"><span className="hero-title-inner" style={{ animationDelay: "0s" }}>Web</span></span></h1>

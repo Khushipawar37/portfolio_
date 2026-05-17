@@ -134,6 +134,29 @@ body.touch-device .cursor-ring{display:none!important}
 .hero-brand-label{font-family:"DM Mono",monospace;font-size:.64rem;letter-spacing:.08em;color:var(--fg3);white-space:nowrap;transition:color .2s}
 .hero-brand-label:hover{color:var(--fg)}
 .hero-social-sep{width:1px;height:12px;background:var(--fg4);flex-shrink:0}
+.hero-access-wrap{position:absolute;top:0;right:clamp(84px,9vw,180px);z-index:6;display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.hero-access-strap{width:4px;height:132px;background:repeating-linear-gradient(to bottom,rgba(130,130,130,.36) 0 8px,rgba(130,130,130,.12) 8px 16px);border-radius:3px}
+.hero-access-knot{width:88px;height:24px;border:1px solid var(--border2);border-bottom:none;border-radius:16px 16px 0 0;transform:translateY(1px);background:color-mix(in srgb,var(--bg) 86%, transparent)}
+.hero-access-card{width:316px;border:1px solid color-mix(in srgb,var(--border2) 75%, transparent);border-radius:26px;padding:18px 18px 16px;background:linear-gradient(145deg,color-mix(in srgb,var(--card) 96%, transparent),color-mix(in srgb,var(--bg2) 76%, transparent));backdrop-filter:blur(12px);box-shadow:0 26px 64px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.45);position:relative;overflow:hidden}
+.hero-access-card::before{content:"";position:absolute;inset:-1px;pointer-events:none;background:linear-gradient(120deg,transparent 10%,rgba(255,255,255,.24) 34%,transparent 55%);opacity:.22}
+:root.dark .hero-access-card{box-shadow:0 30px 78px rgba(0,0,0,.56),inset 0 1px 0 rgba(255,255,255,.08)}
+.hero-access-head{display:flex;align-items:center;justify-content:center;gap:10px;font-family:"DM Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);padding:2px 1px 12px;border-bottom:1px solid color-mix(in srgb,var(--border) 70%, transparent);position:relative}
+.hero-access-dots{position:absolute;left:2px;display:flex;gap:6px}
+.hero-access-dots span{display:block;width:8px;height:8px;border-radius:50%;background:color-mix(in srgb,var(--fg3) 55%, transparent)}
+.hero-access-photo{width:156px;height:208px;margin:18px auto 14px;border-radius:18px;background:linear-gradient(165deg,color-mix(in srgb,var(--fg) 10%, transparent),color-mix(in srgb,var(--bg) 64%, transparent));border:1px solid color-mix(in srgb,var(--border2) 70%, transparent);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.34);position:relative}
+.hero-access-photo-inner{width:84px;height:112px;border-radius:40px 40px 10px 10px;background:radial-gradient(circle at 50% 20%,color-mix(in srgb,var(--fg) 44%, transparent) 0 30px,transparent 31px),linear-gradient(180deg,color-mix(in srgb,var(--fg) 34%, transparent),color-mix(in srgb,var(--fg) 16%, transparent));}
+.hero-access-photo-img{width:100%;height:100%;object-fit:cover;object-position:center 18%;filter:saturate(1.04) contrast(1.02)}
+.hero-access-name{font-family:"Syne",sans-serif;font-size:2.2rem;font-weight:700;letter-spacing:-.03em;color:var(--fg);text-align:center;line-height:1.02}
+.hero-access-role{font-family:"DM Mono",monospace;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg2);text-align:center;margin-top:8px}
+.hero-access-marquee{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden}
+.hero-access-marquee-track{display:inline-flex;white-space:nowrap;animation:accessTechScroll 16s linear infinite}
+.hero-access-marquee-track span{font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.08em;color:var(--fg2);padding:0 12px;position:relative;text-transform:uppercase}
+.hero-access-marquee-track span::after{content:"";position:absolute;right:0;top:50%;width:4px;height:4px;border-radius:50%;background:var(--fg4);transform:translateY(-50%)}
+@keyframes accessTechScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:1260px){
+  .hero-access-wrap{right:36px;transform:scale(.88);transform-origin:top right}
+  .hero-section{padding-right:344px}
+}
 
 /* ============================================================
    MARQUEE
@@ -704,6 +727,7 @@ body.touch-device .cursor-ring{display:none!important}
    ============================================================ */
 @media(max-width:1100px){.resume-layout{grid-template-columns:1fr;gap:40px}}
 @media(max-width:920px){
+  .hero-access-wrap{display:none}
   .hamburger{display:flex}
   .navbar{padding:14px 20px}
   .section-num{font-size:clamp(2.2rem,12vw,4rem)}
