@@ -22,7 +22,7 @@
    RESET & BASE
    ============================================================ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;scroll-behavior:smooth}
+html{font-size:16px;scroll-behavior:smooth;view-transition-name:root}
 body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--fg);overflow-x:hidden;transition:background .4s ease,color .4s ease;cursor:none;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none;cursor:none}
 button{font-family:inherit;cursor:none}
@@ -30,6 +30,21 @@ button{font-family:inherit;cursor:none}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--fg3);border-radius:2px}
+
+/* ============================================================
+   THEME VIEW TRANSITION
+   ============================================================ */
+::view-transition-old(root){animation:none}
+::view-transition-new(root){
+  animation:theme-wipe-reveal 750ms cubic-bezier(.76,0,.24,1) both;
+  clip-path:inset(0 0 100% 0);
+}
+
+@keyframes theme-wipe-reveal{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+
+@media (prefers-reduced-motion: reduce){
+  ::view-transition-new(root){animation:none}
+}
 
 /* ============================================================
    CURSOR
@@ -419,6 +434,17 @@ body.touch-device .cursor-ring{display:none!important}
   width: 1px;
   height: 32px;
   background: var(--fg3);
+}
+
+body.theme-wipe-active {
+  transition: none !important;
+}
+body.theme-wipe-active * {
+  transition: none !important;
+}
+
+body.theme-wipe-active {
+  pointer-events: none;
 }
 
 @keyframes nudgeBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }

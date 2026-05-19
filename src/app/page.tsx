@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import { IconMail, IconLinkedIn, IconGitHub, IconSend, IconDownload, IconExternal } from '@/components/ui/icons'
+import { useTheme } from '@/components/theme-provider'
 
 /* ================================================================
    DATA
@@ -197,7 +198,7 @@ function VerticalNav({ items, activeId, onNav }: {
    MAIN PAGE
    ================================================================ */
 export default function PortfolioPage() {
-  const [theme, setTheme] = useState<"dark" | "light">("light");
+  const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeCat, setActiveCat] = useState(0);
   const [activeSection, setActiveSection] = useState("");
@@ -247,14 +248,6 @@ export default function PortfolioPage() {
   const kbTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const anim = useRef({ mx: 0, my: 0, rx: 0, ry: 0, stackT: 0, stackC: 0, projT: 0, projC: 0, contT: 0, contC: 0, prevCat: -1 });
-
-  const toggleTheme = useCallback(() => {
-    setTheme(p => {
-      const n = p === "dark" ? "light" : "dark";
-      document.documentElement.classList.toggle("dark", n === "dark");
-      return n;
-    });
-  }, []);
 
   const scrollTo = useCallback((id: string) => {
     setMenuOpen(false);
